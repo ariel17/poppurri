@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# potpurri documentation build configuration file, created by
+# potpourri documentation build configuration file, created by
 # sphinx-quickstart on Sun Feb 17 11:46:20 2013.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -40,7 +40,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'potpurri'
+project = u'potpourri'
 copyright = u'2013, ChangeMyName'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -164,7 +164,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'potpurridoc'
+htmlhelp_basename = 'potpourridoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -183,7 +183,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'potpurri.tex', u'potpurri Documentation',
+  ('index', 'potpourri.tex', u'potpourri Documentation',
    u'ChangeToMyName', 'manual'),
 ]
 
@@ -213,7 +213,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'potpurri', u'potpurri Documentation',
+    ('index', 'potpourri', u'potpourri Documentation',
      [u'ChangeToMyName'], 1)
 ]
 
@@ -227,8 +227,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'potpurri', u'potpurri Documentation',
-   u'ChangeToMyName', 'potpurri', 'One line description of project.',
+  ('index', 'potpourri', u'potpourri Documentation',
+   u'ChangeToMyName', 'potpourri', 'One line description of project.',
    'Miscellaneous'),
 ]
 

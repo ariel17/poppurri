@@ -9,8 +9,8 @@ urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name='base.html')),
 
     # Examples:
-    # url(r'^$', 'potpurri.views.home', name='home'),
-    # url(r'^potpurri/', include('potpurri.foo.urls')),
+    # url(r'^$', 'potpourri.views.home', name='home'),
+    # url(r'^potpourri/', include('potpourri.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
