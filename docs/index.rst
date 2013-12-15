@@ -1,9 +1,9 @@
-.. potpurri documentation master file, created by
+.. potpourri documentation master file, created by
    sphinx-quickstart on Sun Feb 17 11:46:20 2013.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to potpurri's documentation!
+Welcome to potpourri's documentation!
 ====================================
 
 Contents:

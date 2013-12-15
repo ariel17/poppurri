@@ -1,8 +1,8 @@
 ========
-Potpurri
+Potpourri
 ========
 
-The [Potpurri](#) web site content.
+The [Potpourri](#) web site content.
 
 To use this project follow these steps:
 
@@ -38,9 +38,9 @@ In Linux and Mac OSX, you can install virtualenvwrapper (http://virtualenvwrappe
 which will take care of managing your virtual environments and adding the
 project path to the `site-directory` for you::
 
-    $ mkdir potpurri
-    $ mkvirtualenv -a potpurri potpurri-dev
-    $ cd potpurri && add2virtualenv `pwd`
+    $ mkdir potpourri
+    $ mkvirtualenv -a potpourri potpourri-dev
+    $ cd potpourri && add2virtualenv `pwd`
 
 Windows
 ----------
@@ -98,4 +98,4 @@ Acknowledgements
 - Many thanks to Randall Degges for the inspiration to write the book and django-skel.
 - All of the contributors_ to this project.
 
-.. _contributors: https://github.com/ariel17/potpurri/blob/master/CONTRIBUTORS.txt
+.. _contributors: https://github.com/ariel17/potpourri/blob/master/CONTRIBUTORS.txt
