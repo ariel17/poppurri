@@ -1,1 +1,1 @@
-web: python poppurri/manage.py collectstatic; gunicorn --pythonpath poppurri poppurri.wsgi
+web: python poppurri/manage.py collectstatic --noinput; gunicorn --pythonpath poppurri poppurri.wsgi
