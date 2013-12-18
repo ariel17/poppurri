@@ -41,3 +41,5 @@ application = get_wsgi_application()
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
+# vim: ai ts=4 sts=4 et sw=4 ft=python

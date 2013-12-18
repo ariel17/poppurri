@@ -1,4 +1,10 @@
-"""Development settings and globals."""
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Description: Development settings and globals.
+"""
+__author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
 from os.path import join, normpath
@@ -66,3 +72,5 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
 }
 ########## END TOOLBAR CONFIGURATION
+
+# vim: ai ts=4 sts=4 et sw=4 ft=python

@@ -26,3 +26,5 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 )
+
+# vim: ai ts=4 sts=4 et sw=4 ft=python
