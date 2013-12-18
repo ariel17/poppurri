@@ -1,4 +1,10 @@
-"""Development settings and globals."""
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Description: Development settings and globals.
+"""
+__author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
 from os.path import join, normpath
@@ -25,12 +31,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': normpath(join(DJANGO_ROOT, 'default.db')),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'poppurri',
+        'USER': 'poppurri',
+        'PASSWORD': 'poppurri',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 ########## END DATABASE CONFIGURATION
@@ -66,3 +72,5 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
 }
 ########## END TOOLBAR CONFIGURATION
+
+# vim: ai ts=4 sts=4 et sw=4 ft=python

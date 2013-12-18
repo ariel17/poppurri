@@ -2,3 +2,5 @@ Django==1.6.1
 django-braces==1.2.2
 logutils==0.3.3
 South==0.8.4
+psycopg2==2.5.1
+Pillow==2.2.2
