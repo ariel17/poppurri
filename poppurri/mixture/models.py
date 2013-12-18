@@ -30,6 +30,7 @@ class Mixture(models.Model):
         help_text=_(u"The long description about the product.")
     )
     expose = models.BooleanField(default=True)
+    valoration = models.PositiveIntegerField(_("Valoration"), default=0)
     # requeriments
     # steps
     # designs
