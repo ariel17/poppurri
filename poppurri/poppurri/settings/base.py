@@ -1,4 +1,10 @@
-"""Common settings and globals."""
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Description: Common settings and globals.
+"""
+__author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
 from os.path import abspath, basename, dirname, join, normpath
@@ -199,6 +205,7 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'mixture',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -243,3 +250,16 @@ LOGGING = {
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 ########## END WSGI CONFIGURATION
+
+
+########## COMMON CONFIGURATION
+IMAGES_ROOT = "img"
+IMAGES_DEFAULT = join(IMAGES_ROOT, 'no-img.png')
+########## END COMMON CONFIGURATION
+
+
+########## MIXTURE CONFIGURATION
+MIXTURES_IMAGES_PATH = join(IMAGES_ROOT, 'mixtures')
+########## END MIXTURE CONFIGURATION
+
+# vim: ai ts=4 sts=4 et sw=4 ft=python
