@@ -7,6 +7,7 @@ Description: URL dispatcher configuration for project.
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
@@ -20,7 +21,15 @@ urlpatterns = patterns('',
 
     # Application views
     url(r'^mixture/', include('mixture.urls')),
-    url(r'/^$', include('web.urls')),
+    url(r'^$', include('web.urls')),
 )
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+
+    urlpatterns += static(
+        settings.STATIC_URL,
+        document_root=settings.STATIC_ROOT
+    )
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
