@@ -17,11 +17,12 @@ class HomeListView(ListView):
     TODO
     """
     model = Mixture
+    template_name = u"web/index.html"
 
-    def get_queryset(self):
-        """
-        TODO
-        """
-        pass
+    # def get_queryset(self):
+    #     """
+    #     TODO
+    #     """
+    #     pass
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
