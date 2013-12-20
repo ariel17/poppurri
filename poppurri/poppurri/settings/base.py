@@ -201,6 +201,8 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     # Database migration helpers:
     'south',
+    # Rating implementation
+    'djangoratings',
 )
 
 # Apps specific for this project go here.
