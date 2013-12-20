@@ -12,6 +12,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from djangoratings.fields import RatingField
+
 from common.models import ImageModel
 
 
@@ -30,10 +32,13 @@ class Mixture(models.Model):
         help_text=_(u"The long description about the product.")
     )
     expose = models.BooleanField(default=True)
-    valoration = models.PositiveIntegerField(_("Valoration"), default=0)
+    rating = RatingField(range=5, can_change_vote=True, allow_delete=True)
     # requeriments
     # steps
     # designs
+
+    def __unicode__(self):
+        return u"%s" % (self.name, )
 
 
 class MixtureImage(ImageModel):
