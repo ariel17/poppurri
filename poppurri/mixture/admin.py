@@ -10,11 +10,11 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Mixture, MixtureImage
+from .models import Mixture, MixtureImage, Category
 
 
 class MixtureAdmin(admin.ModelAdmin):
-    list_display = ('name', 'author', 'expose')
+    list_display = ('name', 'author', 'expose', 'rating_score', )
     search_fields = (
         'name',
         'description',
@@ -36,7 +36,13 @@ class MixtureImageAdmin(admin.ModelAdmin):
     link_image.short_description = _(u'Image')
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'parent')
+    prepopulated_fields = {'slug': ('name', )}
+
+
 admin.site.register(Mixture, MixtureAdmin)
 admin.site.register(MixtureImage, MixtureImageAdmin)
+admin.site.register(Category, CategoryAdmin)
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
