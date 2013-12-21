@@ -31,5 +31,9 @@ if settings.DEBUG:
         settings.STATIC_URL,
         document_root=settings.STATIC_ROOT
     )
+    urlpatterns += static(
+        r'media/',
+        document_root=settings.MEDIA_ROOT
+    )
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
