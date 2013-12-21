@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block title %}Home{% endblock title %}
 
@@ -6,47 +7,20 @@
   <div class="row clearfix">
     <div class="carousel slide" id="carousel-269302">
       <ol class="carousel-indicators">
-        <li class="active" data-slide-to="0" data-target="#carousel-269302">
-        </li>
-        <li data-slide-to="1" data-target="#carousel-269302">
-        </li>
-        <li data-slide-to="2" data-target="#carousel-269302">
-        </li>
+        {% for mixture in top_mixtures %}
+          <li {% if forloop.first %}class="active"{% endif %} data-slide-to="{{ forloop.counter0 }}" data-target="#carousel-269302"></li>
+        {% endfor %}
       </ol>
       <div class="carousel-inner">
-        <div class="item active">
-          <img alt="" src="http://lorempixel.com/1600/500/sports/1">
-          <div class="carousel-caption">
-            <h4>
-              First Thumbnail label
-            </h4>
-            <p>
-              Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
+        {% for mixture in top_mixtures %}
+          <div class="item {% if forloop.first %}active{% endif %}">
+              <img alt="" src="{{ mixture.image.url }}">
+            <div class="carousel-caption">
+              <h4>{{ mixture.name }}</h4>
+              <p>{{ mixture.description }}</p>
+            </div>
           </div>
-        </div>
-        <div class="item">
-          <img alt="" src="http://lorempixel.com/1600/500/sports/2">
-          <div class="carousel-caption">
-            <h4>
-              Second Thumbnail label
-            </h4>
-            <p>
-              Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-          </div>
-        </div>
-        <div class="item">
-          <img alt="" src="http://lorempixel.com/1600/500/sports/3">
-          <div class="carousel-caption">
-            <h4>
-              Third Thumbnail label
-            </h4>
-            <p>
-              Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-          </div>
-        </div>
+        {% endfor %}
       </div> <a class="left carousel-control" href="#carousel-269302" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-269302" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div>
   </div>

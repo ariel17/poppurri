@@ -48,29 +48,35 @@ class MixtureManagerTestCase(TestCase):
         self.assertEquals(2, Mixture.objects.top_rates().count())
 
 
-class CategoryManager(TestCase):
+class CategoryManagerTestCase(TestCase):
     """
+    TODO
     """
     def setUp(self):
         """
         TODO
         """
-        super(CategoryManager, self).setUp()
+        super(CategoryManagerTestCase, self).setUp()
 
         User = get_user_model()
         user = User(first_name='test', last_name='test')
         user.save()
 
-        self.cat = Category.objects.create(name='electronics', slug='electronics')
+        for cat_name in ('electronics', 'house', 'garden'):
+            cat = Category.objects.create(name=cat_name, slug=cat_name)
 
-        for score in (1, 5, 5):
-            mixture = Mixture.objects.create(
-                author=user,
-                name='name',
-                description='description',
-                category=self.cat,
-            )
-            mixture.rating.add(score=score, user=user, ip_address='127.0.0.1')
+            for score in (1, 5, 5):
+                mixture = Mixture.objects.create(
+                    author=user,
+                    name='name',
+                    description='description',
+                    category=cat,
+                )
+                mixture.rating.add(
+                    score=score,
+                    user=user,
+                    ip_address='127.0.0.1'
+                )
 
     def test_top_content(self):
         """
@@ -78,5 +84,48 @@ class CategoryManager(TestCase):
         """
         top_content = Category.objects.top_content()
         self.assertTrue(len(top_content) <= settings.WEB_CATEGORIES_COUNT)
+
+
+class CategoryTestCase(TestCase):
+    """
+    TODO
+    """
+    def setUp(self):
+        """
+        TODO
+        """
+        super(CategoryTestCase, self).setUp()
+
+        User = get_user_model()
+        user = User(first_name='test', last_name='test')
+        user.save()
+
+        for cat_name in ('electronics', 'house', 'garden'):
+            cat = Category.objects.create(name=cat_name, slug=cat_name)
+
+            for score in (1, 4, 5):
+                mixture = Mixture.objects.create(
+                    author=user,
+                    name='name',
+                    description='description',
+                    category=cat,
+                )
+                mixture.rating.add(
+                    score=score,
+                    user=user,
+                    ip_address='127.0.0.1'
+                )
+
+    def test_top_mixture(self):
+        """
+        TODO
+        """
+        cat = Category.objects.all()[0]
+        top_mixture = cat.top_mixture()
+
+        self.assertIsNotNone(top_mixture)
+
+        for mixture in cat.mixtures.all():
+            self.assertTrue(top_mixture.rating.score >= mixture.rating.score)
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

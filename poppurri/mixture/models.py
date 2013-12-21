@@ -23,8 +23,9 @@ class MixtureManager(models.Manager):
     A custom manager to add functionallity related to table level of
     :model:`mixture.Mixture`.
     """
-    def top_rates(self, max_rate=settings.MIXTURE_MAX_RATE):
-        return self.filter(rating_score__gte=max_rate)
+    def top_rates(self, max_rate=settings.MIXTURE_MAX_RATE,
+                  limit_to=settings.WEB_CAROUSEL_MIXTURE_COUNT):
+        return self.filter(rating_score__gte=max_rate)[:limit_to]
 
 
 class Mixture(models.Model):
@@ -75,12 +76,12 @@ class CategoryManager(models.Manager):
     """
     TODO
     """
-    def top_content(self):
+    def top_content(self, limit_to=settings.WEB_CATEGORIES_COUNT):
         """
         TODO
         """
         return self.annotate(num_mixtures=Count('mixtures')).\
-            order_by('-num_mixtures')[:settings.WEB_CATEGORIES_COUNT]
+            order_by('-num_mixtures')[:limit_to]
 
 
 class Category(models.Model):
@@ -111,5 +112,15 @@ class Category(models.Model):
 
     def __unicode__(self):
         return unicode(self.name)
+
+    def top_mixture(self):
+        """
+        TODO
+        """
+        mixtures = self.mixtures.all()
+        if not len(mixtures):
+            return None
+
+        return mixtures.order_by('-rating_score')[0]
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
