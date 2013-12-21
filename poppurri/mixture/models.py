@@ -17,11 +17,21 @@ from djangoratings.fields import RatingField
 from common.models import ImageModel
 
 
+class MixtureManager(models.Manager):
+    """
+    A custom manager to add functionallity related to table level of
+    :model:`mixture.Mixture`.
+    """
+
+    def top_rates(self, max_rate=settings.MIXTURE_MAX_RATE):
+        return self.filter(rating_score__gte=max_rate)
+
+
 class Mixture(models.Model):
     """
-    TODO
+    Represents a hand-made object or service.
     """
-    author = models.ForeignKey(u"auth.User")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     name = models.CharField(
         _(u"Name"),
         max_length=100,
@@ -32,18 +42,21 @@ class Mixture(models.Model):
         help_text=_(u"The long description about the product.")
     )
     expose = models.BooleanField(default=True)
-    rating = RatingField(range=5, can_change_vote=True, allow_delete=True)
-    # requeriments
-    # steps
-    # designs
+    rating = RatingField(
+        range=settings.MIXTURE_MAX_RATE,
+        can_change_vote=True,
+        allow_delete=True
+    )
+
+    objects = MixtureManager()
 
     def __unicode__(self):
-        return u"%s" % (self.name, )
+        return unicode(self.name)
 
 
 class MixtureImage(ImageModel):
     """
-    TODO
+    A mixture image that describes the object/service.
     """
     mixture = models.ForeignKey(u"Mixture")
     image = models.ImageField(
