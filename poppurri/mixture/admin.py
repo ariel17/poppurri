@@ -8,6 +8,7 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Mixture, MixtureImage
 
@@ -25,8 +26,14 @@ class MixtureAdmin(admin.ModelAdmin):
 
 
 class MixtureImageAdmin(admin.ModelAdmin):
-    list_display = ('mixture', 'image')
+    list_display = ('mixture', 'link_image')
     search_fields = ('mixture',)
+
+    def link_image(self, obj):
+        return u"<a href='{0}'>{0}</a>".format(obj.image.url)
+
+    link_image.allow_tags = True
+    link_image.short_description = _(u'Image')
 
 
 admin.site.register(Mixture, MixtureAdmin)
