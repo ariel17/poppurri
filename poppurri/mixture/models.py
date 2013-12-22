@@ -66,7 +66,7 @@ class MixtureImageManager(models.Manager):
     """
     use_for_related_field = True
 
-    def random_outstanding(self, *args, **kwargs):
+    def random_outstanding_image(self, *args, **kwargs):
         """
         TODO
         """
@@ -105,12 +105,14 @@ class CategoryManager(models.Manager):
     """
     TODO
     """
+    use_for_related_field = True
+
     def top_content(self, limit_to=settings.WEB_CATEGORIES_COUNT):
         """
         TODO
         """
         return self.annotate(num_mixtures=Count('mixtures')).\
-            order_by('-num_mixtures')[:limit_to]
+            order_by('-num_mixtures').filter(num_mixtures__gt=0)[:limit_to]
 
 
 class Category(models.Model):

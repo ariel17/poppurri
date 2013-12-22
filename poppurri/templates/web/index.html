@@ -14,8 +14,8 @@
       <div class="carousel-inner">
         {% for mixture in top_mixtures %}
           <div class="item{% if forloop.first %} active{% endif %}">
-              {% with mixture.images.random_outstanding as random_image %}
-                <img alt="{{ random_image.alt }}" src="{{ random_image.image.url }}">
+              {% with mixture.images.random_outstanding_image as mixture_image %}
+                <img alt="{{ mixture_image.alt }}" src="{{ mixture_image.image.url }}">
               {% endwith %}
             <div class="carousel-caption">
               <h4>{{ mixture.name }}</h4>
@@ -51,10 +51,14 @@
   <div class="row clearfix">
     {% for category in top_categories %}
       <div class="col-md-4 column">
-        <img alt="140x140" src="http://lorempixel.com/140/140/" class="img-circle">
-        <h2>{{ category.name }}</h2>
-        <p>{{ category.description }}</p>
-        <p><a class="btn" href="#">View details »</a></p>
+        {% with category.top_mixture as top_mixture %}
+          {% with top_mixture.images.random_outstanding_image as mixture_image %}
+            <img alt="{{ mixture_image.image.alt }}" src="{{ mixture_image.image.url }}" class="img-circle">
+          {% endwith %}
+          <h2>{{ category.name }}</h2>
+          <p>{{ top_mixture.description }}</p>
+          <p><a class="btn" href="#">View details »</a></p>
+        {% endwith %}
       </div>
     {% endfor %}
   </div>
