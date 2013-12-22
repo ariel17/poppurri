@@ -68,3 +68,11 @@
     {% endfor %}
   </div>
 {% endblock content-body %}
+
+{% block extra_js %}
+  <script type="text/javascript">
+    $('.carousel').carousel({
+      interval: 2000
+    });
+  </script>
+{% endblock extra_js %}
