@@ -84,4 +84,12 @@ WEB_CAROUSEL_MIXTURE_COUNT = 10
 WEB_CATEGORIES_COUNT = 3
 ########## END WEB CONFIGURATION
 
+
+########## sorl-thumbnail CONFIGURATION
+THUMBNAIL_DEBUG = DEBUG
+THUMBNAIL_KVSTORE = u"sorl.thumbnail.kvstores.redis_kvstore.KVStore"
+THUMBNAIL_REDIS_DB = u"poppurri"
+########## END sorl-thumbnail CONFIGURATION
+
+
 # vim: ai ts=4 sts=4 et sw=4 ft=python
