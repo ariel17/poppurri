@@ -203,6 +203,8 @@ THIRD_PARTY_APPS = (
     'south',
     # Rating implementation
     'djangoratings',
+    # thumbnails generator
+    'sorl.thumbnail',
 )
 
 # Apps specific for this project go here.
@@ -271,6 +273,5 @@ MIXTURE_MAX_RATE = 5
 WEB_CAROUSEL_MIXTURE_COUNT = 10
 WEB_CATEGORIES_COUNT = 3
 ########## END WEB CONFIGURATION
-
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
