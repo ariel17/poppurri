@@ -7,7 +7,6 @@ Description: TODO
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
-from django.conf import settings
 from django.views.generic.base import TemplateView
 
 from mixture.models import Mixture, Category
