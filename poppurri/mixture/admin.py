@@ -26,7 +26,7 @@ class MixtureAdmin(admin.ModelAdmin):
 
 
 class MixtureImageAdmin(admin.ModelAdmin):
-    list_display = ('mixture', 'link_image')
+    list_display = ('mixture', 'link_image', 'outstanding')
     search_fields = ('mixture',)
 
     def link_image(self, obj):

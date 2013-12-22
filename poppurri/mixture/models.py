@@ -60,16 +60,45 @@ class Mixture(models.Model):
         return unicode(self.name)
 
 
+class MixtureImageManager(models.Manager):
+    """
+    TODO
+    """
+    use_for_related_field = True
+
+    def random_outstanding(self, *args, **kwargs):
+        """
+        TODO
+        """
+        outstandings = self.filter(outstanding=True).order_by('?')
+        if len(outstandings):
+            return outstandings[0]
+        return None
+
+
 class MixtureImage(ImageModel):
     """
     A mixture image that describes the object/service.
     """
-    mixture = models.ForeignKey(u"Mixture")
+    mixture = models.ForeignKey(u"Mixture", related_name=u"images")
     image = models.ImageField(
         _(u"Mixture image"),
         upload_to=ImageModel.normalize_filename(settings.MIXTURES_IMAGES_PATH),
         default=settings.IMAGES_DEFAULT,
     )
+    alt = models.CharField(
+        _(u"Alt text for the image."),
+        max_length=50,
+        blank=True,
+        null=True,
+    )
+    outstanding = models.BooleanField(
+        _(u"Is outstanding"),
+        help_text=u"The image is outstanding between others.",
+        default=False,
+    )
+
+    objects = MixtureImageManager()
 
 
 class CategoryManager(models.Manager):

@@ -5,23 +5,31 @@
 
 {% block content-body %}
   <div class="row clearfix">
-    <div class="carousel slide" id="carousel-269302">
+    <div class="carousel slide" id="carousel">
       <ol class="carousel-indicators">
         {% for mixture in top_mixtures %}
-          <li {% if forloop.first %}class="active"{% endif %} data-slide-to="{{ forloop.counter0 }}" data-target="#carousel-269302"></li>
+          <li {% if forloop.first %}class="active"{% endif %} data-slide-to="{{ forloop.counter0 }}" data-target="#carousel"></li>
         {% endfor %}
       </ol>
       <div class="carousel-inner">
         {% for mixture in top_mixtures %}
-          <div class="item {% if forloop.first %}active{% endif %}">
-              <img alt="" src="{{ mixture.image.url }}">
+          <div class="item{% if forloop.first %} active{% endif %}">
+              {% with mixture.images.random_outstanding as random_image %}
+                <img alt="{{ random_image.alt }}" src="{{ random_image.image.url }}">
+              {% endwith %}
             <div class="carousel-caption">
               <h4>{{ mixture.name }}</h4>
               <p>{{ mixture.description }}</p>
             </div>
           </div>
         {% endfor %}
-      </div> <a class="left carousel-control" href="#carousel-269302" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-269302" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      </div>
+      <a class="left carousel-control" href="#carousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
     </div>
   </div>
   
