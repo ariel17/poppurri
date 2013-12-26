@@ -128,4 +128,10 @@ class CategoryTestCase(TestCase):
         for mixture in cat.mixtures.all():
             self.assertTrue(top_mixture.rating.score >= mixture.rating.score)
 
+    def test_tree(self):
+        """
+        TODO
+        """
+        raise NotImplementedError("Must implement")
+
 # vim: ai ts=4 sts=4 et sw=4 ft=python

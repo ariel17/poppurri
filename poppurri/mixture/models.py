@@ -154,4 +154,19 @@ class Category(models.Model):
 
         return mixtures.order_by('-rating_score')[0]
 
+    @classmethod
+    def tree(cls, child_category):
+        """
+        TODO
+        """
+        node = child_category
+        tree = [node]
+
+        while node.parent:
+            tree.append(node.parent)
+            node = node.parent
+
+        tree.reverse()
+        return tree
+
 # vim: ai ts=4 sts=4 et sw=4 ft=python
