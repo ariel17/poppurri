@@ -4,17 +4,26 @@
 
 {% block title %}{{ object.name }}{% endblock title %}
 
+{% block extra_css %}
+  <link href="{% static 'css/mixture.css' %}" rel="stylesheet">
+{% endblock extra_css %}
+
 {% block content-body %}
-  <div class="row clearfix">
+  <div class="row clearfix skip-nav">
     <div class="col-md-8 column">
+      <ul class="breadcrumb">
+        {% for category in category_tree %}  
+          {% if forloop.last %}
+            <li class="active">{{ category.name }}</li>
+          {% else %}
+            <li>
+              <a href="#">{{ category.name }}</a> <span class="divider"></span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
       <div class="page-header">
         <h1>Example page header <small>Subtext for header</small></h1>
-      </div>
-      <div>
-        <span class="label label-default">Label</span>
-        <span class="label label-default">Label</span>
-        <span class="label label-default">Label</span>
-        <span class="label">Label</span>
       </div>
       <div>
         <img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail" />
