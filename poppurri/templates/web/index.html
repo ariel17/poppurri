@@ -49,7 +49,6 @@
       </p>
     </div>
   </div>
-  </div>
 
   <div class="row clearfix">
     {% for category in top_categories %}
@@ -62,7 +61,7 @@
           {% endwith %}
           <h2>{{ category.name }}</h2>
           <p>{{ top_mixture.description }}</p>
-          <p><a class="btn" href="#">View details »</a></p>
+          <p><a class="btn" href="{% url "mixture_id" top_mixture.id %}">View details »</a></p>
         {% endwith %}
       </div>
     {% endfor %}
@@ -72,7 +71,7 @@
 {% block extra_js %}
   <script type="text/javascript">
     $('.carousel').carousel({
-      interval: 2000
+      interval: 4000
     });
   </script>
 {% endblock extra_js %}
