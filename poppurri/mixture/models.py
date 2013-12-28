@@ -38,9 +38,14 @@ class Mixture(models.Model):
         max_length=100,
         help_text=_(u"A mixture short name that describes what it is.")
     )
-    description = models.TextField(
-        _(u"Description"),
-        help_text=_(u"The long description about the product.")
+    short_description = models.CharField(
+        _(u"Short description"),
+        max_length=255,
+        help_text=_(u"Short description about the product.")
+    )
+    long_description = models.TextField(
+        _(u"Long description"),
+        help_text=_(u"Long description about the product.")
     )
     expose = models.BooleanField(default=True)
     rating = RatingField(

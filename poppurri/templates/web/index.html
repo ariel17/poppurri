@@ -22,7 +22,7 @@
               {% endwith %}
             <div class="carousel-caption">
               <h4>{{ mixture.name }}</h4>
-              <p>{{ mixture.description }}</p>
+              <p>{{ mixture.short_description }}</p>
             </div>
           </div>
         {% endfor %}
@@ -60,7 +60,7 @@
             {% endthumbnail %}
           {% endwith %}
           <h2>{{ category.name }}</h2>
-          <p>{{ top_mixture.description }}</p>
+          <p>{{ top_mixture.short_description }}</p>
           <p><a class="btn" href="{% url "mixture_id" top_mixture.id %}">View details »</a></p>
         {% endwith %}
       </div>
