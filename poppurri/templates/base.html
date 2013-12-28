@@ -13,6 +13,7 @@
     
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
   
     {% block extra_css %}{% endblock extra_css %}
   
@@ -112,10 +113,19 @@
     
       {% block content-body %}This is the body{% endblock content-body %}
 
-      <footer>
-        {% block content-footer%}The footer section.{% endblock content-footer%}
+      <footer class="text-muted">
+        <div class="container">
+          <div class="col-md-6 column text-left">
+            © 2013 Poppurri
+          </div>
+          <div class="col-md-6 column text-right">
+            <a href="#" rel="external">
+              Contact us
+            </a>
+          </div>
+        </div>
       </footer>
-
+      
     </div> <!-- /container -->
     
     <!-- Le javascript
