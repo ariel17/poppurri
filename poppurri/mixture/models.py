@@ -38,9 +38,14 @@ class Mixture(models.Model):
         max_length=100,
         help_text=_(u"A mixture short name that describes what it is.")
     )
-    description = models.TextField(
-        _(u"Description"),
-        help_text=_(u"The long description about the product.")
+    short_description = models.CharField(
+        _(u"Short description"),
+        max_length=255,
+        help_text=_(u"Short description about the product.")
+    )
+    long_description = models.TextField(
+        _(u"Long description"),
+        help_text=_(u"Long description about the product.")
     )
     expose = models.BooleanField(default=True)
     rating = RatingField(
@@ -153,5 +158,20 @@ class Category(models.Model):
             return None
 
         return mixtures.order_by('-rating_score')[0]
+
+    @classmethod
+    def tree(cls, child_category):
+        """
+        TODO
+        """
+        node = child_category
+        tree = [node]
+
+        while node.parent:
+            tree.append(node.parent)
+            node = node.parent
+
+        tree.reverse()
+        return tree
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

@@ -17,7 +17,8 @@ class MixtureAdmin(admin.ModelAdmin):
     list_display = ('name', 'author', 'expose', 'rating_score', )
     search_fields = (
         'name',
-        'description',
+        'short_description',
+        'long_description',
         'autor__first_name',
         'author__last_name',
         'author__email',
