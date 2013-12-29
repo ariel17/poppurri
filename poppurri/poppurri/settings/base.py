@@ -145,6 +145,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
+    'settings_context_processor.context_processors.settings',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
@@ -205,6 +206,8 @@ THIRD_PARTY_APPS = (
     'djangoratings',
     # thumbnails generator
     'sorl.thumbnail',
+    # Add settings configuration to context processor for templates
+    'settings_context_processor',
 )
 
 # Apps specific for this project go here.
@@ -276,5 +279,17 @@ MIXTURE_MAX_RATE = 5
 WEB_CAROUSEL_MIXTURE_COUNT = 10
 WEB_CATEGORIES_COUNT = 3
 ########## END WEB CONFIGURATION
+
+
+########## SEARCH CONFIGURATION
+SEARCH_QUERY_PARAM = "q"
+########## END SEARCH CONFIGURATION
+
+
+########## SETTINGS CONTEXT PROCESSOR CONFIGURATION
+TEMPLATE_VISIBLE_SETTINGS = (
+    'SEARCH_QUERY_PARAM',
+)
+########## END SETTINGS CONTEXT PROCESSOR CONFIGURATION
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
