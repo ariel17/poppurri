@@ -24,6 +24,7 @@ class MixtureAdmin(admin.ModelAdmin):
         'author__email',
     )
     list_filter = ('expose',)
+    prepopulated_fields = {'slug': ('name', )}
 
 
 class MixtureImageAdmin(admin.ModelAdmin):

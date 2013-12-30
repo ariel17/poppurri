@@ -38,6 +38,7 @@ class Mixture(models.Model):
         max_length=100,
         help_text=_(u"A mixture short name that describes what it is.")
     )
+    slug = models.SlugField(_("Slug name"), blank=True, null=True)
     short_description = models.CharField(
         _(u"Short description"),
         max_length=255,
@@ -164,6 +165,10 @@ class Category(models.Model):
         """
         TODO
         """
+
+        if not child_category:
+            return None
+
         node = child_category
         tree = [node]
 
