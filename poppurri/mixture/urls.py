@@ -14,7 +14,8 @@ from .views import MixtureDetailView
 
 urlpatterns = patterns('',
     url(r'^(?P<pk>\d+)/$', MixtureDetailView.as_view(), name='mixture_id'),
-    url(r'^(?P<slug>\s+)/$', MixtureDetailView.as_view(), name='mixture_slug'),
+    url(r'^(?P<slug>[-\w]+)/$', MixtureDetailView.as_view(), \
+        name='mixture_slug'),
 )
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
