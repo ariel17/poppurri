@@ -212,6 +212,7 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'category',
     'common',
     'mixture',
     'search',
@@ -278,6 +279,7 @@ MIXTURE_MAX_RATE = 5
 ########## WEB CONFIGURATION
 WEB_CAROUSEL_MIXTURE_COUNT = 10
 WEB_CATEGORIES_COUNT = 3
+WEB_CONTACT_EMAIL = u"ariel.gerardo.rios@gmail.com"
 ########## END WEB CONFIGURATION
 
 
@@ -289,6 +291,7 @@ SEARCH_QUERY_PARAM = "q"
 ########## SETTINGS CONTEXT PROCESSOR CONFIGURATION
 TEMPLATE_VISIBLE_SETTINGS = (
     'SEARCH_QUERY_PARAM',
+    'WEB_CONTACT_EMAIL',
 )
 ########## END SETTINGS CONTEXT PROCESSOR CONFIGURATION
 
