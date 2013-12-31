@@ -19,7 +19,11 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
+    # Translation support
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+
     # Application views
+    url(r'^category/', include('category.urls')),
     url(r'^mixture/', include('mixture.urls')),
     url(r'^search/', include('search.urls')),
     url(r'^$', include('web.urls')),

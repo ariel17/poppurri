@@ -9,7 +9,8 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 from django.views.generic.base import TemplateView
 
-from mixture.models import Mixture, Category
+from mixture.models import Mixture
+from category.models import Category
 
 
 class IndexView(TemplateView):

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block title %}Categories{% endblock title %}
+
+{% block content-body %}
+
+  {% if category_list %}
+    {% for category in category_list %}
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <a href="{% url "category_detail_slug" category.name|slugify %}">{{ category.name }}</a>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+{% endblock content-body %}

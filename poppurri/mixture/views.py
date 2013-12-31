@@ -9,7 +9,8 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 from django.views.generic.detail import DetailView
 
-from .models import Mixture, Category
+from .models import Mixture
+from category.models import Category
 
 
 class MixtureDetailView(DetailView):
