@@ -9,11 +9,11 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
-from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
 from .models import Mixture, MixtureImage, Recipe
+from category.models import Category
 
 
 class MixtureImageAdmin(admin.ModelAdmin):
@@ -52,7 +52,13 @@ class RecipeInline(admin.StackedInline):
 
 
 class MixtureAdmin(admin.ModelAdmin):
-    list_display = ('name', 'author', 'expose', 'rating_score', )
+    list_display = (
+        'name',
+        'author',
+        'expose',
+        'rating_score',
+        'link_category',
+    )
     search_fields = (
         'name',
         'short_description',
@@ -66,6 +72,16 @@ class MixtureAdmin(admin.ModelAdmin):
         'slug': ('name', ),
     }
     inlines = [MixtureImageInline, RecipeInline, ]
+
+    def link_category(self, obj):
+        content_type = ContentType.objects.get_for_model(Category)
+        url = reverse(u"admin:%s_%s_change" % (
+            content_type.app_label, content_type.model),
+            args=(obj.category.pk,))
+        return u"<a href='{0}'>{1}</a>".format(url, obj.category.name)
+
+    link_category.allow_tags = True
+    link_category.short_description = _(u'Category')
 
 
 admin.site.register(Mixture, MixtureAdmin)
