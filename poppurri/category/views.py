@@ -31,10 +31,10 @@ class CategoryListView(ListView):
     """
     template_name = u"category_list.html"
     model = Category
+    context_object_name = u"category_list"
 
-    def get_context_data(self, **kwargs):
-        context = super(CategoryListView, self).get_context_data(**kwargs)
-        return context
+    def get_queryset(self):
+        return Category.objects.filter(is_final=True)
 
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
