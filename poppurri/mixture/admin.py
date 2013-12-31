@@ -13,23 +13,7 @@ from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
-from .models import Mixture, MixtureImage, Category, Recipe
-
-
-class MixtureAdmin(admin.ModelAdmin):
-    list_display = ('name', 'author', 'expose', 'rating_score', )
-    search_fields = (
-        'name',
-        'short_description',
-        'long_description',
-        'autor__first_name',
-        'author__last_name',
-        'author__email',
-    )
-    list_filter = ('expose',)
-    prepopulated_fields = {
-        'slug': ('name', ),
-    }
+from .models import Mixture, MixtureImage, Recipe
 
 
 class MixtureImageAdmin(admin.ModelAdmin):
@@ -43,11 +27,9 @@ class MixtureImageAdmin(admin.ModelAdmin):
     link_image.short_description = _(u'Image')
 
 
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'parent', 'is_final')
-    prepopulated_fields = {
-        'slug': ('name', ),
-    }
+class MixtureImageInline(admin.StackedInline):
+    model = MixtureImage
+    extra = 1
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -64,9 +46,30 @@ class RecipeAdmin(admin.ModelAdmin):
     link_mixture.short_description = _(u'Mixture')
 
 
+class RecipeInline(admin.StackedInline):
+    model = Recipe
+    extra = 1
+
+
+class MixtureAdmin(admin.ModelAdmin):
+    list_display = ('name', 'author', 'expose', 'rating_score', )
+    search_fields = (
+        'name',
+        'short_description',
+        'long_description',
+        'autor__first_name',
+        'author__last_name',
+        'author__email',
+    )
+    list_filter = ('expose',)
+    prepopulated_fields = {
+        'slug': ('name', ),
+    }
+    inlines = [MixtureImageInline, RecipeInline, ]
+
+
 admin.site.register(Mixture, MixtureAdmin)
 admin.site.register(MixtureImage, MixtureImageAdmin)
-admin.site.register(Category, CategoryAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 
 
