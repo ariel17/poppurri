@@ -46,9 +46,9 @@
         <h1>Poppurri</h1>
         <p>
           Hands, tools, desire: nothing more is needed to build from our
-          imagination and, why not? from your imagination too. A place to find
-          quality hand-made products, builders and recipes to become an expert.
-          Create the your own world by yourself or with other's help.
+          imagination and, why not? from yours too. A place to find quality
+          hand-made products, builders and recipes to become an expert.
+          Create your own world by yourself or with other's help.
         </p>
         <p><a class="btn btn-primary btn-large" href="#">Learn more</a></p>
       </div>
@@ -70,6 +70,12 @@
         {% endwith %}
       </div>
     {% endfor %}
+  </div>
+
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <p><a class="btn btn-primary btn-large" href="{% url "category_list" %}">Show all categories</a></p>
+    </div>
   </div>
 {% endblock content-body %}
 
