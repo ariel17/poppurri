@@ -21,6 +21,7 @@ urlpatterns = patterns('',
 
     # Application views
     url(r'^mixture/', include('mixture.urls')),
+    url(r'^search/', include('search.urls')),
     url(r'^$', include('web.urls')),
 )
 

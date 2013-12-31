@@ -38,6 +38,7 @@ class Mixture(models.Model):
         max_length=100,
         help_text=_(u"A mixture short name that describes what it is.")
     )
+    slug = models.SlugField(_("Slug name"), blank=True, null=True)
     short_description = models.CharField(
         _(u"Short description"),
         max_length=255,
@@ -106,6 +107,20 @@ class MixtureImage(ImageModel):
     objects = MixtureImageManager()
 
 
+class Recipe(models.Model):
+    """
+    TODO
+    """
+    mixture = models.ForeignKey(u"Mixture", related_name=u"recipes")
+    item = models.CharField(_(u"Item name"), max_length=100)
+    amount = models.CharField(
+        _(u"Item amout"),
+        max_length=50,
+        blank=True,
+        null=True
+    )
+
+
 class CategoryManager(models.Manager):
     """
     TODO
@@ -139,6 +154,7 @@ class Category(models.Model):
         null=True
     )
     slug = models.SlugField(max_length=100)
+    is_final = models.BooleanField(_(u"Is a final category"), default=False)
 
     objects = CategoryManager()
 
@@ -164,6 +180,10 @@ class Category(models.Model):
         """
         TODO
         """
+
+        if not child_category:
+            return None
+
         node = child_category
         tree = [node]
 
