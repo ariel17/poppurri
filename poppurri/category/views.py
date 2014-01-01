@@ -8,7 +8,7 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
 from django.views.generic.detail import DetailView
-from django.views.generic.list import ListView
+from django.views.generic import TemplateView
 
 from .models import Category
 
@@ -25,7 +25,7 @@ class CategoryDetailView(DetailView):
         return context
 
 
-class CategoryListView(ListView):
+class CategoryListView(TemplateView):
     """
     TODO
     """
@@ -33,8 +33,12 @@ class CategoryListView(ListView):
     model = Category
     context_object_name = u"category_list"
 
-    def get_queryset(self):
-        return Category.objects.filter(is_final=True)
+    def get_context_data(self, **kwargs):
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        context[u"category_list"] = [
+            Category.tree(c) for c in Category.objects.filter(is_final=True)
+        ]
+        return context
 
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
