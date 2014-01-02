@@ -10,7 +10,6 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 
 from djangoratings.fields import RatingField
@@ -23,9 +22,19 @@ class MixtureManager(models.Manager):
     A custom manager to add functionallity related to table level of
     :model:`mixture.Mixture`.
     """
+    def get_query_set(self):
+        return super(MixtureManager, self).get_query_set().filter(
+            is_published=True
+        )
+
     def top_rates(self, max_rate=settings.MIXTURE_MAX_RATE,
                   limit_to=settings.WEB_CAROUSEL_MIXTURE_COUNT):
-        return self.filter(rating_score__gte=max_rate)[:limit_to]
+        """
+        TODO
+        """
+        return self.get_query_set().filter(
+            rating_score__gte=max_rate,
+        )[:limit_to]
 
 
 class Mixture(models.Model):
@@ -36,31 +45,37 @@ class Mixture(models.Model):
     name = models.CharField(
         _(u"Name"),
         max_length=100,
-        help_text=_(u"A mixture short name that describes what it is.")
+        help_text=_(u"A mixture short name that describes what it is."),
     )
     slug = models.SlugField(_("Slug name"), blank=True, null=True)
     short_description = models.CharField(
         _(u"Short description"),
         max_length=255,
-        help_text=_(u"Short description about the product.")
+        help_text=_(u"Short description about the product."),
     )
     long_description = models.TextField(
         _(u"Long description"),
-        help_text=_(u"Long description about the product.")
+        help_text=_(u"Long description about the product."),
     )
-    expose = models.BooleanField(default=True)
+    is_published = models.BooleanField(
+        _(u"Is Published"),
+        default=True,
+        help_text=_(u"Publish the mixture on site."),
+    )
     rating = RatingField(
         range=settings.MIXTURE_MAX_RATE,
         can_change_vote=True,
-        allow_delete=True
+        allow_delete=True,
     )
     category = models.ForeignKey(
         'category.Category',
         null=True,
-        related_name='mixtures'
+        related_name='mixtures',
+        help_text=_(u"The mixture clasification in category."),
     )
 
-    objects = MixtureManager()
+    objects = models.Manager()
+    published = MixtureManager()
 
     def __unicode__(self):
         return unicode(self.name)

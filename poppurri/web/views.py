@@ -21,8 +21,8 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['top_mixtures'] = Mixture.objects.top_rates()
-        context['top_categories'] = Category.objects.top_content()
+        context['top_mixtures'] = Mixture.published.top_rates()
+        context['top_categories'] = Category.final.top_content()
         return context
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

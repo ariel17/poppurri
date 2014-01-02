@@ -55,7 +55,7 @@ class MixtureAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'author',
-        'expose',
+        'is_published',
         'rating_score',
         'link_category',
     )
@@ -67,7 +67,7 @@ class MixtureAdmin(admin.ModelAdmin):
         'author__last_name',
         'author__email',
     )
-    list_filter = ('expose',)
+    list_filter = ('is_published',)
     prepopulated_fields = {
         'slug': ('name', ),
     }
