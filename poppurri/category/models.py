@@ -19,6 +19,14 @@ class CategoryManager(models.Manager):
     """
     use_for_related_field = True
 
+    def get_queryset(self):
+        """
+        TODO
+        """
+        return super(CategoryManager, self).get_query_set().filter(
+            is_final=True
+        )
+
     def top_content(self, limit_to=settings.WEB_CATEGORIES_COUNT):
         """
         TODO
@@ -48,7 +56,8 @@ class Category(models.Model):
     slug = models.SlugField(max_length=100)
     is_final = models.BooleanField(_(u"Is a final category"), default=False)
 
-    objects = CategoryManager()
+    objects = models.Manager()
+    final = CategoryManager()
 
     class Meta:
         verbose_name = 'Category'

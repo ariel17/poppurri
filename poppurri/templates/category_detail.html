@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block title %}Categories{% endblock title %}
+
+{% block content-body %}
+
+  {% if category_list %}
+    {% for category_tree in category_list %}
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <ul class="breadcrumb">
+            {% for category in category_tree %}  
+              {% if forloop.last %}
+                <li class="active">{{ category.name }}</li>
+              {% else %}
+                <li>
+                  <a href="#">{{ category.name }}</a> <span class="divider"></span>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+{% endblock content-body %}
