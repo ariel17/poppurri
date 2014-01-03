@@ -9,12 +9,20 @@
     <div class="row clearfix">
       <div class="col-md-12 column">
         <ul class="breadcrumb">
+          <li>
+            <a href="{% url "category_list" %}">All categories</a> <span class="divider"></span>
+          </li>
+
           {% for category in category_tree %}  
             {% if forloop.last %}
-              <li class="active">{{ category.name }}</li>
+              <li class="active">
+                <a href="{% url "category_detail_slug" category.name|slugify %}">
+                  {{ category.name }}
+                </a>
+              </li>
             {% else %}
               <li>
-                <a href="#">{{ category.name }}</a> <span class="divider"></span>
+                {{ category.name }} <span class="divider"></span>
               </li>
             {% endif %}
           {% endfor %}
