@@ -13,10 +13,14 @@
           <ul class="breadcrumb">
             {% for category in category_tree %}  
               {% if forloop.last %}
-                <li class="active">{{ category.name }}</li>
+                <li class="active">
+                  <a href="{% url "category_detail_slug" category.slug %}">
+                    {{ category.name }}
+                  </a>
+                </li>
               {% else %}
                 <li>
-                  <a href="#">{{ category.name }}</a> <span class="divider"></span>
+                  {{ category.name }} <span class="divider"></span>
                 </li>
               {% endif %}
             {% endfor %}
