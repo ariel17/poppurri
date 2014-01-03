@@ -1,4 +1,10 @@
-"""Development settings and globals."""
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Description: Development settings and globals.
+"""
+__author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
 from os.path import join, normpath
@@ -66,3 +72,24 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
 }
 ########## END TOOLBAR CONFIGURATION
+
+
+########## MIXTURE CONFIGURATION
+MIXTURE_MAX_RATE = 0
+########## END MIXTURE CONFIGURATION
+
+
+########## WEB CONFIGURATION
+WEB_CAROUSEL_MIXTURE_COUNT = 10
+WEB_CATEGORIES_COUNT = 3
+########## END WEB CONFIGURATION
+
+
+########## sorl-thumbnail CONFIGURATION
+THUMBNAIL_DEBUG = DEBUG
+THUMBNAIL_KVSTORE = u"sorl.thumbnail.kvstores.redis_kvstore.KVStore"
+THUMBNAIL_REDIS_DB = u"poppurri"
+########## END sorl-thumbnail CONFIGURATION
+
+
+# vim: ai ts=4 sts=4 et sw=4 ft=python

@@ -39,8 +39,12 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "poppurri.settings.production")
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
+from dj_static import Cling
+
 application = Cling(get_wsgi_application())
 
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
+# vim: ai ts=4 sts=4 et sw=4 ft=python

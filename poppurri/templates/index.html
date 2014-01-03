@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content-body %}
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <div class="carousel slide" id="carousel">
+        <ol class="carousel-indicators">
+          {% for mixture in top_mixtures %}
+            <li {% if forloop.first %}class="active"{% endif %} data-slide-to="{{ forloop.counter0 }}" data-target="#carousel"></li>
+          {% endfor %}
+        </ol>
+        <div class="carousel-inner">
+          {% for mixture in top_mixtures %}
+            <div class="item{% if forloop.first %} active{% endif %}">
+                {% with mixture.images.random_outstanding_image as mixture_image %}
+                  {% thumbnail mixture_image.image "1600x500" as im %}
+                    <a href="{% url "mixture_slug" mixture.name|slugify %}">
+                      <img alt="{{ mixture_image.alt }}" src="{{ im.url }}">
+                    </a>
+                  {% endthumbnail %}
+                {% endwith %}
+              <div class="carousel-caption">
+                <h4>{{ mixture.name }}</h4>
+                <p>{{ mixture.short_description }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <a class="left carousel-control" href="#carousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <div class="jumbotron well">
+        <h1>Poppurri</h1>
+        <p>
+          Hands, tools, desire: nothing more is needed to build from our
+          imagination and, why not? from yours too. A place to find quality
+          hand-made products, builders and recipes to become an expert.
+          Create your own world by yourself or with other's help.
+        </p>
+        <p><a class="btn btn-primary btn-large" href="#">Learn more</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row clearfix">
+    {% for category in top_categories %}
+      <div class="col-md-4 column">
+        {% with category.top_mixture as top_mixture %}
+          {% with top_mixture.images.random_outstanding_image as mixture_image %}
+            {% thumbnail mixture_image.image "140x140" crop="center" as im %}
+              <img alt="{{ mixture_image.image.alt }}" src="{{ im.url }}" class="img-circle">
+            {% endthumbnail %}
+          {% endwith %}
+          <h2>{{ category.name }}</h2>
+          <p>{{ top_mixture.short_description }}</p>
+          <p><a class="btn" href="{% url "mixture_slug" top_mixture.name|slugify %}">View details »</a></p>
+        {% endwith %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <p><a class="btn btn-primary btn-large" href="{% url "category_list" %}">Show all categories</a></p>
+    </div>
+  </div>
+{% endblock content-body %}
+
+{% block extra_js %}
+  <script type="text/javascript">
+    $('.carousel').carousel({
+      interval: 4000
+    });
+  </script>
+{% endblock extra_js %}

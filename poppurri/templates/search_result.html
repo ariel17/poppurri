@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block title %}Search for {{ query }}{% endblock title %}
+
+{% block content-body %}
+
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+       <div class="page-header">
+        <h1><small>Search result for</small> "{{ query }}"</h1>
+      </div>
+    </div>
+  </div>
+
+  {% for mixture in mixture_result %}
+    <div class="row clearfix">
+      <div class="col-md-12 column">
+        <a href="{% url "mixture_slug" mixture.name|slugify %}">{{ mixture.name }}</a>
+        <p>{{ mixture.short_description }}</p>
+      </div>
+    </div>
+  {% endfor %}
+
+{% endblock content-body %}

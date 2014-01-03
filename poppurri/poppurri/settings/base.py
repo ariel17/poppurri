@@ -1,4 +1,10 @@
-"""Common settings and globals."""
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Description: Common settings and globals.
+"""
+__author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
 from os.path import abspath, basename, dirname, join, normpath
@@ -139,6 +145,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
+    'settings_context_processor.context_processors.settings',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
@@ -195,10 +202,21 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     # Database migration helpers:
     'south',
+    # Rating implementation
+    'djangoratings',
+    # thumbnails generator
+    'sorl.thumbnail',
+    # Add settings configuration to context processor for templates
+    'settings_context_processor',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'category',
+    'common',
+    'mixture',
+    'search',
+    'web',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -243,3 +261,38 @@ LOGGING = {
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 ########## END WSGI CONFIGURATION
+
+
+########## COMMON CONFIGURATION
+IMAGES_ROOT = "img"
+IMAGES_DEFAULT = join(IMAGES_ROOT, 'no-img.png')
+########## END COMMON CONFIGURATION
+
+
+########## MIXTURE CONFIGURATION
+MIXTURES_IMAGES_PATH = join(IMAGES_ROOT, 'mixtures')
+MIXTURES_MIN_RATE = 0
+MIXTURE_MAX_RATE = 5
+########## END MIXTURE CONFIGURATION
+
+
+########## WEB CONFIGURATION
+WEB_CAROUSEL_MIXTURE_COUNT = 10
+WEB_CATEGORIES_COUNT = 3
+WEB_CONTACT_EMAIL = u"ariel.gerardo.rios@gmail.com"
+########## END WEB CONFIGURATION
+
+
+########## SEARCH CONFIGURATION
+SEARCH_QUERY_PARAM = "q"
+########## END SEARCH CONFIGURATION
+
+
+########## SETTINGS CONTEXT PROCESSOR CONFIGURATION
+TEMPLATE_VISIBLE_SETTINGS = (
+    'SEARCH_QUERY_PARAM',
+    'WEB_CONTACT_EMAIL',
+)
+########## END SETTINGS CONTEXT PROCESSOR CONFIGURATION
+
+# vim: ai ts=4 sts=4 et sw=4 ft=python

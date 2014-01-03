@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block title %}Categories{% endblock title %}
+
+{% block content-body %}
+
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+       <div class="page-header">
+         <h1><small>Mixtures on category</small> {{ category.name }}</h1>
+      </div>
+    </div>
+  </div>
+
+  {% for mixture in mixture_list %}
+    <div class="row clearfix">
+      <div class="col-md-12 column">
+        <a href="{% url "mixture_slug" mixture.slug %}">{{ mixture.name }}</a>
+        <p>{{ mixture.short_description }}</p>
+      </div>
+    </div>
+  {% endfor %}
+
+{% endblock content-body %}

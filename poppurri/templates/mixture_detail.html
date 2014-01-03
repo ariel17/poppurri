@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block title %}{{ object.name }}{% endblock title %}
+
+{% block content-body %}
+  {% if category_tree %}
+    <div class="row clearfix">
+      <div class="col-md-12 column">
+        <ul class="breadcrumb">
+          <li>
+            <a href="{% url "category_list" %}">All categories</a> <span class="divider"></span>
+          </li>
+
+          {% for category in category_tree %}  
+            {% if forloop.last %}
+              <li class="active">
+                <a href="{% url "category_detail_slug" category.name|slugify %}">
+                  {{ category.name }}
+                </a>
+              </li>
+            {% else %}
+              <li>
+                {{ category.name }} <span class="divider"></span>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+       <div class="page-header">
+        <h1><small>Mixture #{{ object.id }}</small> {{ object.name }}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row clearfix">
+    <div class="col-md-8 column">
+      <div>
+        <img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail" />
+        <img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail" />
+        <img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail" />
+        <img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail" />
+      </div>
+
+      <p>{{ object.long_description }}</p>
+    </div>
+
+    {% if object.recipes.all %}
+      <div class="col-md-4 column">
+        <div><h1>Recipe</h1></div>
+        <dl>
+          {% for recipe in object.recipes.all %}
+            <dt>{{ recipe.item }}</dt>
+            <dd>{{ recipe.amount }}</dd>
+          {% endfor %}
+        </dl>
+      </div>
+    {% endif %}
+  </div>
+
+  {% comment %}
+    <div class="row clearfix">
+      <div class="col-md-8 column">
+        <img alt="The author name" src="http://lorempixel.com/100/100/" class="img-circle" />
+        <p>User profile and description</p>
+        <button type="button" class="btn btn-default">Send me an email</button>
+      </div>
+    </div>
+  {% endcomment %}
+{% endblock content-body %}
