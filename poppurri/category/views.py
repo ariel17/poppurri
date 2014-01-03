@@ -37,9 +37,10 @@ class CategoryDetailView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
-        context[u"category_detail"] = Mixture.published.filter(
-            category__in=Category.final.all(),
-        )
+
+        category = Category.final.get(slug=self.kwargs['slug'])
+        context['category'] = category
+        context[u"mixture_list"] = Mixture.published.filter(category=category)
         return context
 
 
