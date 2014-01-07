@@ -19,3 +19,6 @@ build
 
 # Collected static files
 assets
+
+# User media files
+media
