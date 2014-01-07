@@ -17,12 +17,13 @@ class CategoryListView(TemplateView):
     """
     TODO
     """
-    template_name = u"category_list.html"
+    template_name = 'category_list.html'
     model = Category
 
     def get_context_data(self, **kwargs):
         context = super(CategoryListView, self).get_context_data(**kwargs)
-        context[u"category_list"] = [
+        context['view'] = 'category'
+        context['category_list'] = [
             Category.tree(c) for c in Category.objects.filter(is_final=True)
         ]
         return context
@@ -40,7 +41,7 @@ class CategoryDetailView(TemplateView):
 
         category = Category.final.get(slug=self.kwargs['slug'])
         context['category'] = category
-        context[u"mixture_list"] = Mixture.published.filter(category=category)
+        context['mixture_list'] = Mixture.published.filter(category=category)
         return context
 
 
