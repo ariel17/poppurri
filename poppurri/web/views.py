@@ -21,6 +21,7 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
+        context['view'] = 'home'
         context['top_mixtures'] = Mixture.published.top_rates()
         context['top_categories'] = Category.final.top_content()
         return context
