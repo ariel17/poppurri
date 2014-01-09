@@ -15,12 +15,13 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
+    # Translation support
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^admin/rosetta/', include('rosetta.urls')),
+
     # Admin console
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-
-    # Translation support
-    url(r'^i18n/', include('django.conf.urls.i18n')),
 
     # Application views
     url(r'^category/', include('category.urls')),
