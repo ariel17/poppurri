@@ -19,3 +19,9 @@ build
 
 # Collected static files
 assets
+
+# User media files
+media
+
+# Translation compiled files
+*.mo

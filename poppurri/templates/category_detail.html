@@ -1,15 +1,14 @@
 {% extends "base.html" %}
-{% load staticfiles %}
-{% load thumbnail %}
+{% load staticfiles thumbnail i18n %}
 
-{% block title %}Categories{% endblock title %}
+{% block title %}{% trans "Categories" %}{% endblock title %}
 
 {% block content-body %}
 
   <div class="row clearfix">
     <div class="col-md-12 column">
        <div class="page-header">
-         <h1><small>Mixtures on category</small> {{ category.name }}</h1>
+         <h1><small>{% trans "Mixtures on category" %}</small> {% trans category.name %}</h1>
       </div>
     </div>
   </div>
@@ -17,8 +16,8 @@
   {% for mixture in mixture_list %}
     <div class="row clearfix">
       <div class="col-md-12 column">
-        <a href="{% url "mixture_slug" mixture.slug %}">{{ mixture.name }}</a>
-        <p>{{ mixture.short_description }}</p>
+        <a href="{% url "mixture_slug" mixture.slug %}">{% trans mixture.name %}</a>
+        <p>{% trans mixture.short_description %}</p>
       </div>
     </div>
   {% endfor %}

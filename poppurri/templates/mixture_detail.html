@@ -1,8 +1,7 @@
 {% extends "base.html" %}
-{% load staticfiles %}
-{% load thumbnail %}
+{% load staticfiles thumbnail i18n %}
 
-{% block title %}{{ object.name }}{% endblock title %}
+{% block title %}{% trans object.name %}{% endblock title %}
 
 {% block content-body %}
   {% if category_tree %}
@@ -10,19 +9,19 @@
       <div class="col-md-12 column">
         <ul class="breadcrumb">
           <li>
-            <a href="{% url "category_list" %}">All categories</a> <span class="divider"></span>
+            <a href="{% url "category_list" %}">{% trans "All categories" %}</a> <span class="divider"></span>
           </li>
 
           {% for category in category_tree %}  
             {% if forloop.last %}
               <li class="active">
                 <a href="{% url "category_detail_slug" category.name|slugify %}">
-                  {{ category.name }}
+                  {% trans category.name %}
                 </a>
               </li>
             {% else %}
               <li>
-                {{ category.name }} <span class="divider"></span>
+                {% trans category.name %} <span class="divider"></span>
               </li>
             {% endif %}
           {% endfor %}
@@ -34,7 +33,7 @@
   <div class="row clearfix">
     <div class="col-md-12 column">
        <div class="page-header">
-        <h1><small>Mixture #{{ object.id }}</small> {{ object.name }}</h1>
+           <h1><small>{% trans "Mixture" %} #{{ object.id }}</small> {% trans object.name %}</h1>
       </div>
     </div>
   </div>
@@ -48,16 +47,16 @@
         <img alt="140x140" src="http://lorempixel.com/140/140/" class="img-thumbnail" />
       </div>
 
-      <p>{{ object.long_description }}</p>
+      <p>{% trans object.long_description %}</p>
     </div>
 
     {% if object.recipes.all %}
       <div class="col-md-4 column">
-        <div><h1>Recipe</h1></div>
+          <div><h1>{% trans "Recipe" %}</h1></div>
         <dl>
           {% for recipe in object.recipes.all %}
-            <dt>{{ recipe.item }}</dt>
-            <dd>{{ recipe.amount }}</dd>
+            <dt>{% trans recipe.item %}</dt>
+            <dd>{% trans recipe.amount %}</dd>
           {% endfor %}
         </dl>
       </div>

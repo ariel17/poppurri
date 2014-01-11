@@ -9,6 +9,7 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
+from django.utils.translation import ugettext_lazy as _
 
 
 ########## PATH CONFIGURATION
@@ -171,6 +172,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 )
 ########## END MIDDLEWARE CONFIGURATION
 
@@ -208,6 +210,8 @@ THIRD_PARTY_APPS = (
     'sorl.thumbnail',
     # Add settings configuration to context processor for templates
     'settings_context_processor',
+    # Translation
+    'rosetta',
 )
 
 # Apps specific for this project go here.
@@ -294,5 +298,14 @@ TEMPLATE_VISIBLE_SETTINGS = (
     'WEB_CONTACT_EMAIL',
 )
 ########## END SETTINGS CONTEXT PROCESSOR CONFIGURATION
+
+LOCALE_PATHS = (
+    join(SITE_ROOT, 'locale'),
+)
+
+LANGUAGES = (
+    ('es', _('Spanish')),
+    ('en', _('English')),
+)
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

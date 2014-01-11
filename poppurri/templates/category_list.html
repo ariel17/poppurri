@@ -1,8 +1,7 @@
 {% extends "base.html" %}
-{% load staticfiles %}
-{% load thumbnail %}
+{% load staticfiles thumbnail i18n %}
 
-{% block title %}Categories{% endblock title %}
+{% block title %}{% trans "Categories" %}{% endblock title %}
 
 {% block content-body %}
 
@@ -15,12 +14,12 @@
               {% if forloop.last %}
                 <li class="active">
                   <a href="{% url "category_detail_slug" category.slug %}">
-                    {{ category.name }}
+                    {% trans category.name %}
                   </a>
                 </li>
               {% else %}
                 <li>
-                  {{ category.name }} <span class="divider"></span>
+                  {% trans category.name %} <span class="divider"></span>
                 </li>
               {% endif %}
             {% endfor %}
