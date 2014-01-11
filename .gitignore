@@ -22,3 +22,6 @@ assets
 
 # User media files
 media
+
+# Translation compiled files
+*.mo

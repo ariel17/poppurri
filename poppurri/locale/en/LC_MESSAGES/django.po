@@ -1,0 +1,194 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-01-10 17:42-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+
+#: category/models.py:49
+msgid "Category name"
+msgstr ""
+
+#: category/models.py:51
+msgid "Description"
+msgstr ""
+
+#: category/models.py:57
+msgid "Is a final category"
+msgstr ""
+
+#: mixture/admin.py:27
+msgid "Image"
+msgstr ""
+
+#: mixture/admin.py:46 templates/mixture_detail.html:36
+msgid "Mixture"
+msgstr ""
+
+#: mixture/admin.py:84
+msgid "Category"
+msgstr ""
+
+#: mixture/models.py:46
+msgid "Name"
+msgstr ""
+
+#: mixture/models.py:48
+msgid "A mixture short name that describes what it is."
+msgstr ""
+
+#: mixture/models.py:50
+msgid "Slug name"
+msgstr ""
+
+#: mixture/models.py:52
+msgid "Short description"
+msgstr ""
+
+#: mixture/models.py:54
+msgid "Short description about the product."
+msgstr ""
+
+#: mixture/models.py:57
+msgid "Long description"
+msgstr ""
+
+#: mixture/models.py:58
+msgid "Long description about the product."
+msgstr ""
+
+#: mixture/models.py:61
+msgid "Is Published"
+msgstr ""
+
+#: mixture/models.py:63
+msgid "Publish the mixture on site."
+msgstr ""
+
+#: mixture/models.py:74
+msgid "The mixture clasification in category."
+msgstr ""
+
+#: mixture/models.py:106
+msgid "Mixture image"
+msgstr ""
+
+#: mixture/models.py:111
+msgid "Alt text for the image."
+msgstr ""
+
+#: mixture/models.py:117
+msgid "Is outstanding"
+msgstr ""
+
+#: mixture/models.py:130
+msgid "Item name"
+msgstr ""
+
+#: mixture/models.py:132
+msgid "Item amout"
+msgstr ""
+
+#: poppurri/settings/base.py:307
+msgid "Spanish"
+msgstr ""
+
+#: poppurri/settings/base.py:308
+msgid "English"
+msgstr ""
+
+#: templates/404.html:4 templates/404.html.py:6
+msgid "Page Not found"
+msgstr ""
+
+#: templates/404.html:9
+msgid "This is not the page you were looking for."
+msgstr ""
+
+#: templates/500.html:4 templates/500.html.py:6
+msgid "Server error"
+msgstr ""
+
+#: templates/500.html:9
+msgid "Whoops! An internal error has occurred. Please try again later."
+msgstr ""
+
+#: templates/base.html:48 templates/index.html:4
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:51 templates/category_detail.html:4
+#: templates/category_list.html:4
+msgid "Categories"
+msgstr ""
+
+#: templates/base.html:58
+msgid "Author, category or mixture"
+msgstr ""
+
+#: templates/base.html:60
+msgid "Search"
+msgstr ""
+
+#: templates/base.html:71
+msgid "Change language"
+msgstr ""
+
+#: templates/base.html:79
+msgid "Go"
+msgstr ""
+
+#: templates/base.html:98
+msgid "Contact us through email"
+msgstr ""
+
+#: templates/base.html:99
+msgid "Contact us"
+msgstr ""
+
+#: templates/category_detail.html:11
+msgid "Mixtures on category"
+msgstr ""
+
+#: templates/index.html:47
+msgid ""
+"Hands, tools, desire: nothing more is needed to build from our imagination "
+"and, why not? from yours too. A place to find quality hand-made products, "
+"builders and recipes to become an expert. Create your own world by yourself "
+"or with other's help."
+msgstr ""
+
+#: templates/index.html:65
+msgid "View details"
+msgstr ""
+
+#: templates/index.html:73
+msgid "Show all categories"
+msgstr ""
+
+#: templates/mixture_detail.html:12
+msgid "All categories"
+msgstr ""
+
+#: templates/mixture_detail.html:55
+msgid "Recipe"
+msgstr ""
+
+#: templates/search_result.html:4
+msgid "Search for"
+msgstr ""
+
+#: templates/search_result.html:11
+msgid "Search result for"
+msgstr ""

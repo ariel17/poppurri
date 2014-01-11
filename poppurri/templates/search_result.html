@@ -1,15 +1,14 @@
 {% extends "base.html" %}
-{% load staticfiles %}
-{% load thumbnail %}
+{% load staticfiles thumbnail i18n %}
 
-{% block title %}Search for {{ query }}{% endblock title %}
+{% block title %}{% trans "Search for" %} {{ query }}{% endblock title %}
 
 {% block content-body %}
 
   <div class="row clearfix">
     <div class="col-md-12 column">
        <div class="page-header">
-        <h1><small>Search result for</small> "{{ query }}"</h1>
+           <h1><small>{% trans "Search result for" %}</small> "{{ query }}"</h1>
       </div>
     </div>
   </div>
@@ -17,8 +16,8 @@
   {% for mixture in mixture_result %}
     <div class="row clearfix">
       <div class="col-md-12 column">
-        <a href="{% url "mixture_slug" mixture.name|slugify %}">{{ mixture.name }}</a>
-        <p>{{ mixture.short_description }}</p>
+        <a href="{% url "mixture_slug" mixture.name|slugify %}">{% trans mixture.name %}</a>
+        <p>{% trans mixture.short_description %}</p>
       </div>
     </div>
   {% endfor %}
