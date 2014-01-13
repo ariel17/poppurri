@@ -12,14 +12,16 @@ from django.db import models
 from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 
+from common.models import Searchable
 
-class CategoryManager(models.Manager):
+
+class CategoryManager(models.Manager, Searchable):
     """
     TODO
     """
     use_for_related_field = True
 
-    def get_queryset(self):
+    def get_query_set(self):
         """
         TODO
         """
@@ -33,6 +35,15 @@ class CategoryManager(models.Manager):
         """
         return self.annotate(num_mixtures=Count('mixtures')).\
             order_by('-num_mixtures').filter(num_mixtures__gt=0)[:limit_to]
+
+    def search(self, q):
+        """
+        TODO
+        """
+        query = models.Q(name__icontains=q) | \
+            models.Q(description__icontains=q)
+
+        return self.get_query_set().filter(query)
 
 
 class Category(models.Model):

@@ -16,7 +16,7 @@
   {% for mixture in mixture_list %}
     <div class="row clearfix">
       <div class="col-md-12 column">
-        <a href="{% url "mixture_slug" mixture.slug %}">{% trans mixture.name %}</a>
+        <h1><a href="{% url "mixture_slug" mixture.slug %}">{% trans mixture.name %}</a></h1>
         <p>{% trans mixture.short_description %}</p>
       </div>
     </div>

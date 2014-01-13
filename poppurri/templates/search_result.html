@@ -1,25 +1,77 @@
 {% extends "base.html" %}
 {% load staticfiles thumbnail i18n %}
 
-{% block title %}{% trans "Search for" %} {{ query }}{% endblock title %}
+{% block title %}{% trans "Search for" %} {{ q }}{% endblock title %}
+
+{% block extra_css %}
+  <link href="{% static 'css/search.css' %}" rel="stylesheet">
+{% endblock extra_css %}
 
 {% block content-body %}
 
   <div class="row clearfix">
-    <div class="col-md-12 column">
-       <div class="page-header">
-           <h1><small>{% trans "Search result for" %}</small> "{{ query }}"</h1>
-      </div>
+    <div class="col-md-2 column search">
+      <h3>{% trans "Search" %}</h3>
     </div>
+    <form class="" role="search" method="get" action="{% url "search" %}">
+      <div class="col-md-8 column">
+        <div class="form-group">
+          <input type="text" name="{{ SEARCH_QUERY_PARAM }}" class="form-control" placeholder="{% trans "Author, category or mixture" %}" {% if q %}value="{{ q }}"{% endif %}>
+        </div>
+      </div>
+      <div class="col-md-2 column">
+        <button type="submit" class="btn btn-default">{% trans "Search" %}</button>
+      </div>
+    </form>
   </div>
 
-  {% for mixture in mixture_result %}
-    <div class="row clearfix">
-      <div class="col-md-12 column">
-        <a href="{% url "mixture_slug" mixture.name|slugify %}">{% trans mixture.name %}</a>
-        <p>{% trans mixture.short_description %}</p>
-      </div>
+  {% comment %}
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+       <div class="page-header">
+         <h1><small>{% trans "Search result for" %}</small> "{{ q }}"</h1>
+       </div>
     </div>
-  {% endfor %}
+  </div>
+  {% endcomment %}
+
+  {% if not mixture_result and not category_result %}
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <div class="page-header">
+            <h1>{% trans "Nothing was found that matches" %} "{{ q }}"</h1>
+          </div>
+        </div>
+      </div>
+
+  {% else %}
+
+    {% if mixture_result %}
+      <hr></hr>
+      <div class="row clearfix">
+        {% for mixture in mixture_result %}
+          <div class="col-md-12 column">
+            <h3><a href="{% url "mixture_slug" mixture.name|slugify %}">{% trans mixture.name %}</a></h3>
+            <p>{% trans mixture.short_description %}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if category_result %}
+      <hr></hr>
+      <div class="row clearfix">
+        <div class="divider"></div>
+        {% for category in category_result %}
+          <div class="col-md-12 column">
+            <h3><a href="{% url "category_detail_slug" category.name|slugify %}">{% trans category.name %}</a></h3>
+            <p>{% trans category.description %}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  {% endif %}
+
 
 {% endblock content-body %}
