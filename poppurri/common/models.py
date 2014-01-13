@@ -48,4 +48,16 @@ class ImageModel(models.Model):
     class Meta:
         abstract = True
 
+
+class Searchable(object):
+    """
+    TODO
+    """
+    def search(self, q):
+        """
+        TODO
+        """
+        raise NotImplementedError("Must implement the 'search' method.")
+
+
 # vim: ai ts=4 sts=4 et sw=4 ft=python
