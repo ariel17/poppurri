@@ -44,6 +44,7 @@
                 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
+                    <li {% ifequal view "home" %}class="active"{% endifequal %}>
                       <a href="{% url "index" %}">{% trans "Home" %}</a>
                     </li>
                     <li {% ifequal view "category" %}class="active"{% endifequal %}>
@@ -51,14 +52,12 @@
                     </li>
                   </ul>
 
-                  <ul class="nav navbar-nav">
-                    <form class="navbar-form navbar-left" role="search" method="get" action="{% url "search" %}">
-                      <div class="form-group">
-                        <input type="text" name="{{ SEARCH_QUERY_PARAM }}" class="form-control" placeholder="{% trans "Author, category or mixture" %}">
-                      </div>
-                      <button type="submit" class="btn btn-default">{% trans "Search" %}</button>
-                    </form>
-                  </ul>
+                  <form class="navbar-form navbar-left" role="search" method="get" action="{% url "search" %}">
+                    <div class="form-group">
+                      <input type="text" name="{{ SEARCH_QUERY_PARAM }}" class="form-control" placeholder="{% trans "Author, category or mixture" %}">
+                    </div>
+                    <button type="submit" class="btn btn-default">{% trans "Search" %}</button>
+                  </form>
 
                   <ul class="nav navbar-nav navbar-right">
                     <form class="navbar-form navbar-right" action="/i18n/setlang/" method="post">
