@@ -14,10 +14,10 @@ from django.utils.translation import ugettext_lazy as _
 
 from djangoratings.fields import RatingField
 
-from common.models import ImageModel
+from common.models import ImageModel, Searchable
 
 
-class MixtureManager(models.Manager):
+class MixtureManager(models.Manager, Searchable):
     """
     A custom manager to add functionallity related to table level of
     :model:`mixture.Mixture`.
@@ -35,6 +35,16 @@ class MixtureManager(models.Manager):
         return self.get_query_set().filter(
             rating_score__gte=max_rate,
         )[:limit_to]
+
+    def search(self, q):
+        """
+        TODO
+        """
+        query = models.Q(name__icontains=q) | \
+            models.Q(short_description__icontains=q) | \
+            models.Q(long_description__icontains=q)
+
+        return self.get_query_set().filter(query)
 
 
 class Mixture(models.Model):
