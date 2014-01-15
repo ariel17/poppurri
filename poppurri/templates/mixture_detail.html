@@ -6,6 +6,7 @@
 {% block content-body %}
   {% if category_tree %}
     <ul class="breadcrumb">
+      <li><a href="{% url "index" %}">{% trans "Home" %}</a></li>
       <li>
         <a href="{% url "category_list" %}">{% trans "All categories" %}</a> <span class="divider"></span>
       </li>

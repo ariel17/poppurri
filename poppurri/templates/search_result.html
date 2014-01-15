@@ -9,6 +9,13 @@
 
 {% block content-body %}
 
+  <ul class="breadcrumb">
+    <li>
+      <a href="{% url "index" %}">{% trans "Home" %}</a> <span class="divider"></span>
+    </li>
+    <li class="active">{% trans "Search" %}</li>
+  </ul>
+
   <div class="row clearfix">
     <div class="col-md-2 column search">
       <h3>{% trans "Search" %}</h3>
