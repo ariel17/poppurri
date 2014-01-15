@@ -5,12 +5,18 @@
 
 {% block content-body %}
 
-  <div class="row clearfix">
-    <div class="col-md-12 column">
-       <div class="page-header">
-         <h1><small>{% trans "Mixtures on category" %}</small> {% trans category.name %}</h1>
-      </div>
-    </div>
+  <ul class="breadcrumb">
+    <li>
+      <a href="{% url "index" %}">{% trans "Home" %}</a> <span class="divider"></span>
+    </li>
+    <li>
+      <a href="{% url "category_list" %}">{% trans "All categories" %}</a>
+    </li>
+    <li class="active">{% trans category.name %}</li>
+  </ul>
+
+  <div class="page-header">
+    <h1><small>{% trans "Mixtures on category" %}</small> {% trans category.name %}</h1>
   </div>
 
   {% for mixture in mixture_list %}
