@@ -7,6 +7,7 @@ Description: TODO
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
+from django.db.models import Q
 from django.views.generic import TemplateView
 
 from .models import Category
@@ -39,7 +40,9 @@ class CategoryDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
 
-        category = Category.final.get(slug=self.kwargs['slug'])
+        category = Category.final.get(
+            Q(slug_en=self.kwargs['slug']) | Q(slug_es=self.kwargs['slug'])
+        )
         context['category'] = category
         context['mixture_list'] = Mixture.published.filter(category=category)
         return context

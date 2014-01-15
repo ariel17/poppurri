@@ -13,7 +13,7 @@
 
       {% for category in category_tree %}  
         <li>
-          <a href="{% url "category_detail_slug" category.name|slugify %}">
+          <a href="{% url "category_detail_slug" category.slug %}">
             {% trans category.name %}
           </a>
           <span class="divider"></span>

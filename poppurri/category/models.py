@@ -12,6 +12,8 @@ from django.db import models
 from django.db.models import Count
 from django.utils.translation import ugettext_lazy as _
 
+from transmeta import TransMeta
+
 from common.models import Searchable
 
 
@@ -50,6 +52,8 @@ class Category(models.Model):
     """
     TODO
     """
+    __metaclass__ = TransMeta
+
     parent = models.ForeignKey(
         'self',
         null=True,
@@ -73,6 +77,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
+        translate = ('name', 'description', 'slug')
 
     def __unicode__(self):
         return unicode(self.name)
