@@ -3,6 +3,10 @@
 
 {% block title %}{% trans "Categories" %}{% endblock title %}
 
+{% block extra_css %}
+  <link href="{% static 'css/category.css' %}" rel="stylesheet">
+{% endblock extra_css %}
+
 {% block content-body %}
 
   <ul class="breadcrumb">
@@ -21,10 +25,28 @@
 
   {% for mixture in mixture_list %}
     <div class="row clearfix">
-      <div class="col-md-12 column">
-        <h1><a href="{% url "mixture_slug" mixture.slug %}">{% trans mixture.name %}</a></h1>
-        <p>{% trans mixture.short_description %}</p>
-      </div>
+      <ul>
+        <li>
+          <div class="col-md-1 column mixture-item">
+            {% with mixture.images.random_outstanding_image as mixture_image %}
+              {% thumbnail mixture_image.image "100x100" crop="center" as im %}
+                <a href="{% url "mixture_slug" mixture.name|slugify %}" class="thumbnail">
+                  <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
+                </a>
+              {% endthumbnail %}
+            {% endwith %}
+          </div>
+
+          <div class="col-md-10 column">
+            <h1 class="mixture-title"><a href="{% url "mixture_slug" mixture.slug %}">{% trans mixture.name %}</a></h1>
+            <p>{% trans mixture.short_description %}</p>
+          </div>
+        </li>
+
+        {% if not forloop.last %}
+          <li><hr /></li>
+        {% endif %}
+      </ul>
     </div>
   {% endfor %}
 
