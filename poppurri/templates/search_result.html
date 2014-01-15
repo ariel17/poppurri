@@ -58,7 +58,7 @@
       <div class="row clearfix">
         {% for mixture in mixture_result %}
           <div class="col-md-12 column">
-            <h3><a href="{% url "mixture_slug" mixture.name|slugify %}">{% trans mixture.name %}</a></h3>
+            <h3><a href="{% url "mixture_slug" mixture.slug %}">{% trans mixture.name %}</a></h3>
             <p>{% trans mixture.short_description %}</p>
           </div>
         {% endfor %}
@@ -71,7 +71,7 @@
         <div class="divider"></div>
         {% for category in category_result %}
           <div class="col-md-12 column">
-            <h3><a href="{% url "category_detail_slug" category.name|slugify %}">{% trans category.name %}</a></h3>
+            <h3><a href="{% url "category_detail_slug" category.slug %}">{% trans category.name %}</a></h3>
             <p>{% trans category.description %}</p>
           </div>
         {% endfor %}

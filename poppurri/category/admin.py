@@ -15,7 +15,8 @@ from .models import Category
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent', 'is_final')
     prepopulated_fields = {
-        'slug': ('name', ),
+        'slug_en': ('name_en', ),
+        'slug_es': ('name_es', ),
     }
 
 
