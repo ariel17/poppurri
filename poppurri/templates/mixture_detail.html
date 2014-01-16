@@ -3,6 +3,10 @@
 
 {% block title %}{% trans object.name %}{% endblock title %}
 
+{% block extra_css %}
+  <link href="{% static 'css/mixture.css' %}" rel="stylesheet">
+{% endblock extra_css %}
+
 {% block content-body %}
   {% if category_tree %}
     <ul class="breadcrumb">
@@ -31,7 +35,7 @@
   {% if object.images %}
     <div class="row">
       {% for image in object.images.all %}
-        <div class="col-xs-6 col-md-3">
+        <div class="col-xs-6 col-md-1">
           {% thumbnail image.image "150x150" crop="center" as im %}
             <a href="#launch{{ image.id }}" class="thumbnail" data-toggle="modal">
               <img alt="{% trans image.alt %}" src="{{ im.url }}" />
@@ -45,15 +49,19 @@
       <div id="launch{{ image.id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="image-{{ image.id }}-modal" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body">
+            {% comment %}
+              <div class="modal-header">
+              </div>
+              <div class="modal-body">
+            {% endcomment %}
               {% thumbnail image.image "500x500" crop="center" as im %}
                 <img alt="{% trans image.alt %}" src="{{ im.url }}" />
               {% endthumbnail %}
-            </div>
-            <div class="modal-footer">
-            </div>
+            {% comment %}
+              </div>
+              <div class="modal-footer">
+              </div>
+            {% endcomment %}
           </div>
         </div>
       </div>
