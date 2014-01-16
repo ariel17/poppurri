@@ -44,11 +44,11 @@
                 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                    <li {% ifequal view "home" %}class="active"{% endifequal %}>
-                      <a href="{% url "index" %}">{% trans "Home" %}</a>
-                    </li>
                     <li {% ifequal view "category" %}class="active"{% endifequal %}>
                       <a href="{% url "category_list" %}">{% trans "All categories" %}</a>
+                    </li>
+                    <li {% ifequal view "mixture" %}class="active"{% endifequal %}>
+                      <a href="{% url "mixture_list" %}">{% trans "All Mixtures" %}</a>
                     </li>
                   </ul>
 

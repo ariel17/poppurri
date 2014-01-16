@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load staticfiles thumbnail i18n %}
+
+{% block title %}{% trans "All mixtures" %}{% endblock title %}
+
+{% block extra_css %}
+  <link href="{% static 'css/category.css' %}" rel="stylesheet">
+{% endblock extra_css %}
+
+{% block content-body %}
+
+  <ul class="breadcrumb">
+    <li>
+      <a href="{% url "index" %}">{% trans "Home" %}</a> <span class="divider"></span>
+    </li>
+    <li class="active">{% trans "All mixtures" %}</li>
+  </ul>
+
+  <div class="page-header">
+    <h1>{% trans "All mixtures" %}</h1>
+  </div>
+
+  {% for mixture in object_list %}
+    <div class="row clearfix">
+      <ul>
+        <li>
+          <div class="col-md-1 column mixture-item">
+            {% with mixture.images.random_outstanding_image as mixture_image %}
+              {% thumbnail mixture_image.image "100x100" crop="center" as im %}
+                <a href="{% url "mixture_detail_slug" mixture.slug %}" class="thumbnail">
+                  <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
+                </a>
+              {% endthumbnail %}
+            {% endwith %}
+          </div>
+
+          <div class="col-md-10 column">
+            <h1 class="mixture-title"><a href="{% url "mixture_detail_slug" mixture.slug %}">{% trans mixture.name %}</a></h1>
+            <p>{% trans mixture.short_description %}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  {% endfor %}
+
+  <div class="row clearfix text-center">
+    <ul class="pagination">
+      <li {% if not object_list.paginator.has_previous %}class="disabled"{% endif %}>
+        <a href="?page={{ object_list.paginator.previous_page_number }}">&laquo;</a>
+      </li>
+      {% for page_number in page_numbers %}
+        <li {% ifequal object_list.number page_number.1 %}class="active"{% endifequal %}>
+          <a href="?page={{ page_number.1 }}">{{ page_number.1 }}</a>
+        </li>
+      {% endfor %}
+      <li {% if not object_list.paginator.has_next %}class="disabled"{% endif %}>
+        <a href="?page={{ object_list.paginator.next_page_number }}">&raquo;</a>
+      </li>
+    </ul>
+  </div>    
+
+{% endblock content-body %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
