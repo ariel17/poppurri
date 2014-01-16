@@ -12,6 +12,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from transmeta import TransMeta
 from djangoratings.fields import RatingField
 
 from common.models import ImageModel, Searchable
@@ -51,6 +52,8 @@ class Mixture(models.Model):
     """
     Represents a hand-made object or service.
     """
+    __metaclass__ = TransMeta
+
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     name = models.CharField(
         _(u"Name"),
@@ -86,6 +89,9 @@ class Mixture(models.Model):
 
     objects = models.Manager()
     published = MixtureManager()
+
+    class Meta:
+        translate = ('name', 'short_description', 'long_description', 'slug')
 
     def __unicode__(self):
         return unicode(self.name)
@@ -136,6 +142,8 @@ class Recipe(models.Model):
     """
     TODO
     """
+    __metaclass__ = TransMeta
+
     mixture = models.ForeignKey(u"Mixture", related_name=u"recipes")
     item = models.CharField(_(u"Item name"), max_length=100)
     amount = models.CharField(
@@ -145,5 +153,7 @@ class Recipe(models.Model):
         null=True
     )
 
+    class Meta:
+        translate = ('item', )
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

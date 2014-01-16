@@ -69,7 +69,8 @@ class MixtureAdmin(admin.ModelAdmin):
     )
     list_filter = ('is_published',)
     prepopulated_fields = {
-        'slug': ('name', ),
+        'slug_en': ('name_en', ),
+        'slug_es': ('name_es', ),
     }
     inlines = [MixtureImageInline, RecipeInline, ]
 

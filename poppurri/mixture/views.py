@@ -7,13 +7,14 @@ Description: TODO
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
-from django.views.generic.detail import DetailView
+from django.db.models import Q
+from django.views.generic import TemplateView
 
 from .models import Mixture
 from category.models import Category
 
 
-class MixtureDetailView(DetailView):
+class MixtureDetailView(TemplateView):
     """
     TODO
     """
@@ -22,7 +23,12 @@ class MixtureDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(MixtureDetailView, self).get_context_data(**kwargs)
-        context["category_tree"] = Category.tree(context["object"].category)
+
+        mixture = Mixture.published.get(
+            Q(slug_en=self.kwargs['slug']) | Q(slug_es=self.kwargs['slug'])
+        )
+        context["category_tree"] = Category.tree(mixture.category)
+        context['object'] = mixture
         return context
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
