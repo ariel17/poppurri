@@ -58,7 +58,7 @@
       <div class="row clearfix">
         {% for mixture in mixture_result %}
           <div class="col-md-12 column">
-            <h3><a href="{% url "mixture_slug" mixture.slug %}">{% trans mixture.name %}</a></h3>
+            h3><a href="{% url "mixture_detail_slug" mixture.slug %}">{% trans mixture.name %}</a></h3>
             <p>{% trans mixture.short_description %}</p>
           </div>
         {% endfor %}
