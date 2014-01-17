@@ -41,9 +41,12 @@ class MixtureManager(models.Manager, Searchable):
         """
         TODO
         """
-        query = models.Q(name__icontains=q) | \
-            models.Q(short_description__icontains=q) | \
-            models.Q(long_description__icontains=q)
+        query = models.Q(name_en__icontains=q) | \
+            models.Q(name_es__icontains=q) | \
+            models.Q(short_description_en__icontains=q) | \
+            models.Q(short_description_es__icontains=q) | \
+            models.Q(long_description_en__icontains=q) | \
+            models.Q(long_description_es__icontains=q)
 
         return self.get_query_set().filter(query)
 
