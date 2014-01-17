@@ -9,24 +9,25 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 from django.db.models import Q
 from django.views.generic import TemplateView
+from django.views.generic.list import ListView
 
 from .models import Category
 from mixture.models import Mixture
 
 
-class CategoryListView(TemplateView):
+class CategoryListView(ListView):
     """
     TODO
     """
     template_name = 'category_list.html'
     model = Category
 
+    def get_queryset(self):
+        return Category.final.all()
+
     def get_context_data(self, **kwargs):
         context = super(CategoryListView, self).get_context_data(**kwargs)
         context['view'] = 'category'
-        context['category_list'] = [
-            Category.tree(c) for c in Category.objects.filter(is_final=True)
-        ]
         return context
 
 
