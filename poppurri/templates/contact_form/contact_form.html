@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load staticfiles thumbnail i18n %}
+
+{% block title %}{% trans "Contact us" %}{% endblock title %}
+
+{% block extra_css %}{% endblock extra_css %}
+
+{% block content-body %}
+
+  <ul class="breadcrumb">
+    <li>
+      <a href="{% url "index" %}">{% trans "Home" %}</a> <span class="divider"></span>
+    </li>
+    <li class="active">{% trans "Contact us" %}</li>
+  </ul>
+
+  <div class="page-header">
+    <h1>{% trans "Contact us" %}</h1>
+  </div>
+
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h4>{% trans "Let us know what you think about the site, if you want to expose your work here or just say \"Hi!\"; we want to know everything about you! We will be greatful to respond you as soon as possible." %}</h4>
+    </div>
+  </div>
+ 
+  <div class="row clearfix">
+    <div class="col-md-6 column">
+      {% include "contact_form/_contact_form.html" %}
+    </div>
+  </div>
+
+{% endblock %}

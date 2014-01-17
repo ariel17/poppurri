@@ -86,15 +86,21 @@
     {% endif %}
   </div>
 
-  {% comment %}
-    <div class="row clearfix">
-      <div class="col-md-8 column">
-        <img alt="The author name" src="http://lorempixel.com/100/100/" class="img-circle" />
-        <p>User profile and description</p>
-        <button type="button" class="btn btn-default">Send me an email</button>
-      </div>
+  <hr />
+
+  <h1 class="separated text-center">{% trans "Want contact the author? Or want to buy?" %}</h1>
+
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <p>{% trans "Send a message to this mixture's author about your opinion about it. You want to buy this work? No problem! Send him a message to put his hands to work for you!" %}</p>
     </div>
-  {% endcomment %}
+  </div>
+
+  <div class="row clearfix">
+    <div class="col-md-6 col-md-offset-3">
+      {% include "contact_form/_contact_form.html" %}
+    </div>
+  </div>
 {% endblock content-body %}
 
 {% block extra_js %}
