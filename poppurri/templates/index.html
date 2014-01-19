@@ -54,10 +54,10 @@
       </div>
     </div>
     <div class="row clearfix">
-        <div class="col-md-6 col-md-offset-3">
-          <a class="btn btn-primary btn-lg btn-block" href="{% url "mixture_list" %}">
-            {% trans "Show all mixtures" %}
-          </a>
+      <div class="col-md-6 col-md-offset-3">
+        <a class="btn btn-primary btn-lg btn-block" href="{% url "mixture_list" %}">
+          {% trans "Show all mixtures" %}
+        </a>
       </div>
     </div>
   </div>
@@ -72,6 +72,10 @@
 
   <div class="row clearfix">
   </div>
+
+  <hr />
+
+  <h1 class="separated text-center">{% trans "Browse through categories for more mixtures" %}</h1>
 
   <div class="row clearfix">
     {% for category in top_categories %}
@@ -95,6 +99,16 @@
       <a class="btn btn-primary btn-lg" href="{% url "category_list" %}">
         {% trans "Show all categories" %}
       </a>
+    </div>
+  </div>
+
+  <hr />
+
+  <h1 class="separated text-center">{% trans "Want to join? Let us know!" %}</h1>
+
+  <div class="row clearfix">
+    <div class="col-md-6 col-md-offset-3">
+      {% include "contact_form/_contact_form.html" %}
     </div>
   </div>
 {% endblock content-body %}

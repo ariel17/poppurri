@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # Application views
+    url(r'^contact/', include('contact_form.urls')),
     url(r'^category/', include('category.urls')),
     url(r'^mixture/', include('mixture.urls')),
     url(r'^search/', include('search.urls')),

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load staticfiles thumbnail i18n %}
+
+{% block title %}{% trans "Contact us" %}{% endblock title %}
+
+{% block extra_css %}{% endblock extra_css %}
+
+{% block content-body %}
+
+  <ul class="breadcrumb">
+    <li>
+      <a href="{% url "index" %}">{% trans "Home" %}</a> <span class="divider"></span>
+    </li>
+    <li class="active">{% trans "Contact us" %}</li>
+  </ul>
+
+  <div class="page-header">
+    <h1><small>{% trans "Message sent." %}</small> {% trans "Thank you!" %}</h1>
+  </div>
+
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h4>{% trans "We have received your message! Thank you very much for your word; we will be contacting you very soon. Meanwhile..." %}</h4>
+    </div>
+  </div>
+  
+  <div class="row clearfix">
+    <div class="col-md-6 column">
+       <ul>
+         <li><a href="{% url "mixture_list" %}">Go to mixture list page.</a></li>
+         <li><a href="{% url "index" %}">Go back to Home page.</a></li>
+         <li><a href="{% url "search" %}">Search an item in the site.</a></li>
+       </ul>
+    </div>
+  </div>
+
+{% endblock %}
