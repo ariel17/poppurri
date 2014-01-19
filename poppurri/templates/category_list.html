@@ -16,24 +16,16 @@
     <h1>{% trans "All categories" %}</h1>
   </div>
 
-  {% if category_list %}
-    {% for category_tree in category_list %}
-      <ul class="breadcrumb">
-        {% for category in category_tree %}  
-          {% if forloop.last %}
-            <li class="active">
-              <a href="{% url "category_detail_slug" category.slug %}">
-                {% trans category.name %}
-              </a>
-            </li>
-          {% else %}
-            <li>
-              {% trans category.name %} <span class="divider"></span>
-            </li>
-          {% endif %}
+  {% if object_list %}
+      <div class="row clearfix">
+        <div class="divider"></div>
+        {% for category in object_list %}
+          <div class="col-md-12 column">
+            <h3><a href="{% url "category_detail_slug" category.slug %}">{% trans category.name %}</a></h3>
+            <p>{% trans category.description %}</p>
+          </div>
         {% endfor %}
-      </ul>
-    {% endfor %}
+      </div>
   {% endif %}
 
 {% endblock content-body %}
