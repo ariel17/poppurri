@@ -69,21 +69,68 @@
   {% endif %}
 
   <div class="row clearfix">
-    <p>{% trans object.long_description %}</p>
+    <div class="col-md-4 column">
+      <div class="thumbnail">
+      {% with object.images.random_outstanding_image as mixture_image %}
+        {% thumbnail mixture_image.image "350x350" crop="center" as im %}
+          <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
+        {% endthumbnail %}
+      {% endwith %}
+    </div>
+    </div>
+    <div class="col-md-12 column">
+      <p>{% trans object.long_description %}</p>
+    </div>
   </div>
 
   <div class="row clearfix">
-    {% if object.recipes.all %}
-      <div class="col-md-4 column">
-          <div><h1>{% trans "Recipe" %}</h1></div>
-        <dl>
-          {% for recipe in object.recipes.all %}
-            <dt>{% trans recipe.item %}</dt>
-            <dd>{% trans recipe.amount %}</dd>
-          {% endfor %}
-        </dl>
-      </div>
-    {% endif %}
+    <div class="col-md-12 column">
+      {% if not object.materials.all and not object.steps.all %}
+        <p>{% trans "This mixture does not have a recipe." %}</p>
+      {% else %}
+        <h3>{% trans "Recipe" %}</h3>
+
+        {% if object.materials.all %}
+          <div class="col-md-4 column">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="text-center">{% trans "Item" %}</th>
+                  <th class="text-center">{% trans "Amount" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for material in object.materials.all %}
+                  <tr>
+                    <td class="text-center">{% trans material.item %}</td>
+                    <td class="text-center">{% trans material.amount %}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% endif %}
+
+        {% if object.steps.all %}
+          <div class="col-md-8 column">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="text-center">{% trans "Steps" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for step in object.steps.all %}
+                  <tr>
+                    <td>{% trans step.description %}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
   </div>
 
   <hr />

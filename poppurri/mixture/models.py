@@ -141,13 +141,13 @@ class MixtureImage(ImageModel):
     objects = MixtureImageManager()
 
 
-class Recipe(models.Model):
+class Material(models.Model):
     """
     TODO
     """
     __metaclass__ = TransMeta
 
-    mixture = models.ForeignKey(u"Mixture", related_name=u"recipes")
+    mixture = models.ForeignKey(u"Mixture", related_name=u"materials")
     item = models.CharField(_(u"Item name"), max_length=100)
     amount = models.CharField(
         _(u"Item amout"),
@@ -158,5 +158,17 @@ class Recipe(models.Model):
 
     class Meta:
         translate = ('item', )
+
+
+class Step(models.Model):
+    """
+    TODO
+    """
+    __metaclass__ = TransMeta
+    mixture = models.ForeignKey(u"Mixture", related_name=u"steps")
+    description = models.CharField(_(u"Step description"), max_length=255)
+
+    class Meta:
+        translate = ('description', )
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
