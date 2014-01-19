@@ -49,4 +49,7 @@ SECRET_KEY = get_env_setting('SECRET_KEY')
 INSTALLED_APPS += ('gunicorn',)
 ########## END INSTALLED APPS
 
+
+USE_GOOGLE_ANALYTICS = True
+
 # vim: ai ts=4 sts=4 et sw=4 ft=python

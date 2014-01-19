@@ -12,7 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
-from .models import Mixture, MixtureImage, Recipe
+from .models import Mixture, MixtureImage, Material, Step
 from category.models import Category
 
 
@@ -32,7 +32,7 @@ class MixtureImageInline(admin.StackedInline):
     extra = 1
 
 
-class RecipeAdmin(admin.ModelAdmin):
+class MaterialAdmin(admin.ModelAdmin):
     list_display = ('item', 'amount', 'link_mixture', )
 
     def link_mixture(self, obj):
@@ -46,8 +46,27 @@ class RecipeAdmin(admin.ModelAdmin):
     link_mixture.short_description = _(u'Mixture')
 
 
-class RecipeInline(admin.StackedInline):
-    model = Recipe
+class StepAdmin(admin.ModelAdmin):
+    list_display = ('id', 'description', 'link_mixture', )
+
+    def link_mixture(self, obj):
+        content_type = ContentType.objects.get_for_model(Mixture)
+        url = reverse(u"admin:%s_%s_change" % (
+            content_type.app_label, content_type.model),
+            args=(obj.mixture.pk,))
+        return u"<a href='{0}'>{1}</a>".format(url, obj.mixture.name)
+
+    link_mixture.allow_tags = True
+    link_mixture.short_description = _(u'Mixture')
+
+
+class MaterialInline(admin.StackedInline):
+    model = Material
+    extra = 1
+
+
+class StepInline(admin.StackedInline):
+    model = Step
     extra = 1
 
 
@@ -72,7 +91,7 @@ class MixtureAdmin(admin.ModelAdmin):
         'slug_en': ('name_en', ),
         'slug_es': ('name_es', ),
     }
-    inlines = [MixtureImageInline, RecipeInline, ]
+    inlines = [MixtureImageInline, MaterialInline, StepInline, ]
 
     def link_category(self, obj):
         content_type = ContentType.objects.get_for_model(Category)
@@ -87,7 +106,8 @@ class MixtureAdmin(admin.ModelAdmin):
 
 admin.site.register(Mixture, MixtureAdmin)
 admin.site.register(MixtureImage, MixtureImageAdmin)
-admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(Material, MaterialAdmin)
+admin.site.register(Step, StepAdmin)
 
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
