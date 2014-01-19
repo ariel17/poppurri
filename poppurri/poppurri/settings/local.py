@@ -92,4 +92,9 @@ THUMBNAIL_REDIS_DB = u"poppurri"
 ########## END sorl-thumbnail CONFIGURATION
 
 
+########## GOOGLE ANALYTICS CONFIGURATION
+USE_GOOGLE_ANALYTICS = False
+########## END GOOGLE ANALYTICS CONFIGURATION
+
+
 # vim: ai ts=4 sts=4 et sw=4 ft=python
