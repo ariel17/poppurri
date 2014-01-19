@@ -95,16 +95,20 @@
       <div class="row clearfix">&nbsp;</div>
 
       <footer class="text-muted panel-footer">
-        <div class="col-md-6 column text-left">
+        <div class="col-md-4 column text-left">
           © 2013 Poppurri
         </div>
-        <div class="col-md-6 column text-right">
+        <div class="col-md-4 column text-right">
+          {% include "facebook_share.html" %}
+          {% include "twitter_share.html" %}
+        </div>
+        <div class="col-md-4 column text-right">
           <a href="{% url "contact_form" %}" title="{% trans "Contact us" %}">
             {% trans "Contact us" %}
           </a>
         </div>
       </footer>
-      
+
     </div> <!-- /container -->
     
     <!-- Le javascript
