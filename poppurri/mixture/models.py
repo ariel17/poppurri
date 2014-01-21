@@ -41,6 +41,9 @@ class MixtureManager(models.Manager, Searchable):
         """
         TODO
         """
+        if q is None or not q.strip():
+            return self.none()
+
         query = models.Q(name_en__icontains=q) | \
             models.Q(name_es__icontains=q) | \
             models.Q(short_description_en__icontains=q) | \
