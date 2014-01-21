@@ -42,6 +42,9 @@ class CategoryManager(models.Manager, Searchable):
         """
         TODO
         """
+        if q is None or not q.strip():
+            return self.none()
+
         query = models.Q(name_en__icontains=q) | \
             models.Q(name_es__icontains=q) | \
             models.Q(description_en__icontains=q) | \
@@ -99,7 +102,6 @@ class Category(models.Model):
         """
         TODO
         """
-
         if not child_category:
             return None
 
