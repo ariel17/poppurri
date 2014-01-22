@@ -18,7 +18,10 @@
 
   <div class="row clearfix">
     <div class="col-md-2 column search">
-      <h3>{% trans "Search" %}</h3>
+        <h3>
+          <span class="glyphicon glyphicon-search"></span>
+          {% trans "Search" %}
+        </h3>
     </div>
     <form class="" role="search" method="get" action="{% url "search" %}">
       <div class="col-md-8 column">
@@ -48,7 +51,9 @@
       <div class="row clearfix">
         <div class="col-md-12 column">
           <div class="page-header">
-            <h1>{% trans "Nothing was found that matches" %} "{{ q }}"</h1>
+            {% if q %}
+              <h1>{% trans "Nothing was found that matches" %} "{{ q }}"</h1>
+            {% endif %}
           </div>
         </div>
       </div>

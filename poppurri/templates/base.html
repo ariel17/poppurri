@@ -57,7 +57,10 @@
                     <div class="form-group">
                       <input type="text" name="{{ SEARCH_QUERY_PARAM }}" class="form-control" placeholder="{% trans "Author, category or mixture" %}">
                     </div>
-                    <button type="submit" class="btn btn-default">{% trans "Search" %}</button>
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                        {% trans "Search" %}
+                    </button>
                   </form>
 
                   <ul class="nav navbar-nav navbar-right">
