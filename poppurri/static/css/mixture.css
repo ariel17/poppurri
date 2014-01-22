@@ -5,3 +5,7 @@
 .modal-dialog {
   width: 500px;
 }
+
+.slim-breadcrumb {
+  margin: 0px;
+}
