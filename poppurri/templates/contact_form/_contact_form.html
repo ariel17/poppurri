@@ -13,7 +13,7 @@
   {% csrf_token %}
   <div class="form-group">
     <label for="id_{{ form.name.name }}">{{ form.name.label }}</label>
-    <input type="text" class="form-control" id="id_name" placeholder="{% trans "Jhon Doe" %}">
+    <input type="text" class="form-control" id="id_{{ form.name.name }}" name="{{ form.name.name }}" placeholder="{% trans "Jhon Doe" %}">
     {% if form.name.errors %}
         {% for error in form.name.errors %}
           <p class="alert-danger"><strong>{{ error|escape }}</strong></p>
@@ -22,7 +22,7 @@
   </div>
   <div class="form-group">
       <label for="id_{{ form.email.name }}">{{ form.email.label }}</label>
-      <input type="email" class="form-control" id="id_{{ form.email.name }}" placeholder="{% trans "jhon@domain.com" %}">
+      <input type="email" class="form-control" id="id_{{ form.email.name }}" name="{{ form.email.name }}" placeholder="{% trans "jhon@domain.com" %}">
     {% if form.email.errors %}
       {% for error in form.email.errors %}
         <p class="alert-danger"><strong>{{ error|escape }}</strong></p>
@@ -31,7 +31,7 @@
   </div>
   <div class="form-group">
     <label for="id_{{ form.body.name }}">{{ form.body.label }}</label>
-    <textarea class="form-control" rows="5" id="id_{{ form.body.name }}" placeholder="{% trans "Hi! I want contact you because ..." %}"></textarea>
+    <textarea class="form-control" rows="5" id="id_{{ form.body.name }}" name="{{ form.body.name }}" placeholder="{% trans "Hi! I want contact you because ..." %}"></textarea>
     {% if form.body.errors %}
       {% for error in form.body.errors %}
         <p class="alert-danger"><strong>{{ error|escape }}</strong></p>
