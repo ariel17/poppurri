@@ -10,7 +10,7 @@
 {% block content-body %}
   {% if category_tree %}
     <ul class="breadcrumb slim-breadcrumb">
-      <li><a href="{% url "index" %}">{% trans "Home" %}</a></li>
+      <li><a href="{% url "home" %}">{% trans "Home" %}</a></li>
       <li>
         <a href="{% url "category_list" %}">{% trans "All categories" %}</a> <span class="divider"></span>
       </li>
@@ -145,7 +145,11 @@
 
   <hr />
 
-  <h1 class="separated text-center">{% trans "Want contact the author? Or want to buy?" %}</h1>
+  <h1 class="separated text-center">
+    <span class="glyphicon glyphicon-send"></span>
+    {% trans "Want contact the author? Or want to buy?" %}
+    <span class="glyphicon glyphicon-shopping-cart"></span>
+  </h1>
 
   <div class="row clearfix">
     <div class="col-md-12 column">

@@ -9,7 +9,7 @@
 
   <ul class="breadcrumb">
     <li>
-      <a href="{% url "index" %}">{% trans "Home" %}</a> <span class="divider"></span>
+      <a href="{% url "home" %}">{% trans "Home" %}</a> <span class="divider"></span>
     </li>
     <li class="active">{% trans "Contact us" %}</li>
   </ul>
@@ -28,7 +28,7 @@
     <div class="col-md-6 column">
        <ul>
          <li><a href="{% url "mixture_list" %}">Go to mixture list page.</a></li>
-         <li><a href="{% url "index" %}">Go back to Home page.</a></li>
+         <li><a href="{% url "home" %}">Go back to Home page.</a></li>
          <li><a href="{% url "search" %}">Search an item in the site.</a></li>
        </ul>
     </div>
