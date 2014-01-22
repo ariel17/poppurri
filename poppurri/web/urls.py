@@ -9,11 +9,11 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 from django.conf.urls import patterns, url
 
-from .views import IndexView
+from .views import HomeView
 
 
 urlpatterns = patterns('',
-    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^$', HomeView.as_view(), name='home'),
 )
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
