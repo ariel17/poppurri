@@ -37,16 +37,6 @@
 
   <hr />
 
-  {% comment %}
-  <div class="row clearfix">
-    <div class="col-md-12 column">
-       <div class="page-header">
-         <h1><small>{% trans "Search result for" %}</small> "{{ q }}"</h1>
-       </div>
-    </div>
-  </div>
-  {% endcomment %}
-
   {% if not mixture_result and not category_result %}
       <div class="row clearfix">
         <div class="col-md-12 column">
@@ -72,7 +62,12 @@
       <div class="row clearfix">
         {% for mixture in mixture_result %}
           <div class="col-md-12 column">
-              <h3><a href="{% url "mixture_detail_slug" mixture.slug %}">{% trans mixture.name %}</a></h3>
+            <h3>
+              <a href="{% url "mixture_detail_slug" mixture.slug %}">
+                <span class="glyphicon glyphicon-th-large"></span>
+                {% trans mixture.name %}
+              </a>
+            </h3>
             <p>{% trans mixture.short_description %}</p>
           </div>
         {% endfor %}
@@ -98,7 +93,12 @@
         <div class="divider"></div>
         {% for category in category_result %}
           <div class="col-md-12 column">
-            <h3><a href="{% url "category_detail_slug" category.slug %}">{% trans category.name %}</a></h3>
+            <h3>
+              <a href="{% url "category_detail_slug" category.slug %}">
+                <span class="glyphicon glyphicon-tag"></span>
+                {% trans category.name %}
+              </a>
+            </h3>
             <p>{% trans category.description %}</p>
           </div>
         {% endfor %}

@@ -64,7 +64,10 @@
 
   <hr />
 
-  <h1 class="separated text-center">{% trans "Browse through categories for more mixtures" %}</h1>
+  <h1 class="separated text-center">
+    <span class="glyphicon glyphicon-tags"></span>
+    {% trans "Browse through categories for more mixtures" %}
+  </h1>
 
   <div class="row clearfix">
     {% for category in top_categories %}
@@ -75,7 +78,12 @@
               <img alt="{% trans mixture_image.image.alt %}" src="{{ im.url }}" class="img-circle">
             {% endthumbnail %}
           {% endwith %}
-          <h2><a href="{% url "category_detail_slug" category.slug %}">{% trans category.name %}</a></h2>
+          <h2>
+            <a href="{% url "category_detail_slug" category.slug %}">
+              <span class="glyphicon glyphicon-tag"></span>
+              {% trans category.name %}
+            </a>
+          </h2>
           <p>{% trans top_mixture.short_description %}</p>
           <p><a class="btn" href="{% url "mixture_detail_slug" top_mixture.slug %}">{% trans "View details" %} »</a></p>
         {% endwith %}
