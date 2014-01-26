@@ -54,29 +54,30 @@
     </div>
   </div>
 
-  <div class="jumbotron well">
-    <div class="row clearfix">
-      <div class="col-md-12 column">
-        <p>
-        {% trans "Find quality handmade products or recipes to do it by yourself. Contact experts to concrete beautiful works." %} <a href="#">{% trans "Read more" %} »</a>
-        </p>
-      </div>
+  <hr />
+
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h1 class="separated text-center">
+        {% trans "See more products from builders to learn how to build or buy" %}
+      </h1>
     </div>
-    <div class="row clearfix">
-      <div class="col-md-6 col-md-offset-3">
-        <a class="btn btn-primary btn-lg btn-block" href="{% url "mixture_list" %}">
-          {% trans "Show all mixtures" %}
-        </a>
-      </div>
+    <div class="col-md-6 col-md-offset-3">
+      <a class="btn btn-primary btn-lg btn-block" href="{% url "mixture_list" %}">
+        {% trans "Show all mixtures" %}
+      </a>
     </div>
   </div>
 
   <hr />
 
-  <h1 class="separated text-center">
-    <span class="glyphicon glyphicon-tags"></span>
-    {% trans "Browse through categories for more mixtures" %}
-  </h1>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h1 class="separated text-center">
+        {% trans "Or browse through categories for more mixtures" %}
+      </h1>
+    </div>
+  </div>
 
   <div class="row clearfix">
     {% for category in top_categories %}
