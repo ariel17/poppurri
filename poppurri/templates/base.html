@@ -41,8 +41,7 @@
               <nav class="navbar navbar-default navbar-static-top" role="navigation">
                 <div class="navbar-header">
                   <a class="navbar-brand" href="{% url "home" %}">
-                    <span class="glyphicon glyphicon-home"></span>
-                    Poppurri
+                    <b>Poppurri</b>
                   </a>
                 </div>
                 
@@ -51,13 +50,13 @@
                     <li {% ifequal view "category" %}class="active"{% endifequal %}>
                       <a href="{% url "category_list" %}">
                         <span class="glyphicon glyphicon-tag"></span>
-                        {% trans "All categories" %}
+                        {% trans "Categories" %}
                       </a>
                     </li>
                     <li {% ifequal view "mixture" %}class="active"{% endifequal %}>
                       <a href="{% url "mixture_list" %}">
                         <span class="glyphicon glyphicon-th-large"></span>
-                        {% trans "All Mixtures" %}
+                        {% trans "Mixtures" %}
                       </a>
                     </li>
                   </ul>
@@ -73,7 +72,7 @@
                   </form>
 
                   <ul class="nav navbar-nav navbar-right">
-                    <li {% ifequal view "category" %}class="active"{% endifequal %}>
+                    <li {% ifequal view "contact" %}class="active"{% endifequal %}>
                       <a href="{% url "contact_form" %}">
                         <span class="glyphicon glyphicon-envelope"></span>
                         {% trans "Contact us" %}
@@ -83,7 +82,6 @@
                     <form class="navbar-form navbar-right" action="/i18n/setlang/" method="post">
                       {% csrf_token %}
                       <li class="nav navbar-nav">
-                          <span class="glyphicon glyphicon-comment"></span>
                         <div class="form-group">
                           <input name="next" type="hidden" value="{{ request.path }}" />
                           <select name="language" class="form-control" class="form-control">
@@ -94,7 +92,10 @@
                         </div>
                       </li>
                       <li class="nav navbar-nav">
-                        <button type="submit" class="btn btn-default">{% trans "Change" %}</button>
+                        <button type="submit" class="btn btn-default">
+                          <span class="glyphicon glyphicon-comment"></span>
+                          {% trans "Change" %}
+                        </button>
                       </li>
                     </form> 
                   </ul>
