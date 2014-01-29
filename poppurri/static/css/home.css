@@ -1,7 +1,11 @@
-.separated {
+.separated-30 {
   margin-bottom: 30px;
 }
 
-.carousel-home {
-    height: 250px;
+.separated-20 {
+  margin-bottom: 20px;
+}
+
+.joined {
+  margin-top: 0px;
 }
