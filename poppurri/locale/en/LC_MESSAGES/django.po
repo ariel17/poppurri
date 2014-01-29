@@ -7,24 +7,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-10 17:42-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-01-28 16:33-0800\n"
+"PO-Revision-Date: 2014-01-28 17:06-0800\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
+"X-Translated-Using: django-rosetta 0.7.3\n"
 
-#: category/models.py:49
+#: category/models.py:69
 msgid "Category name"
 msgstr ""
 
-#: category/models.py:51
+#: category/models.py:71
 msgid "Description"
 msgstr ""
 
-#: category/models.py:57
+#: category/models.py:77
 msgid "Is a final category"
 msgstr ""
 
@@ -32,79 +33,83 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: mixture/admin.py:46 templates/mixture_detail.html:36
+#: mixture/admin.py:46 mixture/admin.py:60 templates/mixture_detail.html:35
 msgid "Mixture"
-msgstr ""
+msgstr "Product"
 
-#: mixture/admin.py:84
+#: mixture/admin.py:104
 msgid "Category"
 msgstr ""
 
-#: mixture/models.py:46
+#: mixture/models.py:65
 msgid "Name"
 msgstr ""
 
-#: mixture/models.py:48
+#: mixture/models.py:67
 msgid "A mixture short name that describes what it is."
-msgstr ""
+msgstr "A product short name that describes what it is."
 
-#: mixture/models.py:50
+#: mixture/models.py:69
 msgid "Slug name"
 msgstr ""
 
-#: mixture/models.py:52
+#: mixture/models.py:71
 msgid "Short description"
 msgstr ""
 
-#: mixture/models.py:54
+#: mixture/models.py:73
 msgid "Short description about the product."
 msgstr ""
 
-#: mixture/models.py:57
+#: mixture/models.py:76
 msgid "Long description"
 msgstr ""
 
-#: mixture/models.py:58
+#: mixture/models.py:77
 msgid "Long description about the product."
 msgstr ""
 
-#: mixture/models.py:61
+#: mixture/models.py:80
 msgid "Is Published"
 msgstr ""
 
-#: mixture/models.py:63
+#: mixture/models.py:82
 msgid "Publish the mixture on site."
 msgstr ""
 
-#: mixture/models.py:74
+#: mixture/models.py:93
 msgid "The mixture clasification in category."
-msgstr ""
+msgstr "The product clasification in the category."
 
-#: mixture/models.py:106
+#: mixture/models.py:128
 msgid "Mixture image"
-msgstr ""
+msgstr "Product image"
 
-#: mixture/models.py:111
+#: mixture/models.py:133
 msgid "Alt text for the image."
 msgstr ""
 
-#: mixture/models.py:117
+#: mixture/models.py:139
 msgid "Is outstanding"
 msgstr ""
 
-#: mixture/models.py:130
+#: mixture/models.py:154
 msgid "Item name"
 msgstr ""
 
-#: mixture/models.py:132
+#: mixture/models.py:156
 msgid "Item amout"
 msgstr ""
 
-#: poppurri/settings/base.py:307
+#: mixture/models.py:172
+msgid "Step description"
+msgstr ""
+
+#: poppurri/settings/base.py:342
 msgid "Spanish"
 msgstr ""
 
-#: poppurri/settings/base.py:308
+#: poppurri/settings/base.py:343
 msgid "English"
 msgstr ""
 
@@ -124,71 +129,187 @@ msgstr ""
 msgid "Whoops! An internal error has occurred. Please try again later."
 msgstr ""
 
-#: templates/base.html:48 templates/index.html:4
-msgid "Home"
-msgstr ""
-
-#: templates/base.html:51 templates/category_detail.html:4
-#: templates/category_list.html:4
+#: templates/base.html:53 templates/category_list.html:4
 msgid "Categories"
 msgstr ""
 
-#: templates/base.html:58
-msgid "Author, category or mixture"
-msgstr ""
+#: templates/base.html:59
+msgid "Mixtures"
+msgstr "Products"
 
-#: templates/base.html:60
+#: templates/base.html:66 templates/search_result.html:29
+msgid "Author, category or mixture"
+msgstr "Author, category or product"
+
+#: templates/base.html:70 templates/search_result.html:16
+#: templates/search_result.html.py:23 templates/search_result.html:33
 msgid "Search"
 msgstr ""
 
-#: templates/base.html:71
-msgid "Change language"
-msgstr ""
-
-#: templates/base.html:79
-msgid "Go"
-msgstr ""
-
-#: templates/base.html:98
-msgid "Contact us through email"
-msgstr ""
-
-#: templates/base.html:99
+#: templates/base.html:78 templates/base.html.py:122 templates/base.html:124
+#: templates/contact_form/contact_form.html:4
+#: templates/contact_form/contact_form.html:14
+#: templates/contact_form/contact_form.html:20
+#: templates/contact_form/contact_form_sent.html:4
+#: templates/contact_form/contact_form_sent.html:14
 msgid "Contact us"
 msgstr ""
 
-#: templates/category_detail.html:11
-msgid "Mixtures on category"
+#: templates/base.html:97
+msgid "Change"
 msgstr ""
 
-#: templates/index.html:47
-msgid ""
-"Hands, tools, desire: nothing more is needed to build from our imagination "
-"and, why not? from yours too. A place to find quality hand-made products, "
-"builders and recipes to become an expert. Create your own world by yourself "
-"or with other's help."
+#: templates/category_detail.html:4
+#, python-format
+msgid "Category %(category.name)s detail"
 msgstr ""
 
-#: templates/index.html:65
-msgid "View details"
+#: templates/category_detail.html:14 templates/category_list.html:10
+#: templates/home.html:4 templates/mixture_detail.html:13
+#: templates/mixture_list.html:14 templates/search_result.html:14
+#: templates/contact_form/contact_form.html:12
+#: templates/contact_form/contact_form_sent.html:12
+msgid "Home"
 msgstr ""
 
-#: templates/index.html:73
-msgid "Show all categories"
-msgstr ""
-
-#: templates/mixture_detail.html:12
+#: templates/category_detail.html:17 templates/category_list.html:12
+#: templates/category_list.html.py:16 templates/mixture_detail.html:15
 msgid "All categories"
 msgstr ""
 
-#: templates/mixture_detail.html:55
+#: templates/category_detail.html:23
+msgid "Mixtures on category"
+msgstr "Products on category"
+
+#: templates/home.html:48
+msgid "Quality handmade products."
+msgstr ""
+
+#: templates/home.html:51
+msgid ""
+"Find quality handmade products or recipes to do it by yourself. Contact "
+"experts to concrete beautiful works."
+msgstr ""
+
+#: templates/home.html:55
+msgid "Show all mixtures"
+msgstr "Show all products"
+
+#: templates/home.html:67
+msgid "Browse through categories for more mixtures"
+msgstr "Browse through categories for more products"
+
+#: templates/home.html:70
+msgid "See more products from builders to learn how to build or buy"
+msgstr ""
+
+#: templates/home.html:91
+msgid "View details"
+msgstr ""
+
+#: templates/home.html:101
+msgid "Show all categories"
+msgstr ""
+
+#: templates/home.html:111
+msgid "Want to join? Let us know!"
+msgstr ""
+
+#: templates/mixture_detail.html:98
+msgid "This mixture does not have a recipe."
+msgstr "The product does not have a recipe."
+
+#: templates/mixture_detail.html:102
 msgid "Recipe"
 msgstr ""
+
+#: templates/mixture_detail.html:110
+msgid "Item"
+msgstr ""
+
+#: templates/mixture_detail.html:111
+msgid "Amount"
+msgstr ""
+
+#: templates/mixture_detail.html:131
+msgid "Steps"
+msgstr ""
+
+#: templates/mixture_detail.html:152
+msgid "Want contact the author? Or want to buy?"
+msgstr ""
+
+#: templates/mixture_detail.html:158
+msgid ""
+"Send a message to this mixture's author about your opinion about it. You "
+"want to buy this work? No problem! Send him a message to put his hands to "
+"work for you!"
+msgstr ""
+
+#: templates/mixture_list.html:4 templates/mixture_list.html.py:16
+#: templates/mixture_list.html:20
+msgid "All mixtures"
+msgstr "All products"
 
 #: templates/search_result.html:4
 msgid "Search for"
 msgstr ""
 
-#: templates/search_result.html:11
-msgid "Search result for"
+#: templates/search_result.html:45
+msgid "Nothing was found that matches"
+msgstr ""
+
+#: templates/search_result.html:57
+msgid "matching mixtures"
+msgstr "matching products"
+
+#: templates/search_result.html:87
+msgid "matching categories"
+msgstr ""
+
+#: templates/contact_form/_contact_form.html:6
+msgid "Oh noes!"
+msgstr ""
+
+#: templates/contact_form/_contact_form.html:7
+msgid ""
+"Check errors below to complete the process to send message. We want to hear "
+"from you!"
+msgstr ""
+
+#: templates/contact_form/_contact_form.html:16
+msgid "Jhon Doe"
+msgstr ""
+
+#: templates/contact_form/_contact_form.html:25
+msgid "jhon@domain.com"
+msgstr ""
+
+#: templates/contact_form/_contact_form.html:34
+msgid "Hi! I want contact you because ..."
+msgstr ""
+
+#: templates/contact_form/_contact_form.html:42
+msgid "Send"
+msgstr ""
+
+#: templates/contact_form/contact_form.html:26
+msgid ""
+"Let us know what you think about the site, if you want to expose your work "
+"here or just say 'Hi!'; we want to know everything about you! We will be "
+"greatful to respond you as soon as possible."
+msgstr ""
+
+#: templates/contact_form/contact_form_sent.html:18
+msgid "Message sent."
+msgstr ""
+
+#: templates/contact_form/contact_form_sent.html:18
+msgid "Thank you!"
+msgstr ""
+
+#: templates/contact_form/contact_form_sent.html:23
+msgid ""
+"We have received your message! Thank you very much for your words; we will "
+"be contacting you very soon. Meanwhile..."
 msgstr ""
