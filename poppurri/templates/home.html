@@ -22,7 +22,7 @@
             {% for mixture in top_mixtures %}
               <div class="item{% if forloop.first %} active{% endif %}">
                   {% with mixture.images.random_outstanding_image as mixture_image %}
-                    {% thumbnail mixture_image.image "800x500" crop="center" as im %}
+                    {% thumbnail mixture_image.image "500x400" crop="center" as im %}
                       <a href="{% url "mixture_detail_slug" mixture.slug %}">
                         <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
                       </a>
@@ -48,7 +48,12 @@
           {% trans "Quality handmade products." %}
         </h1>
         <p>
-          {% trans "Find quality handmade products or recipes to do it by yourself. Contact experts to concrete beautiful works." %} <a href="#">{% trans "Read more" %} »</a>
+          {% trans "Find quality handmade products or recipes to do it by yourself. Contact experts to concrete beautiful works." %}</a>
+        </p>
+        <p>
+          <a class="btn btn-primary btn-lg btn-block" href="{% url "mixture_list" %}">
+            {% trans "Show all mixtures" %}
+          </a>
         </p>
       </div>
     </div>
@@ -58,24 +63,12 @@
 
   <div class="row clearfix">
     <div class="col-md-12 column">
-      <h1 class="separated text-center">
+      <h1 class="joined text-center">
+        {% trans "Browse through categories for more mixtures" %}
+      </h1>
+      <h3 class="separated-30 text-center">
         {% trans "See more products from builders to learn how to build or buy" %}
-      </h1>
-    </div>
-    <div class="col-md-6 col-md-offset-3">
-      <a class="btn btn-primary btn-lg btn-block" href="{% url "mixture_list" %}">
-        {% trans "Show all mixtures" %}
-      </a>
-    </div>
-  </div>
-
-  <hr />
-
-  <div class="row clearfix">
-    <div class="col-md-12 column">
-      <h1 class="separated text-center">
-        {% trans "Or browse through categories for more mixtures" %}
-      </h1>
+      </h3>
     </div>
   </div>
 
@@ -94,24 +87,26 @@
               {% trans category.name %}
             </a>
           </h2>
-          <p>{% trans top_mixture.short_description %}</p>
-          <p><a class="btn" href="{% url "mixture_detail_slug" top_mixture.slug %}">{% trans "View details" %} »</a></p>
+          <h3>{% trans top_mixture.short_description %}</h3>
+          <h3><a class="btn" href="{% url "mixture_detail_slug" top_mixture.slug %}">{% trans "View details" %} »</a></h3>
         {% endwith %}
       </div>
     {% endfor %}
   </div>
 
   <div class="row clearfix text-center">
-    <div class="col-md-12 column">
-      <a class="btn btn-primary btn-lg" href="{% url "category_list" %}">
-        {% trans "Show all categories" %}
-      </a>
+    <div class="col-md-6 col-md-offset-3">
+      <p>
+        <a class="btn btn-primary btn-lg btn-block" href="{% url "category_list" %}">
+          {% trans "Show all categories" %}
+        </a>
+      </p>
     </div>
   </div>
 
   <hr />
 
-  <h1 class="separated text-center">
+  <h1 class="separated-30 text-center">
     <span class="glyphicon glyphicon-send"></span>
     {% trans "Want to join? Let us know!" %}
   </h1>
