@@ -8,10 +8,11 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
 from datetime import datetime
-from os import environ, path
+from os import path
 
-from fabric.api import env, settings, abort, local, run, prefix, task
+from fabric.api import env, settings, abort, local, run, prefix, task, cd
 from fabric.contrib.console import confirm
+from fabric.contrib.files import exists
 
 
 DATETIME_FORMAT = '%Y%m%d%H%y'
@@ -24,7 +25,25 @@ REMOTE_RELEASE_CURRENT = path.join(REMOTE_RELEASE, 'current')
 
 REMOTE_REQUIREMENTS = path.join(REMOTE_RELEASE_CURRENT, 'requirements.txt')
 
-env.use_ssh_config = True
+REMOTE_SOURCE = path.join('~', 'source')
+
+GIT_REPOSITORY_URL = 'git@github.com:ariel17/poppurri.git'
+GIT_BRANCH_PRODUCTION = 'master'
+GIT_BRANCH_DEVELOPMENT = 'develop'
+
+
+def prepare_source(branch):
+    """
+    Performs repository operations to obtain a copy on remote server.
+    """
+    if exists(REMOTE_SOURCE):
+        run('rm -rf %s' % REMOTE_SOURCE)
+
+    run('mkdir %s' % REMOTE_SOURCE)
+    with cd(REMOTE_SOURCE):
+        run('git clone %s' % GIT_REPOSITORY_URL)
+        with cd('poppurri'):
+            run('git checkout -b %s origin/%s' % (branch, branch))
 
 
 @task
@@ -32,7 +51,9 @@ def development():
     """
     Configures development environment.
     """
-    env.hosts = ['poppurri-web-development', ]
+    env.use_ssh_config = True
+    env.hosts = ['poppurri-web', ]
+    prepare_source(GIT_BRANCH_DEVELOPMENT)
 
 
 @task
@@ -40,7 +61,10 @@ def production():
     """
     Configures production environment.
     """
-    env.hosts = ['poppurri-web-production', ]
+    env.use_ssh_config = True
+    env.hosts = ['poppurri-web-production']
+    env.user = 'poppurri'
+    prepare_source(GIT_BRANCH_PRODUCTION)
 
 
 @task
