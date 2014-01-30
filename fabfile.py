@@ -27,10 +27,14 @@ REMOTE_ENV_CURRENT_DEACTIVATE = path.join(REMOTE_ENV_CURRENT, 'bin',
 REMOTE_RELEASE = path.join('~', 'releases')
 REMOTE_RELEASE_CURRENT = path.join(REMOTE_RELEASE, 'current')
 
-REMOTE_REQUIREMENTS = path.join(REMOTE_RELEASE_CURRENT, 'requirements.txt')
-
 REMOTE_SOURCE = path.join('~', 'source')
 REMOTE_SOURCE_CLONE = path.join(REMOTE_SOURCE, 'poppurri')
+
+REMOTE_REQUIREMENTS_PRODUCTION = path.join(
+    REMOTE_SOURCE_CLONE, 'requirements', 'production.txt')
+
+REMOTE_REQUIREMENTS_DEVELOPMENT = path.join(
+    REMOTE_SOURCE_CLONE, 'requirements', 'development.txt')
 
 GIT_REPOSITORY_URL = 'git@github.com:ariel17/poppurri.git'
 GIT_BRANCH_PRODUCTION = 'master'
@@ -60,6 +64,7 @@ def development():
     env.use_ssh_config = True
     env.hosts = ['poppurri-web', ]
     env.git_branch = GIT_BRANCH_DEVELOPMENT
+    env.requirements = REMOTE_REQUIREMENTS_DEVELOPMENT
 
 
 @task
@@ -70,6 +75,7 @@ def production():
     env.use_ssh_config = True
     env.hosts = ['poppurri-web-production']
     env.git_branch = GIT_BRANCH_PRODUCTION
+    env.requirements = REMOTE_REQUIREMENTS_PRODUCTION
 
 
 @task
@@ -98,7 +104,7 @@ def create_env():
 
     activate_path = path.join(env_dir, 'bin', 'activate')
     with prefix('source %s' % activate_path):
-        run('pip install -r %s' % REMOTE_REQUIREMENTS)
+        run('pip install -r %s' % env.requirements)
 
     run('rm %s' % REMOTE_ENV_CURRENT)
     run('ln -s %s %s' % (env_dir, REMOTE_ENV_CURRENT))
@@ -121,13 +127,16 @@ def deploy():
     release_dir = path.join(REMOTE_RELEASE, now)
     run('mkdir -p %s' % release_dir)
 
-    tmp_source_dir = path.join(tmp_dir, 'poppurri')
-    run('cp -r %s %s' % (tmp_source_dir, release_dir))
+    tmp_sources = path.join(tmp_dir, 'poppurri', '*')
+    run('cp -r %s %s' % (tmp_sources, release_dir))
 
     if exists(REMOTE_RELEASE_CURRENT):
         run('rm %s' % REMOTE_RELEASE_CURRENT)
 
     run('ln -s %s %s' % (release_dir, REMOTE_RELEASE_CURRENT))
+
+    release_env_dir = path.join(release_dir, 'env')
+    run('ln -s %s %s' % (REMOTE_ENV_CURRENT, release_env_dir))
 
 
 @task
@@ -135,6 +144,7 @@ def shell():
     """
     Opens the project's python interactive shell.
     """
-    with cd(REMOTE_RELEASE_CURRENT):
-        with prefix('source %s' % REMOTE_ENV_CURRENT_ACTIVATE):
-            open_shell('./manage.py shell')
+    env_activate_path = path.join(REMOTE_RELEASE_CURRENT, 'env', 'bin',
+                                  'activate')
+    manage_path = path.join(REMOTE_RELEASE_CURRENT, 'manage.py')
+    open_shell('source %s; %s shell' % (env_activate_path, manage_path))
