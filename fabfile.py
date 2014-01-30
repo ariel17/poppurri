@@ -7,61 +7,73 @@ Description: Fabric file for remote deployment.
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
+from datetime import datetime
 from os import environ, path
 
-from fabric.api import env, settings, abort, local
+from fabric.api import env, settings, abort, local, run, prefix, task
 from fabric.contrib.console import confirm
 
 
-PROJECT_ROOT = path.dirname(path.realpath(__file__))
-APP_DIRECTORY = path.join(PROJECT_ROOT, 'poppurri')
+DATETIME_FORMAT = '%Y%m%d%H%y'
 
-COMMANDS = {
-    'test': path.join(APP_DIRECTORY, 'manage.py test'),
-}
+REMOTE_ENV = path.join('~', 'envs')
+REMOTE_ENV_CURRENT = path.join(REMOTE_ENV, 'current')
 
+REMOTE_RELEASE = path.join('~', 'releases')
+REMOTE_RELEASE_CURRENT = path.join(REMOTE_RELEASE, 'current')
 
-def _get_env_setting(setting):
-    """
-    Get the environment setting or raise exception.
-    """
-    try:
-        return environ[setting]
-    except KeyError:
-        raise EnvironmentError("Set the %s env variable" % setting)
+REMOTE_REQUIREMENTS = path.join(REMOTE_RELEASE_CURRENT, 'requirements.txt')
+
+env.use_ssh_config = True
 
 
+@task
 def development():
     """
     Configures development environment.
     """
-    env.hosts = _get_env_setting('POPPURRI_DEVELOPMENT_HOSTS')
+    env.hosts = ['poppurri-web-development', ]
 
 
+@task
 def production():
     """
     Configures production environment.
     """
-    env.hosts = _get_env_setting('POPPURRI_PRODUCTION_HOSTS')
+    env.hosts = ['poppurri-web-production', ]
 
 
+@task
 def test():
     """
     Executes tests on project.
     """
     with settings(warn_only=True):
-        result = local(COMMANDS['test'], capture=True)
-    if result.failed and not confirm("Tests failed. Continue anyway?"):
-        abort("Aborting at user request.")
+        result = local('./poppurri/manage.py test', capture=True)
+    if result.failed and not confirm('Tests failed. Continue anyway?'):
+        abort('Aborting at user request.')
 
 
+@task
 def create_env():
     """
     Creates a new environment and installs required dependencies.
     """
-    pass
+    run('mkdir -p %s' % REMOTE_ENV)
+
+    now = datetime.now().strftime(DATETIME_FORMAT)
+    env_dir = path.join(REMOTE_ENV, now)
+    run('virtualenv %s' % env_dir)
+
+    activate_path = path.join(env_dir, 'bin', 'activate')
+    with prefix('source %s' % activate_path):
+        run('pip install -r %s' % REMOTE_REQUIREMENTS)
+
+    run('rm %s' % REMOTE_ENV_CURRENT)
+    run('ln -s %s %s' % (env_dir, REMOTE_ENV_CURRENT))
 
 
+@task
 def deploy():
     """
     Puts the project on environment remote hosts.
