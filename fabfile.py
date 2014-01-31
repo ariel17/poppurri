@@ -20,17 +20,17 @@ DATETIME_FORMAT = '%Y%m%d%H%y%S'
 
 APPLICATION = 'poppurri'
 
-REMOTE_ENV = path.join('~', 'envs')
+REMOTE_ENV = path.join('$HOME', 'envs')
 REMOTE_ENV_CURRENT = path.join(REMOTE_ENV, 'current')
 REMOTE_ENV_CURRENT_ACTIVATE = path.join(REMOTE_ENV_CURRENT, 'bin', 'activate')
 REMOTE_ENV_CURRENT_DEACTIVATE = path.join(REMOTE_ENV_CURRENT, 'bin',
                                           'deactivate')
 
-REMOTE_RELEASE = path.join('~', 'releases')
+REMOTE_RELEASE = path.join('$HOME', 'releases')
 REMOTE_RELEASE_CURRENT = path.join(REMOTE_RELEASE, 'current')
 REMOTE_RELEASE_CURRENT_MANAGE = path.join(REMOTE_RELEASE_CURRENT, 'manage.py')
 
-REMOTE_SOURCE = path.join('~', 'source')
+REMOTE_SOURCE = path.join('$HOME', 'source')
 REMOTE_SOURCE_TMP = path.join(REMOTE_SOURCE, 'tmp')
 REMOTE_SOURCE_CLONE = path.join(REMOTE_SOURCE, APPLICATION)
 
@@ -157,7 +157,7 @@ def create_env():
 
     activate_path = path.join(env_dir, 'bin', 'activate')
     with prefix('source %s' % activate_path):
-        run('pip install -r %s --download-cache=~/.pip/cache' %
+        run('pip install -r %s --download-cache=$HOME/.pip/cache' %
             env.requirements)
 
     with settings(warn_only=True):
