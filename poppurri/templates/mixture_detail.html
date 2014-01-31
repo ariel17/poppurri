@@ -78,12 +78,12 @@
   <div class="row clearfix">
     <div class="col-md-4 column">
       <div class="thumbnail">
-      {% with object.images.random_outstanding_image as mixture_image %}
-        {% thumbnail mixture_image.image "350x350" crop="center" as im %}
-          <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
-        {% endthumbnail %}
-      {% endwith %}
-    </div>
+        {% with object.images.random_outstanding_image as mixture_image %}
+          {% thumbnail mixture_image.image "350x350" crop="center" as im %}
+            <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
+          {% endthumbnail %}
+        {% endwith %}
+      </div>
     </div>
     <div class="col-md-12 column">
       <p>{% trans object.long_description %}</p>
