@@ -18,19 +18,21 @@ from fabric.operations import open_shell, prompt
 
 DATETIME_FORMAT = '%Y%m%d%H%y%S'
 
-REMOTE_ENV = path.join('~', 'envs')
+APPLICATION = 'poppurri'
+
+REMOTE_ENV = path.join('$HOME', 'envs')
 REMOTE_ENV_CURRENT = path.join(REMOTE_ENV, 'current')
 REMOTE_ENV_CURRENT_ACTIVATE = path.join(REMOTE_ENV_CURRENT, 'bin', 'activate')
 REMOTE_ENV_CURRENT_DEACTIVATE = path.join(REMOTE_ENV_CURRENT, 'bin',
                                           'deactivate')
 
-REMOTE_RELEASE = path.join('~', 'releases')
+REMOTE_RELEASE = path.join('$HOME', 'releases')
 REMOTE_RELEASE_CURRENT = path.join(REMOTE_RELEASE, 'current')
 REMOTE_RELEASE_CURRENT_MANAGE = path.join(REMOTE_RELEASE_CURRENT, 'manage.py')
 
-REMOTE_SOURCE = path.join('~', 'source')
+REMOTE_SOURCE = path.join('$HOME', 'source')
 REMOTE_SOURCE_TMP = path.join(REMOTE_SOURCE, 'tmp')
-REMOTE_SOURCE_CLONE = path.join(REMOTE_SOURCE, 'poppurri')
+REMOTE_SOURCE_CLONE = path.join(REMOTE_SOURCE, APPLICATION)
 
 REMOTE_REQUIREMENTS_PRODUCTION = path.join(
     REMOTE_SOURCE_CLONE, 'requirements', 'production.txt')
@@ -135,7 +137,7 @@ def test():
     Executes tests on project.
     """
     with settings(warn_only=True):
-        result = local('./poppurri/manage.py test', capture=True)
+        result = local('./%s/manage.py test' % APPLICATION, capture=True)
     if result.failed and not confirm('Tests failed. Continue anyway?'):
         abort('Aborting at user request.')
 
@@ -155,7 +157,7 @@ def create_env():
 
     activate_path = path.join(env_dir, 'bin', 'activate')
     with prefix('source %s' % activate_path):
-        run('pip install -r %s --download-cache=~/.pip/cache' %
+        run('pip install -r %s --download-cache=$HOME/.pip/cache' %
             env.requirements)
 
     with settings(warn_only=True):
@@ -172,18 +174,19 @@ def deploy():
     """
     prepare_source(env.git_branch)
 
-    tmp_dir = path.join(REMOTE_SOURCE, 'tmp')
-    run('mkdir -p %s' % tmp_dir)
+    run('mkdir -p %s' % REMOTE_SOURCE_TMP)
 
     with cd(REMOTE_SOURCE_CLONE):
-        run('git archive %s | tar -x -C %s' % (env.git_branch, tmp_dir))
+        run('git archive %s | tar -x -C %s' % (env.git_branch,
+                                               REMOTE_SOURCE_TMP))
 
     now = datetime.now().strftime(DATETIME_FORMAT)
     release_dir = path.join(REMOTE_RELEASE, now)
     run('mkdir -p %s' % release_dir)
 
-    tmp_sources = path.join(tmp_dir, 'poppurri', '*')
-    run('cp -r %s %s' % (tmp_sources, release_dir))
+    tmp_bin = path.join(REMOTE_SOURCE_TMP, 'bin')
+    tmp_sources = path.join(REMOTE_SOURCE_TMP, APPLICATION, '*')
+    run('cp -r %s %s %s' % (tmp_sources, tmp_bin, release_dir))
 
     if exists(REMOTE_RELEASE_CURRENT):
         run('rm %s' % REMOTE_RELEASE_CURRENT)
