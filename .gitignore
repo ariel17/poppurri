@@ -25,3 +25,5 @@ media
 
 # Translation compiled files
 *.mo
+
+*.sock
