@@ -1,0 +1,35 @@
+#!/bin/bash
+
+HOME=`pwd`
+NAME="poppurri"                            # Application name
+DJANGODIR="$HOME/releases/current"             # Django project directory
+SOCKFILE="$DJANGODIR/gunicorn.sock"        # we will communicte using this unix socket
+USER=$NAME                                        # the user to run as
+GROUP=$NAME                                       # the group to run as
+NUM_WORKERS=5                                     # how many worker processes should Gunicorn spawn
+DJANGO_SETTINGS_MODULE="$NAME.settings.development"             # which settings file should Django use
+DJANGO_WSGI_MODULE="$NAME.wsgi"                     # WSGI module name
+VIRTUALENVDIR="$HOME/envs/current"
+ 
+echo "Starting $NAME as `whoami`"
+ 
+# Activate the virtual environment
+cd $DJANGODIR
+source $VIRTUALENVDIR/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+ 
+# Create the run directory if it doesn't exist
+RUNDIR=$(dirname $SOCKFILE)
+test -d $RUNDIR || mkdir -p $RUNDIR
+ 
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+exec $VIRTUALENVDIR/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+  --name $NAME \
+  --workers $NUM_WORKERS \
+  --user=$USER --group=$GROUP \
+  --log-level=debug \
+  --bind 127.0.0.1
+  --max-requests 1024
+  --timeout 3600
