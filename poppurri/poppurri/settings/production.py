@@ -22,8 +22,16 @@ ALLOWED_HOSTS = ['*']
 
 
 ########## DATABASE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-    'default': dj_database_url.config(),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'poppurri',
+        'USER': 'poppurri',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
 }
 ########## END DATABASE CONFIGURATION
 
