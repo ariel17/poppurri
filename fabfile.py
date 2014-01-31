@@ -26,8 +26,10 @@ REMOTE_ENV_CURRENT_DEACTIVATE = path.join(REMOTE_ENV_CURRENT, 'bin',
 
 REMOTE_RELEASE = path.join('~', 'releases')
 REMOTE_RELEASE_CURRENT = path.join(REMOTE_RELEASE, 'current')
+REMOTE_RELEASE_CURRENT_MANAGE = path.join(REMOTE_RELEASE_CURRENT, 'manage.py')
 
 REMOTE_SOURCE = path.join('~', 'source')
+REMOTE_SOURCE_TMP = path.join(REMOTE_SOURCE, 'tmp')
 REMOTE_SOURCE_CLONE = path.join(REMOTE_SOURCE, 'poppurri')
 
 REMOTE_REQUIREMENTS_PRODUCTION = path.join(
@@ -67,6 +69,14 @@ def create_secret_key():
     ])
 
 
+def clean():
+    """
+    Removes deploy artifacts.
+    """
+    with settings(warn_only=True):
+        run('rm -rf %s' % REMOTE_SOURCE_TMP)
+
+
 @task
 def development():
     """
@@ -99,14 +109,14 @@ def set_env_vars():
     export_secret_key = 'declare -x SECRET_KEY="%s"' % create_secret_key()
     declarations = [export_secret_key]
 
-    EMAIL_VARS = (
+    email_vars = (
         ('', 'HOST'),
         ('', 'PORT'),
         ('HOST', 'USER'),
         ('HOST', 'PASSWORD'),
     )
 
-    for (vprefix, var) in EMAIL_VARS:
+    for (vprefix, var) in email_vars:
         value = prompt('Enter email %s (blank to skip):' % var.lower())
         if value.strip():
             export = 'declare -x EMAIL_%s="%s"' % (
@@ -183,14 +193,20 @@ def deploy():
     release_env_dir = path.join(release_dir, 'env')
     run('ln -s %s %s' % (REMOTE_ENV_CURRENT, release_env_dir))
 
+    with prefix('source %s' % REMOTE_ENV_CURRENT_ACTIVATE):
+        run('%s syncdb --settings=%s' %
+            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
+        run('%s migrate --settings=%s' %
+            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
+
+    clean()
+
 
 @task
 def shell():
     """
     Opens the project's python interactive shell.
     """
-    env_activate_path = path.join(REMOTE_RELEASE_CURRENT, 'env', 'bin',
-                                  'activate')
-    manage_path = path.join(REMOTE_RELEASE_CURRENT, 'manage.py')
     open_shell('source %s; %s shell --settings=%s; exit;' %
-               (env_activate_path, manage_path, env.settings))
+               (REMOTE_ENV_CURRENT_ACTIVATE, REMOTE_RELEASE_CURRENT_MANAGE,
+                env.settings))
