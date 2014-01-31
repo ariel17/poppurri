@@ -7,6 +7,9 @@ Description: Production settings and globals.
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
+import os
+from os import environ
+
 from base import *
 
 import dj_database_url
@@ -19,8 +22,16 @@ ALLOWED_HOSTS = ['*']
 
 
 ########## DATABASE CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-    'default': dj_database_url.config(),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'poppurri',
+        'USER': 'poppurri',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
 }
 ########## END DATABASE CONFIGURATION
 
@@ -74,7 +85,7 @@ USE_GOOGLE_ANALYTICS = False
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = get_env_setting(EMAIL_HOST)
+EMAIL_HOST = get_env_setting('EMAIL_HOST')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
 EMAIL_HOST_PASSWORD = get_env_setting('EMAIL_HOST_PASSWORD')

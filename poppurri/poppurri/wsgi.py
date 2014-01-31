@@ -23,6 +23,9 @@ import os
 from os.path import abspath, dirname
 from sys import path
 
+from dj_static import Cling
+
+
 SITE_ROOT = dirname(dirname(abspath(__file__)))
 path.append(SITE_ROOT)
 
