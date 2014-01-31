@@ -74,7 +74,7 @@ USE_GOOGLE_ANALYTICS = False
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = get_env_setting(EMAIL_HOST)
+EMAIL_HOST = get_env_setting('EMAIL_HOST')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
 EMAIL_HOST_PASSWORD = get_env_setting('EMAIL_HOST_PASSWORD')
