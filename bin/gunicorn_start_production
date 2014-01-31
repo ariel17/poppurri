@@ -1,10 +1,11 @@
 #!/bin/bash
- 
+
+HOME=`pwd`
 NAME="poppurri"                            # Application name
 DJANGODIR="$HOME/releases/current"             # Django project directory
 SOCKFILE="$DJANGODIR/gunicorn.sock"        # we will communicte using this unix socket
-USER=$USER                                        # the user to run as
-GROUP=$USER                                       # the group to run as
+USER=$NAME                                        # the user to run as
+GROUP=$NAME                                       # the group to run as
 NUM_WORKERS=5                                     # how many worker processes should Gunicorn spawn
 DJANGO_SETTINGS_MODULE="$NAME.settings.production"             # which settings file should Django use
 DJANGO_WSGI_MODULE="$NAME.wsgi"                     # WSGI module name
@@ -29,4 +30,6 @@ exec $VIRTUALENVDIR/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
   --workers $NUM_WORKERS \
   --user=$USER --group=$GROUP \
   --log-level=debug \
-  --bind=unix:$SOCKFILE
+  --bind 127.0.0.1
+  --max-requests 1024
+  --timeout 3600
