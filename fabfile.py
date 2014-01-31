@@ -201,6 +201,10 @@ def deploy():
             (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
         run('%s migrate --settings=%s' %
             (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
+        run('%s collectstatic --settings=%s --noinput' %
+            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
+        run('%s compilemessages --settings=%s' %
+            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
 
     clean()
 
