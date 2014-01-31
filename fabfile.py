@@ -16,7 +16,7 @@ from fabric.contrib.files import exists
 from fabric.operations import open_shell
 
 
-DATETIME_FORMAT = '%Y%m%d%H%y'
+DATETIME_FORMAT = '%Y%m%d%H%y%S'
 
 REMOTE_ENV = path.join('~', 'envs')
 REMOTE_ENV_CURRENT = path.join(REMOTE_ENV, 'current')
@@ -46,14 +46,34 @@ def prepare_source(branch):
     Performs repository operations to obtain a copy on remote server.
     """
     if exists(REMOTE_SOURCE):
-        run('rm -rf %s' % REMOTE_SOURCE)
+        print 'Project seems to be already cloned. Ignoring source '\
+              'preparation.'
+        return
 
-    run('mkdir %s' % REMOTE_SOURCE)
+    run('mkdir -p %s' % REMOTE_SOURCE)
     with cd(REMOTE_SOURCE):
         run('git clone %s' % GIT_REPOSITORY_URL)
         with cd(REMOTE_SOURCE_CLONE):
             with settings(warn_only=True):
                 run('git checkout -b %s origin/%s' % (branch, branch))
+
+
+def create_secret_key():
+    """
+    Creates a secret alphanumeric key to be used by Django as seed for hashing.
+    """
+    import random
+    return ''.join([
+        random.choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
+        for i in range(50)
+    ])
+
+
+def clean():
+    """
+    Removes deployment unused artifacts.
+    """
+    run('rm -rf %s' % REMOTE_SOURCE)
 
 
 @task
@@ -65,6 +85,7 @@ def development():
     env.hosts = ['poppurri-web', ]
     env.git_branch = GIT_BRANCH_DEVELOPMENT
     env.requirements = REMOTE_REQUIREMENTS_DEVELOPMENT
+    env.settings = 'poppurri.settings.development'
 
 
 @task
@@ -76,6 +97,7 @@ def production():
     env.hosts = ['poppurri-web-production']
     env.git_branch = GIT_BRANCH_PRODUCTION
     env.requirements = REMOTE_REQUIREMENTS_PRODUCTION
+    env.settings = 'poppurri.settings.production'
 
 
 @task
@@ -104,10 +126,15 @@ def create_env():
 
     activate_path = path.join(env_dir, 'bin', 'activate')
     with prefix('source %s' % activate_path):
-        run('pip install -r %s' % env.requirements)
+        run('pip install -r %s --download-cache=~/.pip/cache' %
+            env.requirements)
 
     run('rm %s' % REMOTE_ENV_CURRENT)
     run('ln -s %s %s' % (env_dir, REMOTE_ENV_CURRENT))
+
+    export_secret_key = 'declare -x SECRET_KEY="%s"' % create_secret_key()
+    run(export_secret_key)
+    run("echo '%s' >> %s" % (export_secret_key, REMOTE_ENV_CURRENT_ACTIVATE))
 
 
 @task
@@ -138,6 +165,8 @@ def deploy():
     release_env_dir = path.join(release_dir, 'env')
     run('ln -s %s %s' % (REMOTE_ENV_CURRENT, release_env_dir))
 
+    clean()
+
 
 @task
 def shell():
@@ -147,4 +176,5 @@ def shell():
     env_activate_path = path.join(REMOTE_RELEASE_CURRENT, 'env', 'bin',
                                   'activate')
     manage_path = path.join(REMOTE_RELEASE_CURRENT, 'manage.py')
-    open_shell('source %s; %s shell' % (env_activate_path, manage_path))
+    open_shell('source %s; %s shell --settings=%s; exit;' %
+               (env_activate_path, manage_path, env.settings))
