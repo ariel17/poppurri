@@ -68,9 +68,7 @@ WEB_CATEGORIES_COUNT = 3
 
 
 ########## sorl-thumbnail CONFIGURATION
-THUMBNAIL_DEBUG = DEBUG
-THUMBNAIL_KVSTORE = u"sorl.thumbnail.kvstores.redis_kvstore.KVStore"
-THUMBNAIL_REDIS_DB = u"poppurri"
+THUMBNAIL_DEBUG = True
 ########## END sorl-thumbnail CONFIGURATION
 
 
