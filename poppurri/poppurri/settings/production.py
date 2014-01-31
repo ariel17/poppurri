@@ -12,8 +12,6 @@ from os import environ
 
 from base import *
 
-import dj_database_url
-
 
 ########## HOST CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
