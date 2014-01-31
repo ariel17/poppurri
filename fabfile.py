@@ -13,7 +13,7 @@ from os import path
 from fabric.api import env, settings, abort, local, run, prefix, task, cd
 from fabric.contrib.console import confirm
 from fabric.contrib.files import exists
-from fabric.operations import open_shell
+from fabric.operations import open_shell, prompt
 
 
 DATETIME_FORMAT = '%Y%m%d%H%y%S'
@@ -45,17 +45,15 @@ def prepare_source(branch):
     """
     Performs repository operations to obtain a copy on remote server.
     """
-    if exists(REMOTE_SOURCE):
-        print 'Project seems to be already cloned. Ignoring source '\
-              'preparation.'
-        return
+    if not exists(REMOTE_SOURCE_CLONE):
+        run('mkdir -p %s' % REMOTE_SOURCE)
+        with cd(REMOTE_SOURCE):
+            run('git clone %s' % GIT_REPOSITORY_URL)
 
-    run('mkdir -p %s' % REMOTE_SOURCE)
-    with cd(REMOTE_SOURCE):
-        run('git clone %s' % GIT_REPOSITORY_URL)
-        with cd(REMOTE_SOURCE_CLONE):
-            with settings(warn_only=True):
-                run('git checkout -b %s origin/%s' % (branch, branch))
+    with cd(REMOTE_SOURCE_CLONE):
+        with settings(warn_only=True):
+            run('git checkout -b %s origin/%s' % (branch, branch))
+            run('git pull --rebase')
 
 
 def create_secret_key():
@@ -67,13 +65,6 @@ def create_secret_key():
         random.choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
         for i in range(50)
     ])
-
-
-def clean():
-    """
-    Removes deployment unused artifacts.
-    """
-    run('rm -rf %s' % REMOTE_SOURCE)
 
 
 @task
@@ -98,6 +89,34 @@ def production():
     env.git_branch = GIT_BRANCH_PRODUCTION
     env.requirements = REMOTE_REQUIREMENTS_PRODUCTION
     env.settings = 'poppurri.settings.production'
+
+
+@task
+def set_env_vars():
+    """
+    Configures needed environment variables.
+    """
+    export_secret_key = 'declare -x SECRET_KEY="%s"' % create_secret_key()
+    declarations = [export_secret_key]
+
+    EMAIL_VARS = (
+        ('', 'HOST'),
+        ('', 'PORT'),
+        ('HOST', 'USER'),
+        ('HOST', 'PASSWORD'),
+    )
+
+    for (vprefix, var) in EMAIL_VARS:
+        value = prompt('Enter email %s (blank to skip):' % var.lower())
+        if value.strip():
+            export = 'declare -x EMAIL_%s="%s"' % (
+                '%s_%s' % (vprefix, var) if vprefix else var,
+                value)
+            declarations.append(export)
+
+    for export in declarations:
+        run(export)
+        run("echo '%s' >> %s" % (export, REMOTE_ENV_CURRENT_ACTIVATE))
 
 
 @task
@@ -129,12 +148,11 @@ def create_env():
         run('pip install -r %s --download-cache=~/.pip/cache' %
             env.requirements)
 
-    run('rm %s' % REMOTE_ENV_CURRENT)
+    with settings(warn_only=True):
+        run('rm %s' % REMOTE_ENV_CURRENT)
     run('ln -s %s %s' % (env_dir, REMOTE_ENV_CURRENT))
 
-    export_secret_key = 'declare -x SECRET_KEY="%s"' % create_secret_key()
-    run(export_secret_key)
-    run("echo '%s' >> %s" % (export_secret_key, REMOTE_ENV_CURRENT_ACTIVATE))
+    set_env_vars()
 
 
 @task
@@ -164,8 +182,6 @@ def deploy():
 
     release_env_dir = path.join(release_dir, 'env')
     run('ln -s %s %s' % (REMOTE_ENV_CURRENT, release_env_dir))
-
-    clean()
 
 
 @task
