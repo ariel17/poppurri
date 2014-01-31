@@ -111,21 +111,6 @@ def set_env_vars():
     export_secret_key = 'declare -x SECRET_KEY="%s"' % create_secret_key()
     declarations = [export_secret_key]
 
-    email_vars = (
-        ('', 'HOST'),
-        ('', 'PORT'),
-        ('HOST', 'USER'),
-        ('HOST', 'PASSWORD'),
-    )
-
-    for (vprefix, var) in email_vars:
-        value = prompt('Enter email %s (blank to skip):' % var.lower())
-        if value.strip():
-            export = 'declare -x EMAIL_%s="%s"' % (
-                '%s_%s' % (vprefix, var) if vprefix else var,
-                value)
-            declarations.append(export)
-
     for export in declarations:
         run(export)
         run("echo '%s' >> %s" % (export, REMOTE_ENV_CURRENT_ACTIVATE))
