@@ -7,6 +7,9 @@ Description: Production settings and globals.
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
+import os
+from os import environ
+
 from base import *
 
 import dj_database_url
