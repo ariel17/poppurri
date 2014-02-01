@@ -78,7 +78,7 @@ class Mixture(models.Model):
     )
     is_published = models.BooleanField(
         _(u"Is Published"),
-        default=True,
+        default=False,
         help_text=_(u"Publish the mixture on site."),
     )
     rating = RatingField(

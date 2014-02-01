@@ -49,6 +49,7 @@ class CategorySetUpMixin(object):
                     long_description_en='long description %s' % i,
                     long_description_es='long description %s' % i,
                     category=cat,
+                    is_published=True,
                 )
                 mixture.rating.add(
                     score=score,
@@ -88,7 +89,7 @@ class CategoryManagerTestcase(CategorySetUpMixin, TestCase):
     """
     TODO
     """
-    def test_top_content(self):
+    def test_top_content_ok(self):
         """
         TODO
         """
@@ -100,17 +101,31 @@ class CategoryTestCase(CategorySetUpMixin, TestCase):
     """
     TODO
     """
-    def test_top_mixture(self):
+    def test_top_mixture_published(self):
         """
         TODO
         """
-        cat = Category.final.all()[0]
+        cat = Category.final.all()[1]
         top_mixture = cat.top_mixture()
 
         self.assertIsNotNone(top_mixture)
 
         for mixture in cat.mixtures.all():
             self.assertTrue(top_mixture.rating.score >= mixture.rating.score)
+
+    def test_top_mixture_unpublished(self):
+        """
+        Verifies that if a category has all unpublished mixtures, then it does
+        not show any.
+        """
+        cat = Category.objects.all()[0]
+        mixtures = Mixture.objects.filter(category=cat)
+
+        for m in mixtures:
+            m.is_published = False
+            m.save()
+
+        self.assertIsNone(cat.top_mixture())
 
     def test_tree(self):
         """
@@ -130,6 +145,8 @@ class CategoryTestCase(CategorySetUpMixin, TestCase):
             3, Category.final.search(q="e").count()
         )
         self.assertEquals(0, Category.final.search(q=None).count())
+
+
 
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
