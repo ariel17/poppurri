@@ -10,7 +10,7 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 from datetime import datetime
 from os import path
 
-from fabric.api import env, settings, abort, local, run, prefix, task, cd
+from fabric.api import env, settings, abort, local, run, prefix, task, cd, sudo
 from fabric.contrib.console import confirm
 from fabric.contrib.files import exists
 from fabric.operations import open_shell, prompt
@@ -85,7 +85,8 @@ def development():
     Configures development environment.
     """
     env.use_ssh_config = True
-    env.hosts = ['poppurri-web', ]
+    env.forward_agent = True
+    env.hosts = ['poppurri-web-development', ]
     env.git_branch = GIT_BRANCH_DEVELOPMENT
     env.requirements = REMOTE_REQUIREMENTS_DEVELOPMENT
     env.settings = 'poppurri.settings.development'
@@ -97,6 +98,7 @@ def production():
     Configures production environment.
     """
     env.use_ssh_config = True
+    env.forward_agent = True
     env.hosts = ['poppurri-web-production']
     env.git_branch = GIT_BRANCH_PRODUCTION
     env.requirements = REMOTE_REQUIREMENTS_PRODUCTION
@@ -202,3 +204,11 @@ def shell():
     open_shell('source %s; %s shell --settings=%s; exit;' %
                (REMOTE_ENV_CURRENT_ACTIVATE, REMOTE_RELEASE_CURRENT_MANAGE,
                 env.settings))
+
+
+@task
+def restart():
+    """
+    Restart supervisord configuration.
+    """
+    sudo('supervisorctl restart %s' % APPLICATION, shell=False)
