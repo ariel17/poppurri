@@ -226,6 +226,8 @@ THIRD_PARTY_APPS = (
     'settings_context_processor',
     # Translation
     'rosetta',
+    # Sentry error notification
+    'raven.contrib.django.raven_compat',
 )
 
 # Apps specific for this project go here.
