@@ -121,5 +121,11 @@ THUMBNAIL_DEBUG = DEBUG
 USE_GOOGLE_ANALYTICS = False
 ########## END GOOGLE ANALYTICS CONFIGURATION
 
+########## SENTRY CONFIGURATION
+RAVEN_CONFIG = {
+    'dsn': 'http://d259cd5e06994dcf838b58193002df1d:eda1d02a4b15401984bcac1209af9203@sentry.ariel17.com.ar/6',
+}
+########## END SENTRY CONFIGURATION
+
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
