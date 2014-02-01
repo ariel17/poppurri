@@ -1,3 +1,14 @@
+ body {
+        font-family: 'Nunito', serif;
+        /*
+         * font-size: 48px;
+         */
+      }
+
 footer {
     background-color: #f5f5f5;
+}
+
+.text-justify {
+  text-align: justify;
 }

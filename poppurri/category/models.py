@@ -35,7 +35,8 @@ class CategoryManager(models.Manager, Searchable):
         """
         TODO
         """
-        return self.annotate(num_mixtures=Count('mixtures')).\
+        return self.filter(mixtures__is_published=True).\
+            annotate(num_mixtures=Count('mixtures')).\
             order_by('-num_mixtures').filter(num_mixtures__gt=0)[:limit_to]
 
     def search(self, q):
@@ -91,7 +92,7 @@ class Category(models.Model):
         """
         TODO
         """
-        mixtures = self.mixtures.all()
+        mixtures = self.mixtures.filter(is_published=True)
         if not len(mixtures):
             return None
 

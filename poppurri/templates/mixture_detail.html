@@ -61,7 +61,7 @@
               </div>
               <div class="modal-body">
             {% endcomment %}
-              {% thumbnail image.image "500x500" crop="center" as im %}
+              {% thumbnail image.image "700x700" as im %}
                 <img alt="{% trans image.alt %}" src="{{ im.url }}" />
               {% endthumbnail %}
             {% comment %}
@@ -85,8 +85,10 @@
         {% endwith %}
       </div>
     </div>
-    <div class="col-md-12 column">
-      <p>{% trans object.long_description %}</p>
+    <div class="col-md-12 column text-justify">
+      {% autoescape off %}
+        {% trans object.long_description %}
+      {% endautoescape %}
     </div>
   </div>
 

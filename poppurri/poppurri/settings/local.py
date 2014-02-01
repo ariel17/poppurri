@@ -62,8 +62,8 @@ DATABASES = {
         'NAME': 'poppurri',
         'USER': 'poppurri',
         'PASSWORD': 'poppurri',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'HOST': '',
+        'PORT': '',
     }
 }
 ########## END DATABASE CONFIGURATION
