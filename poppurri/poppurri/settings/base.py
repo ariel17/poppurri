@@ -226,6 +226,8 @@ THIRD_PARTY_APPS = (
     'settings_context_processor',
     # Translation
     'rosetta',
+    # Sentry error notification
+    'raven.contrib.django.raven_compat',
 )
 
 # Apps specific for this project go here.
@@ -336,11 +338,6 @@ LANGUAGES = (
     ('es', _('Spanish')),
     ('en', _('English')),
 )
-
-########## sorl-thumbnail CONFIGURATION
-THUMBNAIL_KVSTORE = u"sorl.thumbnail.kvstores.redis_kvstore.KVStore"
-THUMBNAIL_REDIS_DB = 0
-########## END sorl-thumbnail CONFIGURATION
 
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

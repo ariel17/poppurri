@@ -10,4 +10,4 @@ django-settings-context-processor==0.2
 django-rosetta==0.7.3
 django-transmeta==0.7.3
 django-contact-form==1.0
-redis==2.8.0
+raven==4.0.3

@@ -100,5 +100,11 @@ DEFAULT_FROM_EMAIL = 'info@poppurri.com.ar'
 SEND_BROKEN_LINK_EMAILS = True
 ########## END EMAIL CONFIGURATION
 
+########## RAVEN CONFIGURATION
+RAVEN_CONFIG = {
+    'dsn': 'http://80afdd92d3344ebf9b70c23f374dff14:fadba6e0d147433880c21368237bad10@sentry.ariel17.com.ar/5',
+}
+########## END RAVEN CONFIGURATION
+
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
