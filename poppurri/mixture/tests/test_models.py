@@ -49,6 +49,7 @@ class MixtureManagerTestCase(TestCase):
                 long_description_en='long description %s' % i,
                 long_description_es='long description %s' % i,
                 category=cat,
+                is_published=True,
             )
             mixture.rating.add(score=score, user=user, ip_address='127.0.0.1')
 
