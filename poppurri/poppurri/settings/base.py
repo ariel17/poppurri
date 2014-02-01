@@ -339,7 +339,7 @@ LANGUAGES = (
 
 ########## sorl-thumbnail CONFIGURATION
 THUMBNAIL_KVSTORE = u"sorl.thumbnail.kvstores.redis_kvstore.KVStore"
-THUMBNAIL_REDIS_DB = u"poppurri"
+THUMBNAIL_REDIS_DB = 0
 ########## END sorl-thumbnail CONFIGURATION
 
 
