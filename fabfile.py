@@ -172,7 +172,7 @@ def deploy():
                                                REMOTE_SOURCE_TMP))
         with settings(warn_only=True):
             for d in ['media', 'assets']:
-                tmp_dir = path.join(REMOTE_SOURCE_TMP, d)
+                tmp_dir = path.join(REMOTE_SOURCE_TMP, APPLICATION, d)
                 run('rm -rf %s' % tmp_dir)
 
     now = datetime.now().strftime(DATETIME_FORMAT)
@@ -183,22 +183,18 @@ def deploy():
     tmp_sources = path.join(REMOTE_SOURCE_TMP, APPLICATION, '*')
     run('cp -r %s %s %s' % (tmp_sources, tmp_bin, release_dir))
 
-    if exists(REMOTE_RELEASE_CURRENT):
-        run('rm %s' % REMOTE_RELEASE_CURRENT)
-
-    run('ln -s %s %s' % (release_dir, REMOTE_RELEASE_CURRENT))
-
     release_env_dir = path.join(release_dir, 'env')
     run('ln -s %s %s' % (REMOTE_ENV_CURRENT, release_env_dir))
 
     with settings(warn_only=True):
         release_media_dir = path.join(release_dir, 'media')
         run('mkdir -p %s' % REMOTE_STORAGE_MEDIA)
-        run('ln -s %s %s' % (REMOTE_STORAGE_MEDIA, release_media_dir))
 
         release_static_dir = path.join(release_dir, 'assets')
         run('mkdir -p %s' % REMOTE_STORAGE_STATIC)
-        run('ln -s %s %s' % (REMOTE_STORAGE_STATIC, release_static_dir))
+
+    run('ln -s %s %s' % (REMOTE_STORAGE_MEDIA, release_media_dir))
+    run('ln -s %s %s' % (REMOTE_STORAGE_STATIC, release_static_dir))
 
     with prefix('source %s' % REMOTE_ENV_CURRENT_ACTIVATE):
         run('%s syncdb --settings=%s' %
@@ -210,6 +206,10 @@ def deploy():
         run('%s compilemessages --settings=%s' %
             (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
 
+    if exists(REMOTE_RELEASE_CURRENT):
+        run('rm %s' % REMOTE_RELEASE_CURRENT)
+
+    run('ln -s %s %s' % (release_dir, REMOTE_RELEASE_CURRENT))
     clean()
 
 
