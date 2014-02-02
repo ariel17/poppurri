@@ -30,6 +30,6 @@ exec $VIRTUALENVDIR/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
   --workers $NUM_WORKERS \
   --user=$USER --group=$GROUP \
   --log-level=debug \
-  --bind 127.0.0.1
+  --bind 127.0.0.1:8000
   --max-requests 1024
   --timeout 3600
