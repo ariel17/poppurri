@@ -59,8 +59,8 @@ SEND_BROKEN_LINK_EMAILS = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'poppurri',
-        'USER': 'poppurri',
+        'NAME': 'poppurri-dev',
+        'USER': 'poppurri-dev',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '',
@@ -73,7 +73,9 @@ DATABASES = {
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'localhost:11211',
+        'KEY_PREFIX': 'development-',
     }
 }
 ########## END CACHE CONFIGURATION

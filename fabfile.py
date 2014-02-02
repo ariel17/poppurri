@@ -16,9 +16,9 @@ from fabric.contrib.files import exists
 from fabric.operations import open_shell
 
 
-DATETIME_FORMAT = '%Y%m%d%H%y%S'
-
 APPLICATION = 'poppurri'
+
+DATETIME_FORMAT = '%Y%m%d%H%y%S'
 
 REMOTE_ENV = path.join('$HOME', 'envs')
 REMOTE_ENV_CURRENT = path.join(REMOTE_ENV, 'current')
@@ -93,7 +93,8 @@ def development():
     env.hosts = ['poppurri-web-development', ]
     env.git_branch = GIT_BRANCH_DEVELOPMENT
     env.requirements = REMOTE_REQUIREMENTS_DEVELOPMENT
-    env.settings = 'poppurri.settings.development'
+    env.settings = '%s.settings.development' % APPLICATION
+    env.application = '%s-dev' % APPLICATION
 
 
 @task
@@ -106,7 +107,8 @@ def production():
     env.hosts = ['poppurri-web-production']
     env.git_branch = GIT_BRANCH_PRODUCTION
     env.requirements = REMOTE_REQUIREMENTS_PRODUCTION
-    env.settings = 'poppurri.settings.production'
+    env.settings = '%s.settings.production' % APPLICATION
+    env.application = APPLICATION
 
 
 @task
@@ -128,7 +130,7 @@ def test():
     Executes tests on project.
     """
     with settings(warn_only=True):
-        result = local('./%s/manage.py test' % APPLICATION, capture=True)
+        result = local('./%s/manage.py test' % env.application, capture=True)
     if result.failed and not confirm('Tests failed. Continue anyway?'):
         abort('Aborting at user request.')
 
@@ -172,7 +174,7 @@ def deploy():
                                                REMOTE_SOURCE_TMP))
         with settings(warn_only=True):
             for d in ['media', 'assets']:
-                tmp_dir = path.join(REMOTE_SOURCE_TMP, APPLICATION, d)
+                tmp_dir = path.join(REMOTE_SOURCE_TMP, env.application, d)
                 run('rm -rf %s' % tmp_dir)
 
     now = datetime.now().strftime(DATETIME_FORMAT)
@@ -180,7 +182,7 @@ def deploy():
     run('mkdir -p %s' % release_dir)
 
     tmp_bin = path.join(REMOTE_SOURCE_TMP, 'bin')
-    tmp_sources = path.join(REMOTE_SOURCE_TMP, APPLICATION, '*')
+    tmp_sources = path.join(REMOTE_SOURCE_CLONE, APPLICATION, '*')
     run('cp -r %s %s %s' % (tmp_sources, tmp_bin, release_dir))
 
     release_env_dir = path.join(release_dir, 'env')
@@ -197,14 +199,15 @@ def deploy():
     run('ln -s %s %s' % (REMOTE_STORAGE_STATIC, release_static_dir))
 
     with prefix('source %s' % REMOTE_ENV_CURRENT_ACTIVATE):
+        release_dir_manage = path.join(release_dir, 'manage.py')
         run('%s syncdb --settings=%s' %
-            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
+            (release_dir_manage, env.settings))
         run('%s migrate --settings=%s' %
-            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
+            (release_dir_manage, env.settings))
         run('%s collectstatic --settings=%s --noinput' %
-            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
+            (release_dir_manage, env.settings))
         run('%s compilemessages --settings=%s' %
-            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
+            (release_dir_manage, env.settings))
 
     if exists(REMOTE_RELEASE_CURRENT):
         run('rm %s' % REMOTE_RELEASE_CURRENT)
@@ -228,4 +231,4 @@ def restart():
     """
     Restart supervisord configuration.
     """
-    sudo('supervisorctl restart %s' % APPLICATION, shell=False)
+    sudo('supervisorctl restart %s' % env.application, shell=False)
