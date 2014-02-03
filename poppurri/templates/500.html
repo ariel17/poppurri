@@ -6,5 +6,27 @@
 {% block page_title %}{% trans "Server error" %}{% endblock page_title %}
 
 {% block content %}
-<p>{% trans "Whoops! An internal error has occurred. Please try again later." %}</p>
+  <div class="page-header">
+    <div class="col-md-12 column">
+      <h1>{% trans "Whoops! An internal error has occurred. Please try again later." %}</h1>
+    </div>
+  </div>
+
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <h2>{% trans "Maybe you want to try:" %}</h2>
+    </div>
+  </div>
+  
+  <div class="row clearfix">
+    <div class="col-md-6 column">
+       <ul>
+         <li><a href="{% url "mixture_list" %}">{% trans "Go back to mixture list page." %}</a></li>
+         <li><a href="{% url "home" %}">{% trans "Go back to Home page." %}</a></li>
+         <li><a href="{% url "search" %}">{% trans "Search an item in the site." %}</a></li>
+       </ul>
+    </div>
+  </div>
+
+
 {% endblock content %}
