@@ -13,18 +13,22 @@ from os import path
 from fabric.api import env, settings, abort, local, run, prefix, task, cd, sudo
 from fabric.contrib.console import confirm
 from fabric.contrib.files import exists
-from fabric.operations import open_shell, prompt
+from fabric.operations import open_shell
 
-
-DATETIME_FORMAT = '%Y%m%d%H%y%S'
 
 APPLICATION = 'poppurri'
+
+DATETIME_FORMAT = '%Y%m%d%H%y%S'
 
 REMOTE_ENV = path.join('$HOME', 'envs')
 REMOTE_ENV_CURRENT = path.join(REMOTE_ENV, 'current')
 REMOTE_ENV_CURRENT_ACTIVATE = path.join(REMOTE_ENV_CURRENT, 'bin', 'activate')
 REMOTE_ENV_CURRENT_DEACTIVATE = path.join(REMOTE_ENV_CURRENT, 'bin',
                                           'deactivate')
+
+REMOTE_STORAGE = path.join('$HOME', 'storage')
+REMOTE_STORAGE_MEDIA = path.join(REMOTE_STORAGE, 'media')
+REMOTE_STORAGE_STATIC = path.join(REMOTE_STORAGE, 'assets')
 
 REMOTE_RELEASE = path.join('$HOME', 'releases')
 REMOTE_RELEASE_CURRENT = path.join(REMOTE_RELEASE, 'current')
@@ -89,7 +93,8 @@ def development():
     env.hosts = ['poppurri-web-development', ]
     env.git_branch = GIT_BRANCH_DEVELOPMENT
     env.requirements = REMOTE_REQUIREMENTS_DEVELOPMENT
-    env.settings = 'poppurri.settings.development'
+    env.settings = '%s.settings.development' % APPLICATION
+    env.application = '%s-dev' % APPLICATION
 
 
 @task
@@ -102,7 +107,8 @@ def production():
     env.hosts = ['poppurri-web-production']
     env.git_branch = GIT_BRANCH_PRODUCTION
     env.requirements = REMOTE_REQUIREMENTS_PRODUCTION
-    env.settings = 'poppurri.settings.production'
+    env.settings = '%s.settings.production' % APPLICATION
+    env.application = APPLICATION
 
 
 @task
@@ -124,7 +130,7 @@ def test():
     Executes tests on project.
     """
     with settings(warn_only=True):
-        result = local('./%s/manage.py test' % APPLICATION, capture=True)
+        result = local('./%s/manage.py test' % env.application, capture=True)
     if result.failed and not confirm('Tests failed. Continue anyway?'):
         abort('Aborting at user request.')
 
@@ -166,33 +172,47 @@ def deploy():
     with cd(REMOTE_SOURCE_CLONE):
         run('git archive %s | tar -x -C %s' % (env.git_branch,
                                                REMOTE_SOURCE_TMP))
+        with settings(warn_only=True):
+            for d in ['media', 'assets']:
+                tmp_dir = path.join(REMOTE_SOURCE_TMP, env.application, d)
+                run('rm -rf %s' % tmp_dir)
 
     now = datetime.now().strftime(DATETIME_FORMAT)
     release_dir = path.join(REMOTE_RELEASE, now)
     run('mkdir -p %s' % release_dir)
 
     tmp_bin = path.join(REMOTE_SOURCE_TMP, 'bin')
-    tmp_sources = path.join(REMOTE_SOURCE_TMP, APPLICATION, '*')
+    tmp_sources = path.join(REMOTE_SOURCE_CLONE, APPLICATION, '*')
     run('cp -r %s %s %s' % (tmp_sources, tmp_bin, release_dir))
+
+    release_env_dir = path.join(release_dir, 'env')
+    run('ln -s %s %s' % (REMOTE_ENV_CURRENT, release_env_dir))
+
+    with settings(warn_only=True):
+        release_media_dir = path.join(release_dir, 'media')
+        run('mkdir -p %s' % REMOTE_STORAGE_MEDIA)
+
+        release_static_dir = path.join(release_dir, 'assets')
+        run('mkdir -p %s' % REMOTE_STORAGE_STATIC)
+
+    run('ln -s %s %s' % (REMOTE_STORAGE_MEDIA, release_media_dir))
+    run('ln -s %s %s' % (REMOTE_STORAGE_STATIC, release_static_dir))
+
+    with prefix('source %s' % REMOTE_ENV_CURRENT_ACTIVATE):
+        release_dir_manage = path.join(release_dir, 'manage.py')
+        run('%s syncdb --settings=%s' %
+            (release_dir_manage, env.settings))
+        run('%s migrate --settings=%s' %
+            (release_dir_manage, env.settings))
+        run('%s collectstatic --settings=%s --noinput' %
+            (release_dir_manage, env.settings))
+        run('%s compilemessages --settings=%s' %
+            (release_dir_manage, env.settings))
 
     if exists(REMOTE_RELEASE_CURRENT):
         run('rm %s' % REMOTE_RELEASE_CURRENT)
 
     run('ln -s %s %s' % (release_dir, REMOTE_RELEASE_CURRENT))
-
-    release_env_dir = path.join(release_dir, 'env')
-    run('ln -s %s %s' % (REMOTE_ENV_CURRENT, release_env_dir))
-
-    with prefix('source %s' % REMOTE_ENV_CURRENT_ACTIVATE):
-        run('%s syncdb --settings=%s' %
-            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
-        run('%s migrate --settings=%s' %
-            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
-        run('%s collectstatic --settings=%s --noinput' %
-            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
-        run('%s compilemessages --settings=%s' %
-            (REMOTE_RELEASE_CURRENT_MANAGE, env.settings))
-
     clean()
 
 
@@ -211,4 +231,4 @@ def restart():
     """
     Restart supervisord configuration.
     """
-    sudo('supervisorctl restart %s' % APPLICATION, shell=False)
+    sudo('supervisorctl restart %s' % env.application, shell=False)
