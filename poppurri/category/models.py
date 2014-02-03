@@ -37,7 +37,7 @@ class CategoryManager(models.Manager, Searchable):
         """
         return self.filter(mixtures__is_published=True).\
             annotate(num_mixtures=Count('mixtures')).\
-            order_by('-num_mixtures').filter(num_mixtures__gt=0)[:limit_to]
+            order_by('?').filter(num_mixtures__gt=0)[:limit_to]
 
     def search(self, q):
         """
