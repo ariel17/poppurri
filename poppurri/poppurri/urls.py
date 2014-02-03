@@ -32,16 +32,16 @@ urlpatterns = patterns('',
 )
 
 
-handler404 = 'web.not_found'
-handler500 = 'web.server_error'
+handler404 = 'web.views.not_found'
+handler500 = 'web.views.server_error'
 
 
 if settings.DEBUG:
     from django.conf.urls.static import static
 
     urlpatterns = patterns('',
-        url(r'^404/$', 'web.views.not_found'),
-        url(r'^500/$', 'web.views.server_error'),
+        url(r'^404/$', handler404),
+        url(r'^500/$', handler500),
     ) + urlpatterns
 
     urlpatterns += static(
