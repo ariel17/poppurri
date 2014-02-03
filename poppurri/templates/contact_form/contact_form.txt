@@ -1,3 +1,5 @@
-{{ name }}
-{{ email }}
-{{ body }}
+Un mensaje fue enviado desde la página:
+
+* Nombre: {{ name }}
+* Email: {{ email }}
+* Mensaje: {{ body }}
