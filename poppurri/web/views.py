@@ -7,6 +7,8 @@ Description: TODO
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.views.generic.base import TemplateView
 
 from mixture.models import Mixture
@@ -27,12 +29,20 @@ class HomeView(TemplateView):
         return context
 
 
-class NotFoundView(TemplateView):
-    template_name = '404.html'
+def not_found(request):
+    """
+    Handles 404 pages.
+    """
+    return render_to_response('404.html', {},
+                              context_instance=RequestContext(request))
 
 
-class ServerErrorView(TemplateView):
-    template_name = '500.html'
+def server_error(request):
+    """
+    Handles 500 pages.
+    """
+    return render_to_response('500.html', {},
+                              context_instance=RequestContext(request))
 
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
