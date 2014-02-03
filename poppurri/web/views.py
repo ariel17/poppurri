@@ -26,4 +26,13 @@ class HomeView(TemplateView):
         context['top_categories'] = Category.final.top_content()
         return context
 
+
+class NotFoundView(TemplateView):
+    template_name = '404.html'
+
+
+class ServerErrorView(TemplateView):
+    template_name = '500.html'
+
+
 # vim: ai ts=4 sts=4 et sw=4 ft=python

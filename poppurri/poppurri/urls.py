@@ -13,6 +13,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
+from web.views import NotFoundView, ServerErrorView
+
 
 urlpatterns = patterns('',
     # Translation support
@@ -31,8 +33,19 @@ urlpatterns = patterns('',
     url(r'^$', include('web.urls')),
 )
 
+
+handler404 = NotFoundView.as_view()
+handler500 = ServerErrorView.as_view()
+
+
 if settings.DEBUG:
     from django.conf.urls.static import static
+
+    urlpatterns += patterns('',
+        url(r'^404/$', NotFoundView.as_view()),
+        url(r'^500/$', ServerErrorView.as_view()),
+    )
+
 
     urlpatterns += static(
         settings.STATIC_URL,
