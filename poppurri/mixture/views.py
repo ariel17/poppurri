@@ -13,6 +13,8 @@ from django.db.models import Q
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 
+from contact_form.forms import ContactForm
+
 from .models import Mixture
 from category.models import Category
 
@@ -66,6 +68,7 @@ class MixtureDetailView(TemplateView):
         )
         context['category_tree'] = Category.tree(mixture.category)
         context['object'] = mixture
+        context['form'] = ContactForm(request=self.request)
         return context
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

@@ -55,6 +55,7 @@ TEMPLATE_DEBUG = DEBUG
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
     ('Ariel Gerardo Rios', 'ariel.gerardo.rios@gmail.com'),
+    ('Telma Soledad Euler', 'telmoke@hotmail.com'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers

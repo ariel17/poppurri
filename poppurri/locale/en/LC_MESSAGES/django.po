@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-28 16:33-0800\n"
-"PO-Revision-Date: 2014-01-28 17:06-0800\n"
+"POT-Creation-Date: 2014-02-03 03:48+0000\n"
+"PO-Revision-Date: 2014-02-03 03:53+0000\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Language: \n"
 "X-Translated-Using: django-rosetta 0.7.3\n"
 
-#: category/models.py:69
+#: category/models.py:70
 msgid "Category name"
 msgstr ""
 
-#: category/models.py:71
+#: category/models.py:72
 msgid "Description"
 msgstr ""
 
-#: category/models.py:77
+#: category/models.py:78
 msgid "Is a final category"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 
 #: mixture/models.py:82
 msgid "Publish the mixture on site."
-msgstr ""
+msgstr "Publish the product on site."
 
 #: mixture/models.py:93
 msgid "The mixture clasification in category."
@@ -105,11 +105,11 @@ msgstr ""
 msgid "Step description"
 msgstr ""
 
-#: poppurri/settings/base.py:342
+#: poppurri/settings/base.py:338
 msgid "Spanish"
 msgstr ""
 
-#: poppurri/settings/base.py:343
+#: poppurri/settings/base.py:339
 msgid "English"
 msgstr ""
 
@@ -117,15 +117,33 @@ msgstr ""
 msgid "Page Not found"
 msgstr ""
 
-#: templates/404.html:9
-msgid "This is not the page you were looking for."
+#: templates/404.html:12
+msgid "Those aren't the droids that you are looking for ..."
+msgstr ""
+
+#: templates/404.html:18 templates/500.html:17
+msgid "Maybe you want to try:"
+msgstr ""
+
+#: templates/404.html:25 templates/500.html:24
+msgid "Go back to mixture list page."
+msgstr ""
+
+#: templates/404.html:26 templates/500.html:25
+#: templates/contact_form/contact_form_sent.html:31
+msgid "Go back to Home page."
+msgstr ""
+
+#: templates/404.html:27 templates/500.html:26
+#: templates/contact_form/contact_form_sent.html:32
+msgid "Search an item in the site."
 msgstr ""
 
 #: templates/500.html:4 templates/500.html.py:6
 msgid "Server error"
 msgstr ""
 
-#: templates/500.html:9
+#: templates/500.html:11
 msgid "Whoops! An internal error has occurred. Please try again later."
 msgstr ""
 
@@ -215,36 +233,39 @@ msgstr ""
 msgid "Want to join? Let us know!"
 msgstr ""
 
-#: templates/mixture_detail.html:98
+#: templates/mixture_detail.html:100
 msgid "This mixture does not have a recipe."
 msgstr "The product does not have a recipe."
 
-#: templates/mixture_detail.html:102
+#: templates/mixture_detail.html:104
 msgid "Recipe"
 msgstr ""
 
-#: templates/mixture_detail.html:110
+#: templates/mixture_detail.html:112
 msgid "Item"
 msgstr ""
 
-#: templates/mixture_detail.html:111
+#: templates/mixture_detail.html:113
 msgid "Amount"
 msgstr ""
 
-#: templates/mixture_detail.html:131
+#: templates/mixture_detail.html:133
 msgid "Steps"
 msgstr ""
 
-#: templates/mixture_detail.html:152
+#: templates/mixture_detail.html:154
 msgid "Want contact the author? Or want to buy?"
 msgstr ""
 
-#: templates/mixture_detail.html:158
+#: templates/mixture_detail.html:160
 msgid ""
 "Send a message to this mixture's author about your opinion about it. You "
 "want to buy this work? No problem! Send him a message to put his hands to "
 "work for you!"
 msgstr ""
+"Send a message to this product's author about your opinion about it. You "
+"want to buy this work? No problem! Send him a message to put his hands to "
+"work for you!"
 
 #: templates/mixture_list.html:4 templates/mixture_list.html.py:16
 #: templates/mixture_list.html:20
@@ -313,3 +334,7 @@ msgid ""
 "We have received your message! Thank you very much for your words; we will "
 "be contacting you very soon. Meanwhile..."
 msgstr ""
+
+#: templates/contact_form/contact_form_sent.html:30
+msgid "Go to mixture list page."
+msgstr "Go to product list page."
