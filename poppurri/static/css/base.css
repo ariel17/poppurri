@@ -12,3 +12,15 @@ footer {
 .text-justify {
   text-align: justify;
 }
+
+.float-left {
+  float: left;
+}
+
+.inline-block {
+  display: inline-block; 
+}
+
+.share {
+    padding: 0 5px;
+}
