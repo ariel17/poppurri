@@ -19,3 +19,10 @@
 .margin-top5 {
   margin-top: 5px;
 }
+
+.author {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1;
+  color: #999; 
+}
