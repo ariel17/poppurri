@@ -30,12 +30,14 @@
 
   <div class="row clearfix">
     <div class="col-md-12 column">
-      <div class="page-header">
-        <h1>
+        <h1 class="inline-block">
           <small>{% trans "Mixture" %} #{{ object.id }}</small>
           {% trans object.name %}
         </h1>
-      </div>
+        <div class="inline-block share-header">
+          {% include "share.html" %}
+        </div>
+        <hr class="margin-top5" />
     </div>
   </div>
 
