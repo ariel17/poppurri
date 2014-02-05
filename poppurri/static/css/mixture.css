@@ -7,5 +7,22 @@
 }
 
 .slim-breadcrumb {
-  margin: 0px;
+  margin: 0;
+}
+
+.share-header {
+    margin-left: 50px;
+    margin-bottom: -5px;
+    padding: 0 5px;
+}
+
+.margin-top5 {
+  margin-top: 5px;
+}
+
+.author {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1;
+  color: #999; 
 }
