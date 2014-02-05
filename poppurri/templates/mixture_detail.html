@@ -31,8 +31,8 @@
   <div class="row clearfix">
     <div class="col-md-12 column">
         <h1 class="inline-block">
-          <small>{% trans "Mixture" %} #{{ object.id }}</small>
           {% trans object.name %}
+          <span class="author">{% trans "by" %} {{ object.author.first_name }} {{ object.author.last_name }}</span>
         </h1>
         <div class="inline-block share-header">
           {% include "share.html" %}
