@@ -28,7 +28,8 @@ urlpatterns = patterns('',
     url(r'^category/', include('category.urls')),
     url(r'^mixture/', include('mixture.urls')),
     url(r'^search/', include('search.urls')),
-    url(r'^$', include('web.urls')),
+    url(r'^user/', include('user_profile.urls')),
+    url(r'^', include('web.urls')),
 )
 
 

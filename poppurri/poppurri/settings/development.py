@@ -124,4 +124,9 @@ USE_GOOGLE_ANALYTICS = False
 ########## END GOOGLE ANALYTICS CONFIGURATION
 
 
+for logger in LOGGING['loggers'].keys():
+    LOGGING['loggers'][logger]['level'] = 'DEBUG'
+    LOGGING['loggers'][logger]['handlers'] = ['sentry', 'console']
+
+
 # vim: ai ts=4 sts=4 et sw=4 ft=python
