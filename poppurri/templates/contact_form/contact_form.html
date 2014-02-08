@@ -22,15 +22,24 @@
   </div>
 
   <div class="row clearfix">
-    <div class="col-md-12 column">
-      <h4>{% trans "Let us know what you think about the site, if you want to expose your work here or just say 'Hi!'; we want to know everything about you! We will be greatful to respond you as soon as possible." %}</h4>
+    <div class="col-md-6 column text-justify">
+      <h2>
+        {% trans "Join us, it's free!" %}
+      </h2>
+
+      <h4>
+        {% trans "Any questions? Let us know what you think about the site or just say 'Hi!'; we want to hear everything about you! We will be greatful to respond you as soon as possible." %}
+      </h4>
+
+      <h4>
+        {% trans "In case you want to join, you will be receiving an email with indications about how to proceed for publishing your products on our site. It's free! We wont charge you any comission on your sales." %}
+      </h4>
     </div>
-  </div>
- 
-  <div class="row clearfix">
+
     <div class="col-md-6 column">
       {% include "contact_form/_contact_form.html" %}
     </div>
+
   </div>
 
 {% endblock %}

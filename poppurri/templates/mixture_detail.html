@@ -32,7 +32,16 @@
     <div class="col-md-12 column">
         <h1 class="inline-block">
           {% trans object.name %}
-          <span class="author">{% trans "by" %} {{ object.author.first_name }} {{ object.author.last_name }}</span>
+          <span class="author">
+            {% trans "by" %}
+            <a href="{% url "user_profile_detail" object.author.username %}">
+              {% if object.author.profile %}
+                {{ object.author.profile.get_user_full_name }}
+              {% else %}
+                {{ object.author.username }}
+              {% endif %}
+            </a>
+          </span>
         </h1>
         <div class="inline-block share-header">
           {% include "share.html" %}
