@@ -17,10 +17,10 @@ class ImageModel(models.Model):
     """
     TODO
     """
-
     @property
     def image(self):
         """
+        TODO
         """
         msg = u"%r must implement an ImageField named 'image'" % \
             (self.__class__, )

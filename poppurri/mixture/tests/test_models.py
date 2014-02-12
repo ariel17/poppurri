@@ -18,7 +18,7 @@ from category.models import Category
 
 class MixtureManagerTestCase(TestCase):
     """
-    Tests functionallity defined pn :model:`mixture.MixtureManager`.
+    Tests functionallity defined on :model:`mixture.MixtureManager`.
     """
     def setUp(self):
         """

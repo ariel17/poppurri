@@ -153,6 +153,7 @@ FIXTURE_DIRS = (
 ########## TEMPLATE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
 TEMPLATE_CONTEXT_PROCESSORS = (
+    'poppurri.context_processors.current_site.current_site',
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
@@ -188,6 +189,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    # Adds some attributes missing in the request object from Django 1.6.
+    'poppurri.middlewares.BodyMiddleware',
 )
 ########## END MIDDLEWARE CONFIGURATION
 
@@ -237,6 +240,7 @@ LOCAL_APPS = (
     'common',
     'mixture',
     'search',
+    'user_profile',
     'web',
 )
 
@@ -260,31 +264,45 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+    },
     'handlers': {
-        'mail_admins': {
+        'sentry': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['sentry'],
             'level': 'ERROR',
             'propagate': True,
         },
         'contact_form': {
-            'handlers': ['mail_admins'],
+            'handlers': ['sentry'],
             'level': 'ERROR',
             'propagate': True,
         },
         'mixture': {
-            'handlers': ['mail_admins'],
+            'handlers': ['sentry'],
             'level': 'ERROR',
             'propagate': True,
         },
         'category': {
-            'handlers': ['mail_admins'],
+            'handlers': ['sentry'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'web': {
+            'handlers': ['sentry'],
             'level': 'ERROR',
             'propagate': True,
         },
@@ -322,11 +340,21 @@ WEB_CATEGORIES_COUNT = 3
 SEARCH_QUERY_PARAM = "q"
 ########## END SEARCH CONFIGURATION
 
+########## AUTHOR CONFIGURATION
+AUTHOR_IMAGES_PATH = join(IMAGES_ROOT, 'mixtures')
+########## END AUTHOR CONFIGURATION
+
+
+########## USER PROFILE CONFIGURATION
+USER_PROFILE_DEFAULT_IMAGE_URL = join('img', 'user_profile', 'generic-user.png')
+########## END USER PROFILE CONFIGURATION
+
 
 ########## SETTINGS CONTEXT PROCESSOR CONFIGURATION
 TEMPLATE_VISIBLE_SETTINGS = (
     'SEARCH_QUERY_PARAM',
     'USE_GOOGLE_ANALYTICS',
+    'USER_PROFILE_DEFAULT_IMAGE_URL',
 )
 ########## END SETTINGS CONTEXT PROCESSOR CONFIGURATION
 

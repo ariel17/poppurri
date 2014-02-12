@@ -22,24 +22,32 @@
 
   {% for mixture in object_list %}
     <div class="row clearfix">
-      <ul>
-        <li>
-          <div class="col-md-1 column mixture-item">
-            {% with mixture.images.random_outstanding_image as mixture_image %}
-              {% thumbnail mixture_image.image "100x100" crop="center" as im %}
-                <a href="{% url "mixture_detail_slug" mixture.slug %}" class="thumbnail">
-                  <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
-                </a>
-              {% endthumbnail %}
-            {% endwith %}
-          </div>
+      <div class="col-md-1 column mixture-item">
+        {% with mixture.images.random_outstanding_image as mixture_image %}
+          {% thumbnail mixture_image.image "100x100" crop="center" as im %}
+            <a href="{% url "mixture_detail_slug" mixture.slug %}" class="thumbnail">
+              <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
+            </a>
+          {% endthumbnail %}
+        {% endwith %}
+      </div>
 
-          <div class="col-md-10 column">
-            <h1 class="mixture-title"><a href="{% url "mixture_detail_slug" mixture.slug %}">{% trans mixture.name %}</a></h1>
-            <p>{% trans mixture.short_description %}</p>
-          </div>
-        </li>
-      </ul>
+      <div class="col-md-10 column">
+        <h2 class="mixture-title">
+          <a href="{% url "mixture_detail_slug" mixture.slug %}">
+            {% trans mixture.name %}
+          </a>
+          <small>
+            {% trans "by" %}
+            {% if mixture.author.profile %}
+              {{ mixture.author.profile.get_full_name }}
+            {% else %}
+              {{ mixture.author.username }}
+            {% endif %}
+          </small>
+        </h2>
+        <p>{% trans mixture.short_description %}</p>
+      </div>
     </div>
   {% endfor %}
 

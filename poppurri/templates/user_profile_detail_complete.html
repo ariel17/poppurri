@@ -1,0 +1,40 @@
+{% load staticfiles i18n thumbnail %}
+
+<div class="row clearfix">
+  <div class="col-md-12 column">
+    <h1>
+      <ul>
+        <li class="inline-block">
+          {% thumbnail user_object.profile.picture.url "120x120" as im %}
+            <img src="{{ im.url }}" class="img-circle"/>
+          {% endthumbnail %}
+        </li>
+        <li class="inline-block">{{ user_object.profile.get_user_full_name }}</li>
+      </ul>
+    </h1>
+  </div>
+</div>
+
+<hr />
+
+<div class="row clearfix bio-row">
+  <div class="col-md-3 column text-right">
+      <strong>{% trans "Biography" %}</strong>
+  </div>
+  <div class="col-md-9 column text-left">
+    {% trans user_object.profile.biography %}
+  </div>
+</div>
+
+<div class="row clearfix bio-row">
+  <div class="col-md-3 column text-right">
+    <strong>{% trans "Personal Page URL" %}</strong>
+  </div>
+  <div class="col-md-9 column text-left">
+    {% if user_object.profile.personal_page_url %}
+      {{ user_object.profile.personal_page_url }}
+    {% else %}
+      {% trans "Does not have one :(" %}
+    {% endif %}
+  </div>
+</div>
