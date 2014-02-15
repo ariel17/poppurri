@@ -1,12 +1,11 @@
 ========
 Poppurri
 ========
-
-.. image:: https://api.travis-ci.org/ariel17/poppurri.png
+.. image:: https://travis-ci.org/ariel17/poppurri.png?branch=master
    :target: https://travis-ci.org/ariel17/poppurri
 
-.. image:: https://coveralls.io/repos/ariel17/poppurri/badge.png
-  :target: https://coveralls.io/r/ariel17/poppurri
+.. image:: https://coveralls.io/repos/ariel17/poppurri/badge.png?branch=master
+  :target: https://coveralls.io/r/ariel17/poppurri?branch=master
 
 
 The Poppurri_ web site content.
