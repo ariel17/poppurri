@@ -25,3 +25,7 @@ media
 
 # Translation compiled files
 *.mo
+
+# Test coverage meta-data
+.coverage
+htmlcov
