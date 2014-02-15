@@ -44,8 +44,16 @@ class UserProfileTestCase(TestCase):
         Verifies that fetched user full name is the user's username value, when
         user does not allow to show it.
         """
-        self.up.show_name = True
+        self.up.show_name = False
         self.assertEquals(self.u.username, self.up.get_user_full_name())
+
+    def test_get_user_full_name_allow_showing_name(self):
+        """
+        Verifies that fetched user full name is the user's username value, when
+        user does not allow to show it.
+        """
+        full_name = u"%s %s" % (self.u.first_name, self.u.last_name, )
+        self.assertEquals(full_name, self.up.get_user_full_name())
 
     def test_get_user_full_incomplete_profile(self):
         """
