@@ -1,6 +1,8 @@
 ========
 Potpourri
 ========
+[![Build Status](https://api.travis-ci.org/ariel17/poppurri.png)](https://travis-ci.org/ariel17/poppurri)
+
 
 The [Potpourri](#) web site content.
 
