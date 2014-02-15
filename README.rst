@@ -1,6 +1,6 @@
-=========
-Potpourri
-=========
+========
+Poppurri
+========
 
 .. image:: https://api.travis-ci.org/ariel17/poppurri.png
    :target: https://travis-ci.org/ariel17/poppurri
