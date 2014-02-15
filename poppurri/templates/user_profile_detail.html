@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load staticfiles i18n thumbnail %}
+
+{% block extra_css %}
+  <link href="{% static 'css/user_profile.css' %}" rel="stylesheet">
+{% endblock extra_css %}
+
+{% block content-body %}
+
+  <ul class="breadcrumb slim-breadcrumb">
+    <li><a href="{% url "home" %}">{% trans "Home" %}</a></li>
+    <li>
+      <a href="{% url "user_profile_list" %}">
+        {% trans "All users" %}
+      </a>
+      <span class="divider"></span>
+    </li>
+    <li class="active">{{ user_object.username }}</li>
+  </ul>
+
+  {% if user_object.profile %}
+    {% include "user_profile_detail_complete.html" %}
+  {% else %}
+    {% include "user_profile_detail_incomplete.html" %}
+  {% endif %}
+
+  <hr />
+
+  <h2>
+    {% trans "Products published" %}
+    <small>{{ user_object.mixture_set.count }}</small>
+  </h2> 
+
+  {% for mixture in user_object.mixture_set.all %}
+    <div class="row clearfix">
+      <div class="col-md-1 column mixture-item">
+        {% with mixture.images.random_outstanding_image as mixture_image %}
+          {% thumbnail mixture_image.image "100x100" crop="center" as im %}
+            <a href="{% url "mixture_detail_slug" mixture.slug %}" class="thumbnail">
+              <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
+            </a>
+          {% endthumbnail %}
+        {% endwith %}
+      </div>
+
+      <div class="col-md-10 column">
+        <h3 class="mixture-title">
+          <a href="{% url "mixture_detail_slug" mixture.slug %}">
+            {% trans mixture.name %}
+          </a>
+        </h3>
+        <p>{% trans mixture.short_description %}</p>
+      </div>
+    </div>
+  {% endfor %}
+
+  <div class="col-md-6 col-md-offset-3 column text-center">
+    <p>
+      <a class="btn btn-primary btn-lg btn-block" href="{% url "user_profile_list" %}">
+        {% trans "Discover more users" %}
+      </a>
+    </p>
+  </div>
+
+{% endblock content-body %}

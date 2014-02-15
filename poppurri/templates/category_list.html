@@ -17,15 +17,20 @@
   </div>
 
   {% if object_list %}
+    <div class="divider"></div>
+    {% for category in object_list %}
       <div class="row clearfix">
-        <div class="divider"></div>
-        {% for category in object_list %}
-          <div class="col-md-12 column">
-            <h3><a href="{% url "category_detail_slug" category.slug %}">{% trans category.name %}</a></h3>
-            <p>{% trans category.description %}</p>
-          </div>
-        {% endfor %}
+        <div class="col-md-10 column">
+          <h3>
+            <a href="{% url "category_detail_slug" category.slug %}">
+              <span class="glyphicon glyphicon-tag"></span>
+              {% trans category.name %}
+            </a>
+          </h3>
+          <p>{% trans category.description %}</p>
+        </div>
       </div>
+    {% endfor %}
   {% endif %}
 
 {% endblock content-body %}

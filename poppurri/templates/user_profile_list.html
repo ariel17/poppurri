@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load staticfiles thumbnail i18n %}
+
+{% block content-body %}
+
+  <ul class="breadcrumb slim-breadcrumb">
+    <li><a href="{% url "home" %}">{% trans "Home" %}</a></li>
+    <li class="active">{% trans "All users" %}</li>
+  </ul>
+
+  <h1>{% trans "Users" %}</h1>
+
+  <hr />
+
+  {% for user in object_list %}
+    <div class="row clearfix col-md-12 column">
+      <h3>
+        <a href="{% url "user_profile_detail" user.username %}">
+          <span class="glyphicon glyphicon-user"></span>
+          {% if user.profile.show_name %}
+            {{ user.first_name }} {{ user.last_name }}
+          {% else %}
+            {{ user.username }}
+          {% endif %}
+        </a>
+      </h3>
+      <p>
+        {% blocktrans with user.mixture_set.all.count as mixture_count %}
+          Made {{ mixture_count }} products
+        {% endblocktrans %}
+      </p>
+    </div>
+  {% endfor %}
+
+{% endblock content-body %}
