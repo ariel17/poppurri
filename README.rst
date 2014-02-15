@@ -1,7 +1,12 @@
 =========
 Potpourri
 =========
-|Build Status|_
+
+.. image:: https://api.travis-ci.org/ariel17/poppurri.png
+   :target: https://travis-ci.org/ariel17/poppurri
+
+.. image:: https://coveralls.io/repos/ariel17/poppurri/badge.png
+  :target: https://coveralls.io/r/ariel17/poppurri
 
 
 The Poppurri_ web site content.
@@ -100,8 +105,6 @@ Acknowledgements
 - Many thanks to Randall Degges for the inspiration to write the book and django-skel.
 - All of the contributors_ to this project.
 
-.. |Build Status| image:: https://api.travis-ci.org/ariel17/poppurri.png
-.. _Build Status: https://travis-ci.org/ariel17/poppurri
 .. _Poppurri: https://www.poppurri.com.ar/
 .. _contributors: https://github.com/ariel17/potpourri/blob/master/CONTRIBUTORS.txt
 
