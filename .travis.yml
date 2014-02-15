@@ -7,4 +7,4 @@ env:
 install:
   - pip install -r requirements/test.txt
 script:
-  - python poppurri/manage.py test
+  - cd poppurri; python poppurri/manage.py test
