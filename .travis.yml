@@ -7,6 +7,6 @@ env:
 install:
   - pip install -r requirements/test.txt
 script:
-  - cd poppurri; python manage.py test
+  - cd poppurri; coverage run --source=poppurri manage.py test
 after_success:
   - coveralls
