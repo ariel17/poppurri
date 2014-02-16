@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-16 03:17+0000\n"
-"PO-Revision-Date: 2014-02-16 03:31+0000\n"
+"POT-Creation-Date: 2014-02-16 03:41+0000\n"
+"PO-Revision-Date: 2014-02-16 07:15+0000\n"
 "Last-Translator: Ariel Gerardo Rios <arielgerardorios@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +158,7 @@ msgstr "Productos"
 
 #: templates/base.html:66 templates/search_result.html:29
 msgid "Author, category or mixture"
-msgstr "Autor, categoquierasría o producto"
+msgstr "Autor, categoría o producto"
 
 #: templates/base.html:70 templates/search_result.html:16
 #: templates/search_result.html.py:23 templates/search_result.html:33
@@ -315,14 +315,12 @@ msgid "matching categories"
 msgstr "categorías que coinciden"
 
 #: templates/user_profile_detail.html:14 templates/user_profile_list.html:8
-#, fuzzy
 msgid "All users"
-msgstr "Todas las mezcla"
+msgstr "Todos los usuarios"
 
 #: templates/user_profile_detail.html:30
-#, fuzzy
 msgid "Products published"
-msgstr "Está publicado"
+msgstr "Productos publicados"
 
 #: templates/user_profile_detail.html:60
 msgid "Discover more users"
@@ -332,11 +330,15 @@ msgstr "Descubrir más usuarios"
 msgid "Biography"
 msgstr "Biografía"
 
-#: templates/user_profile_detail_complete.html:31
+#: templates/user_profile_detail_complete.html:28
+msgid "Nothing to say u.u"
+msgstr "Nada para decir u.u"
+
+#: templates/user_profile_detail_complete.html:35
 msgid "Personal Page URL"
 msgstr "Dirección de página personal"
 
-#: templates/user_profile_detail_complete.html:37
+#: templates/user_profile_detail_complete.html:41
 msgid "Does not have one :("
 msgstr "No tiene una :("
 
@@ -383,7 +385,6 @@ msgid "Join us, it's free!"
 msgstr "Unite, ¡es gratis!"
 
 #: templates/contact_form/contact_form.html:31
-#, fuzzy
 msgid ""
 "Any questions? Let us know what you think about the site or just say 'Hi!'; "
 "we want to hear everything about you! We will be greatful to respond you as "

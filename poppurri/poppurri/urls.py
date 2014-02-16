@@ -46,7 +46,7 @@ if settings.DEBUG:
     ) + urlpatterns
 
     urlpatterns += static(
-        settings.STATIC_URL,
+        r'static/',
         document_root=settings.STATIC_ROOT
     )
     urlpatterns += static(

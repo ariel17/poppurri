@@ -2,7 +2,7 @@
 
 <h1>
   <li class="inline-block">
-    {% with 'http://'|add:request.get_host|add:USER_PROFILE_DEFAULT_IMAGE_URL as static_url %}
+    {% with STATIC_URL|add:USER_PROFILE_DEFAULT_IMAGE_URL as static_url %}
       {% thumbnail static_url "100x100" as im %}
         <img src="{{ im.url }}" class="img-circle" />
       {% endthumbnail %}

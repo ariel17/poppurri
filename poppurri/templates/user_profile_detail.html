@@ -24,12 +24,21 @@
     {% include "user_profile_detail_incomplete.html" %}
   {% endif %}
 
-  <hr />
+  <hr class="bottom0" />
 
-  <h2>
-    {% trans "Products published" %}
-    <small>{{ user_object.mixture_set.count }}</small>
-  </h2> 
+  <div class="row clearfix bottom20">
+      <h1>  
+    <div class="col-md-6 column text-left">
+        {% trans "Products published" %}
+        <small>{{ user_object.mixture_set.count }}</small>
+    </div>
+    <div class="col-md-6 column text-right">
+      <a class="btn btn-primary" href="{% url "user_profile_list" %}">
+        {% trans "Discover more users" %}
+      </a>
+    </div>
+    </h1>
+  </div>
 
   {% for mixture in user_object.mixture_set.all %}
     <div class="row clearfix">

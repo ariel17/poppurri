@@ -94,7 +94,7 @@ def development():
     env.git_branch = GIT_BRANCH_DEVELOPMENT
     env.requirements = REMOTE_REQUIREMENTS_DEVELOPMENT
     env.settings = '%s.settings.development' % APPLICATION
-    env.application = '%s-dev' % APPLICATION
+    env.application = '%s_dev' % APPLICATION
 
 
 @task

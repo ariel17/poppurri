@@ -23,34 +23,7 @@ TEMPLATE_DEBUG = DEBUG
 
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = 'smtp.gmail.com'
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
-EMAIL_HOST_PASSWORD = 'password'
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
-EMAIL_HOST_USER = 'info@poppurri.com.ar'
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
-EMAIL_PORT = 587
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
-EMAIL_SUBJECT_PREFIX = '[%s] ' % SITE_NAME
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-use-tls
-EMAIL_USE_TLS = True
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#server-email
-SERVER_EMAIL = EMAIL_HOST_USER
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email 
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#send-broken-link-emails 
-SEND_BROKEN_LINK_EMAILS = True
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 ########## END EMAIL CONFIGURATION
 
 
@@ -59,8 +32,8 @@ SEND_BROKEN_LINK_EMAILS = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'poppurri-dev',
-        'USER': 'poppurri-dev',
+        'NAME': 'poppurri_dev',
+        'USER': 'poppurri_dev',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '',
@@ -73,7 +46,7 @@ DATABASES = {
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         'LOCATION': 'localhost:11211',
         'KEY_PREFIX': 'development-',
     }
@@ -95,12 +68,21 @@ MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
+
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
+def show_toolbar(request):
+    return True
+
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     'SHOW_TEMPLATE_CONTEXT': True,
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar,
 }
 ########## END TOOLBAR CONFIGURATION
+
+
+MEDIA_URL = 'https://development.poppurri.com.ar/media/'
+STATIC_URL = 'https://development.poppurri.com.ar/static/'
 
 
 ########## MIXTURE CONFIGURATION
