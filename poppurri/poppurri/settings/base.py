@@ -346,7 +346,7 @@ AUTHOR_IMAGES_PATH = join(IMAGES_ROOT, 'mixtures')
 
 
 ########## USER PROFILE CONFIGURATION
-USER_PROFILE_DEFAULT_IMAGE_URL = join('img', 'user_profile', 'generic-user.png')
+USER_PROFILE_DEFAULT_IMAGE_URL = join('img', 'generic-user.png')
 ########## END USER PROFILE CONFIGURATION
 
 

@@ -135,6 +135,6 @@ for logger in LOGGING['loggers'].keys():
 
 
 MEDIA_URL = 'http://localhost:8000/media/'
-# STATIC_URL = 'http://localhost:8000/static/'
+STATIC_URL = 'http://localhost:8000/static/'
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
