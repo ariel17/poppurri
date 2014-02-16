@@ -68,10 +68,15 @@ MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
+
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
+def show_toolbar(request):
+    return True
+
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     'SHOW_TEMPLATE_CONTEXT': True,
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar,
 }
 ########## END TOOLBAR CONFIGURATION
 
