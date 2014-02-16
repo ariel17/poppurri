@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-16 03:41+0000\n"
-"PO-Revision-Date: 2014-02-16 03:42+0000\n"
+"PO-Revision-Date: 2014-02-16 07:15+0000\n"
 "Last-Translator: Ariel Gerardo Rios <arielgerardorios@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +158,7 @@ msgstr "Productos"
 
 #: templates/base.html:66 templates/search_result.html:29
 msgid "Author, category or mixture"
-msgstr "Autor, categoquierasría o producto"
+msgstr "Autor, categoría o producto"
 
 #: templates/base.html:70 templates/search_result.html:16
 #: templates/search_result.html.py:23 templates/search_result.html:33
