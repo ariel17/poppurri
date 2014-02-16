@@ -108,8 +108,8 @@ RAVEN_CONFIG = {
 ########## END RAVEN CONFIGURATION
 
 
-MEDIA_URL = 'http://www.poppurri.com.ar/media/'
-STATIC_URL = 'http://www.poppurri.com.ar/static/'
+MEDIA_URL = 'https://www.poppurri.com.ar/media/'
+STATIC_URL = 'https://www.poppurri.com.ar/static/'
 
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
