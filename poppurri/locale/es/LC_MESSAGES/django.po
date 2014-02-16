@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 23:26+0000\n"
-"PO-Revision-Date: 2014-02-05 23:26+0000\n"
+"POT-Creation-Date: 2014-02-16 03:17+0000\n"
+"PO-Revision-Date: 2014-02-16 03:31+0000\n"
 "Last-Translator: Ariel Gerardo Rios <arielgerardorios@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -106,11 +106,11 @@ msgstr "Cantidad del ítem"
 msgid "Step description"
 msgstr "Descripción corta"
 
-#: poppurri/settings/base.py:339
+#: poppurri/settings/base.py:367
 msgid "Spanish"
 msgstr "Español"
 
-#: poppurri/settings/base.py:340
+#: poppurri/settings/base.py:368
 msgid "English"
 msgstr "Inglés"
 
@@ -124,7 +124,7 @@ msgstr "Esos no son los droides que están buscando ..."
 
 #: templates/404.html:18 templates/500.html:17
 msgid "Maybe you want to try:"
-msgstr "Quizás quiera probar:"
+msgstr "Quizás querés probar:"
 
 #: templates/404.html:25 templates/500.html:24
 msgid "Go back to mixture list page."
@@ -146,7 +146,7 @@ msgstr "Error del servidor"
 
 #: templates/500.html:11
 msgid "Whoops! An internal error has occurred. Please try again later."
-msgstr "¡Ops! Un error interno ha ocurrido. Por favor, intente más tarde."
+msgstr "¡Ops! Un error interno ha ocurrido. Por favor, intentá más tarde."
 
 #: templates/base.html:53 templates/category_list.html:4
 msgid "Categories"
@@ -158,23 +158,35 @@ msgstr "Productos"
 
 #: templates/base.html:66 templates/search_result.html:29
 msgid "Author, category or mixture"
-msgstr "Autor, categoría o producto"
+msgstr "Autor, categoquierasría o producto"
 
 #: templates/base.html:70 templates/search_result.html:16
 #: templates/search_result.html.py:23 templates/search_result.html:33
 msgid "Search"
 msgstr "Buscar"
 
-#: templates/base.html:78 templates/base.html.py:122 templates/base.html:124
+#: templates/base.html:78 templates/base.html.py:143 templates/base.html:145
 #: templates/contact_form/contact_form.html:4
 #: templates/contact_form/contact_form.html:14
 #: templates/contact_form/contact_form.html:20
 #: templates/contact_form/contact_form_sent.html:4
 #: templates/contact_form/contact_form_sent.html:14
 msgid "Contact us"
-msgstr "Contáctenos"
+msgstr "Contactanos"
+
+#: templates/base.html:85 templates/user_profile_list.html:11
+msgid "Users"
+msgstr "Usuarios"
+
+#: templates/base.html:91
+msgid "Register"
+msgstr "Registrate"
 
 #: templates/base.html:97
+msgid "Show me other users!"
+msgstr "¡Mostrame otros usuarios!"
+
+#: templates/base.html:118
 msgid "Change"
 msgstr "Cambiar"
 
@@ -186,6 +198,7 @@ msgstr "Detalle de la categoría %(category.name)s"
 #: templates/category_detail.html:14 templates/category_list.html:10
 #: templates/home.html:4 templates/mixture_detail.html:13
 #: templates/mixture_list.html:14 templates/search_result.html:14
+#: templates/user_profile_detail.html:11 templates/user_profile_list.html:7
 #: templates/contact_form/contact_form.html:12
 #: templates/contact_form/contact_form_sent.html:12
 msgid "Home"
@@ -209,8 +222,8 @@ msgid ""
 "Find quality handmade products or recipes to do it by yourself. Contact "
 "experts to concrete beautiful works."
 msgstr ""
-"Encuentre productos hechos a mano de calidad o recetas para hacerlo Ud. "
-"mismo. Contacte expertos para concretar hermosos trabajos."
+"Encontrá productos hechos a mano de calidad o recetas para hacerlos vos "
+"mismo. Contactá expertos para concretar hermosos trabajos."
 
 #: templates/home.html:55
 msgid "Show all mixtures"
@@ -218,7 +231,7 @@ msgstr "Mostrar todos los productos"
 
 #: templates/home.html:67
 msgid "Browse through categories for more mixtures"
-msgstr "Navegue entre las categorías para más productos"
+msgstr "Navegá entre las categorías para ver más productos"
 
 #: templates/home.html:70
 msgid "See more products from builders to learn how to build or buy"
@@ -235,51 +248,55 @@ msgid "Show all categories"
 msgstr "Mostrar todas las categorías"
 
 #: templates/home.html:111
-msgid "Want to join? Let us know!"
-msgstr "¿Quiere participar? ¡Háganos saberlo!"
+msgid "Free. Without commission"
+msgstr "Gratis. Sin comisión"
 
-#: templates/mixture_detail.html:35
+#: templates/home.html:119
+msgid "Join us! It's free"
+msgstr "¡Unite! Es gratis"
+
+#: templates/mixture_detail.html:36 templates/mixture_list.html:41
 msgid "by"
 msgstr "por"
 
-#: templates/mixture_detail.html:102
+#: templates/mixture_detail.html:111
 msgid "This mixture does not have a recipe."
 msgstr "Este producto no tiene una receta."
 
-#: templates/mixture_detail.html:106
+#: templates/mixture_detail.html:115
 msgid "Recipe"
 msgstr "Receta"
 
-#: templates/mixture_detail.html:114
+#: templates/mixture_detail.html:123
 msgid "Item"
 msgstr "Nombre del ítem"
 
-#: templates/mixture_detail.html:115
+#: templates/mixture_detail.html:124
 msgid "Amount"
 msgstr "Cantidad"
 
-#: templates/mixture_detail.html:135
+#: templates/mixture_detail.html:144
 msgid "Steps"
 msgstr "Pasos"
 
-#: templates/mixture_detail.html:156
+#: templates/mixture_detail.html:165
 msgid "Want contact the author? Or want to buy?"
-msgstr "¿Quiere contactar al autor? ¿O quiere comprar?"
+msgstr "¿Querés contactar al autor? ¿O querés comprar?"
 
-#: templates/mixture_detail.html:162
+#: templates/mixture_detail.html:171
 msgid ""
 "Send a message to this mixture's author about your opinion about it. You "
 "want to buy this work? No problem! Send him a message to put his hands to "
 "work for you!"
 msgstr ""
-"Envíe un mensaje al autor acerca de su opinión sobre el producto. ¿Quiere "
-"comprar este trabajo? ¡No hay problema! ¡Envíele un mensaje para que trabaje"
-" para Ud!"
+"Enviá un mensaje al autor acerca de tu opinión sobre el producto. ¿Querés "
+"comprar este trabajo? ¡No hay problema! ¡Enviale un mensaje para que trabaje"
+" para vos!"
 
 #: templates/mixture_list.html:4 templates/mixture_list.html.py:16
 #: templates/mixture_list.html:20
 msgid "All mixtures"
-msgstr "Todas las mezcla"
+msgstr "Todas los productos"
 
 #: templates/search_result.html:4
 msgid "Search for"
@@ -297,6 +314,42 @@ msgstr "productos que coinciden"
 msgid "matching categories"
 msgstr "categorías que coinciden"
 
+#: templates/user_profile_detail.html:14 templates/user_profile_list.html:8
+#, fuzzy
+msgid "All users"
+msgstr "Todas las mezcla"
+
+#: templates/user_profile_detail.html:30
+#, fuzzy
+msgid "Products published"
+msgstr "Está publicado"
+
+#: templates/user_profile_detail.html:60
+msgid "Discover more users"
+msgstr "Descubrir más usuarios"
+
+#: templates/user_profile_detail_complete.html:22
+msgid "Biography"
+msgstr "Biografía"
+
+#: templates/user_profile_detail_complete.html:31
+msgid "Personal Page URL"
+msgstr "Dirección de página personal"
+
+#: templates/user_profile_detail_complete.html:37
+msgid "Does not have one :("
+msgstr "No tiene una :("
+
+#: templates/user_profile_list.html:28
+#, python-format
+msgid ""
+"\n"
+"          Made %(mixture_count)s products\n"
+"        "
+msgstr ""
+"\n"
+"Hizo %(mixture_count)s productos"
+
 #: templates/contact_form/_contact_form.html:6
 msgid "Oh noes!"
 msgstr "¡Oh, no!"
@@ -306,8 +359,8 @@ msgid ""
 "Check errors below to complete the process to send message. We want to hear "
 "from you!"
 msgstr ""
-"Verifique los errores debajo para completar el proceso de envío del mensaje."
-" ¡Queremos oir de Ud.!"
+"Verificá los errores debajo para completar el proceso de envío del mensaje. "
+"¡Queremos oir lo que tengas que decir!"
 
 #: templates/contact_form/_contact_form.html:16
 msgid "Jhon Doe"
@@ -325,15 +378,30 @@ msgstr "¡Hola! Quiero contactarte porque..."
 msgid "Send"
 msgstr "Enviar"
 
-#: templates/contact_form/contact_form.html:26
+#: templates/contact_form/contact_form.html:27
+msgid "Join us, it's free!"
+msgstr "Unite, ¡es gratis!"
+
+#: templates/contact_form/contact_form.html:31
+#, fuzzy
 msgid ""
-"Let us know what you think about the site, if you want to expose your work "
-"here or just say 'Hi!'; we want to know everything about you! We will be "
-"greatful to respond you as soon as possible."
+"Any questions? Let us know what you think about the site or just say 'Hi!'; "
+"we want to hear everything about you! We will be greatful to respond you as "
+"soon as possible."
 msgstr ""
-"Déjenos saber lo que piensa acerca del sitio, si quiere exponer su trabajo "
-"aquí o sólo decir \"¡Hola!\"; ¡queremos saber todo acerca de ti! Estaremos "
-"complacidos de responderle tan pronto como sea posible."
+"Haznos saber lo que pensás acerca del sitio, si querés exponer tu trabajo "
+"acá o sólo decir \"¡Hola!\"; ¡queremos saber todo acerca de vos! Estaremos "
+"complacidos de responderte tan pronto como sea posible."
+
+#: templates/contact_form/contact_form.html:35
+msgid ""
+"In case you want to join, you will be receiving an email with indications "
+"about how to proceed for publishing your products on our site. It's free! We"
+" wont charge you any comission on your sales."
+msgstr ""
+"En caso de que quieras unirte, estarás recibiendo un correo con las "
+"indicaciones acerca de cómo proceder para publicar tus productos en nuestro "
+"sitio. ¡Es gratis! No te cobraremos ninguna comisión en tus ventas."
 
 #: templates/contact_form/contact_form_sent.html:18
 msgid "Message sent."
@@ -348,12 +416,35 @@ msgid ""
 "We have received your message! Thank you very much for your words; we will "
 "be contacting you very soon. Meanwhile..."
 msgstr ""
-"¡Hemos recibido su mensaje! Muchas gracias por sus palabras; nos pondremos "
-"en contacto con Ud. muy pronto. Mientras tanto..."
+"¡Hemos recibido tu mensaje! Muchas gracias por tus palabras; nos pondremos "
+"en contacto con vos muy pronto. Mientras tanto..."
 
 #: templates/contact_form/contact_form_sent.html:30
 msgid "Go to mixture list page."
 msgstr "Ir a la lista de productos."
+
+#: user_profile/models.py:35
+msgid "Show name on site"
+msgstr "Mostrar tu nombre en el sitio"
+
+#: user_profile/models.py:40
+msgid "User picture"
+msgstr "Foto de usuario"
+
+#: user_profile/models.py:47
+msgid "Mail notification enabled"
+msgstr "Notificación por correo activada"
+
+#: user_profile/models.py:50
+msgid "User biography"
+msgstr "Biografía del usuario"
+
+#: user_profile/models.py:52
+msgid "Pesonal page URL"
+msgstr "Dirección de página personal"
+
+#~ msgid "Want to join? Let us know!"
+#~ msgstr "¿Quiere participar? ¡Háganos saberlo!"
 
 #~ msgid "Change language"
 #~ msgstr "Cambiar lenguaje"
