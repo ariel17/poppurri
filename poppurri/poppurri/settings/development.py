@@ -82,6 +82,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 
 MEDIA_URL = 'http://development.poppurri.com.ar/media/'
+STATIC_URL = 'http://development.poppurri.com.ar/static/'
 
 
 ########## MIXTURE CONFIGURATION
