@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 23:26+0000\n"
+"POT-Creation-Date: 2014-02-16 03:17+0000\n"
 "PO-Revision-Date: 2014-02-03 03:53+0000\n"
-"Last-Translator:   <>\n"
+"Last-Translator: <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Translated-Using: django-rosetta 0.7.3\n"
 
 #: category/models.py:70
@@ -105,11 +105,11 @@ msgstr ""
 msgid "Step description"
 msgstr ""
 
-#: poppurri/settings/base.py:339
+#: poppurri/settings/base.py:367
 msgid "Spanish"
 msgstr ""
 
-#: poppurri/settings/base.py:340
+#: poppurri/settings/base.py:368
 msgid "English"
 msgstr ""
 
@@ -164,7 +164,7 @@ msgstr "Author, category or product"
 msgid "Search"
 msgstr ""
 
-#: templates/base.html:78 templates/base.html.py:122 templates/base.html:124
+#: templates/base.html:78 templates/base.html.py:143 templates/base.html:145
 #: templates/contact_form/contact_form.html:4
 #: templates/contact_form/contact_form.html:14
 #: templates/contact_form/contact_form.html:20
@@ -173,7 +173,19 @@ msgstr ""
 msgid "Contact us"
 msgstr ""
 
+#: templates/base.html:85 templates/user_profile_list.html:11
+msgid "Users"
+msgstr ""
+
+#: templates/base.html:91
+msgid "Register"
+msgstr ""
+
 #: templates/base.html:97
+msgid "Show me other users!"
+msgstr ""
+
+#: templates/base.html:118
 msgid "Change"
 msgstr ""
 
@@ -185,6 +197,7 @@ msgstr ""
 #: templates/category_detail.html:14 templates/category_list.html:10
 #: templates/home.html:4 templates/mixture_detail.html:13
 #: templates/mixture_list.html:14 templates/search_result.html:14
+#: templates/user_profile_detail.html:11 templates/user_profile_list.html:7
 #: templates/contact_form/contact_form.html:12
 #: templates/contact_form/contact_form_sent.html:12
 msgid "Home"
@@ -230,38 +243,42 @@ msgid "Show all categories"
 msgstr ""
 
 #: templates/home.html:111
-msgid "Want to join? Let us know!"
+msgid "Free. Without commission"
 msgstr ""
 
-#: templates/mixture_detail.html:35
+#: templates/home.html:119
+msgid "Join us! It's free"
+msgstr ""
+
+#: templates/mixture_detail.html:36 templates/mixture_list.html:41
 msgid "by"
 msgstr ""
 
-#: templates/mixture_detail.html:102
+#: templates/mixture_detail.html:111
 msgid "This mixture does not have a recipe."
 msgstr "The product does not have a recipe."
 
-#: templates/mixture_detail.html:106
+#: templates/mixture_detail.html:115
 msgid "Recipe"
 msgstr ""
 
-#: templates/mixture_detail.html:114
+#: templates/mixture_detail.html:123
 msgid "Item"
 msgstr ""
 
-#: templates/mixture_detail.html:115
+#: templates/mixture_detail.html:124
 msgid "Amount"
 msgstr ""
 
-#: templates/mixture_detail.html:135
+#: templates/mixture_detail.html:144
 msgid "Steps"
 msgstr ""
 
-#: templates/mixture_detail.html:156
+#: templates/mixture_detail.html:165
 msgid "Want contact the author? Or want to buy?"
 msgstr ""
 
-#: templates/mixture_detail.html:162
+#: templates/mixture_detail.html:171
 msgid ""
 "Send a message to this mixture's author about your opinion about it. You "
 "want to buy this work? No problem! Send him a message to put his hands to "
@@ -292,6 +309,39 @@ msgstr "matching products"
 msgid "matching categories"
 msgstr ""
 
+#: templates/user_profile_detail.html:14 templates/user_profile_list.html:8
+#, fuzzy
+msgid "All users"
+msgstr "All products"
+
+#: templates/user_profile_detail.html:30
+msgid "Products published"
+msgstr ""
+
+#: templates/user_profile_detail.html:60
+msgid "Discover more users"
+msgstr ""
+
+#: templates/user_profile_detail_complete.html:22
+msgid "Biography"
+msgstr ""
+
+#: templates/user_profile_detail_complete.html:31
+msgid "Personal Page URL"
+msgstr ""
+
+#: templates/user_profile_detail_complete.html:37
+msgid "Does not have one :("
+msgstr ""
+
+#: templates/user_profile_list.html:28
+#, python-format
+msgid ""
+"\n"
+"          Made %(mixture_count)s products\n"
+"        "
+msgstr ""
+
 #: templates/contact_form/_contact_form.html:6
 msgid "Oh noes!"
 msgstr ""
@@ -318,11 +368,22 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: templates/contact_form/contact_form.html:26
+#: templates/contact_form/contact_form.html:27
+msgid "Join us, it's free!"
+msgstr ""
+
+#: templates/contact_form/contact_form.html:31
 msgid ""
-"Let us know what you think about the site, if you want to expose your work "
-"here or just say 'Hi!'; we want to know everything about you! We will be "
-"greatful to respond you as soon as possible."
+"Any questions? Let us know what you think about the site or just say 'Hi!'; "
+"we want to hear everything about you! We will be greatful to respond you as "
+"soon as possible."
+msgstr ""
+
+#: templates/contact_form/contact_form.html:35
+msgid ""
+"In case you want to join, you will be receiving an email with indications "
+"about how to proceed for publishing your products on our site. It's free! We"
+" wont charge you any comission on your sales."
 msgstr ""
 
 #: templates/contact_form/contact_form_sent.html:18
@@ -342,3 +403,23 @@ msgstr ""
 #: templates/contact_form/contact_form_sent.html:30
 msgid "Go to mixture list page."
 msgstr "Go to product list page."
+
+#: user_profile/models.py:35
+msgid "Show name on site"
+msgstr ""
+
+#: user_profile/models.py:40
+msgid "User picture"
+msgstr ""
+
+#: user_profile/models.py:47
+msgid "Mail notification enabled"
+msgstr ""
+
+#: user_profile/models.py:50
+msgid "User biography"
+msgstr ""
+
+#: user_profile/models.py:52
+msgid "Pesonal page URL"
+msgstr ""
