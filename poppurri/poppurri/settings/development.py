@@ -81,6 +81,9 @@ DEBUG_TOOLBAR_CONFIG = {
 ########## END TOOLBAR CONFIGURATION
 
 
+MEDIA_URL = 'http://development.poppurri.com.ar/media/'
+
+
 ########## MIXTURE CONFIGURATION
 MIXTURE_MAX_RATE = 0
 ########## END MIXTURE CONFIGURATION
