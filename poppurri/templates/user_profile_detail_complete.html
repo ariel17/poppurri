@@ -9,7 +9,9 @@
             <img src="{{ im.url }}" class="img-circle"/>
           {% endthumbnail %}
         </li>
-        <li class="inline-block">{{ user_object.profile.get_user_full_name }}</li>
+        <li class="inline-block">
+          {{ user_object.profile.get_user_full_name }}
+        </li>
       </ul>
     </h1>
   </div>
@@ -22,7 +24,11 @@
       <strong>{% trans "Biography" %}</strong>
   </div>
   <div class="col-md-9 column text-left">
-    {% trans user_object.profile.biography %}
+    {% if user_object.profile.biography %}
+      {% trans user_object.profile.biography %}
+    {% else %}
+      {% trans "Nothing to say u.u" %}
+    {% endif %}
   </div>
 </div>
 
