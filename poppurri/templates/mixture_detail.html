@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load staticfiles thumbnail i18n %}
+{% load staticfiles thumbnail i18n to_currency %}
 
 {% block title %}{% trans object.name %}{% endblock title %}
 
@@ -96,10 +96,17 @@
         {% endwith %}
       </div>
     </div>
-    <div class="col-md-12 column text-justify">
+    <div class="col-md-8 column text-justify">
       {% autoescape off %}
         {% trans object.long_description %}
       {% endautoescape %}
+    </div>
+  </div>
+
+  <div class="row clearfix">
+    <div class="col-md-6 col-md-offset-3 text-center price">
+      <span>{{ currency.code }}{{ currency.symbol }}</span>
+      {{ object.price|to_currency:currency }}
     </div>
   </div>
 
