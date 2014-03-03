@@ -17,6 +17,7 @@ from contact_form.forms import ContactForm
 
 from .models import Mixture
 from category.models import Category
+from currency.models import Currency
 
 
 class FilterMixin(object):
@@ -66,8 +67,20 @@ class MixtureDetailView(TemplateView):
         mixture = Mixture.published.get(
             Q(slug_en=self.kwargs['slug']) | Q(slug_es=self.kwargs['slug'])
         )
-        context['category_tree'] = Category.tree(mixture.category)
         context['object'] = mixture
+
+        currency_code = self.request.GET.get(
+            'c', settings.CURRENCY_DEFAULT_CODE).upper()
+
+        try:
+            currency = Currency.objects.get(code=currency_code)
+        except Currency.DoesNotExist:
+            currency = Currency.objects.get(
+                code=settings.CURRENCY_DEFAULT_CODE)
+
+        context['currency'] = currency
+
+        context['category_tree'] = Category.tree(mixture.category)
         context['form'] = ContactForm(request=self.request)
         return context
 
