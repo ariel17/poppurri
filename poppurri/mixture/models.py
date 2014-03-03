@@ -95,7 +95,7 @@ class Mixture(models.Model):
     )
 
     price = models.DecimalField(
-        _('The mixture price'),
+        _('Price'),
         max_digits=10,
         decimal_places=2,
         default=Decimal('0.00'),
