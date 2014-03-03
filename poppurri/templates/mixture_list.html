@@ -40,7 +40,7 @@
           <small>
             {% trans "by" %}
             {% if mixture.author.profile %}
-              {{ mixture.author.profile.get_full_name }}
+              {{ mixture.author.profile.get_user_full_name }}
             {% else %}
               {{ mixture.author.username }}
             {% endif %}

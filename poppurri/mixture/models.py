@@ -7,6 +7,7 @@ work to expose.
 """
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
+from decimal import Decimal
 
 from django.conf import settings
 from django.db import models
