@@ -50,63 +50,41 @@
     </div>
   </div>
 
-  {% if object.images %}
-    <div class="row">
-      {% for image in object.images.all %}
-        <div class="col-xs-6 col-md-1">
-          {% thumbnail image.image "150x150" crop="center" as im %}
-            <a href="#launch{{ image.id }}" class="thumbnail" data-toggle="modal">
-              <img alt="{% trans image.alt %}" src="{{ im.url }}" />
-            </a>
-          {% endthumbnail %}
-        </div>
-      {% endfor %}
-    </div>
-
-    {% for image in object.images.all %}
-      <div id="launch{{ image.id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="image-{{ image.id }}-modal" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            {% comment %}
-              <div class="modal-header">
-              </div>
-              <div class="modal-body">
-            {% endcomment %}
+  <div class="row clearfix">
+    <!-- Carousel column -->
+    <div class="col-md-6 column">
+      <div id="myCarousel" class="carousel slide">
+        <ol class="carousel-indicators">
+          {% for image in object.images.all %}
+            <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active">{% endif %}</li>
+          {% endfor %}
+        </ol>
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+          {% for image in object.images.all %}
+            <div class="{% if forloop.first %}active{% endif %} item">
               {% thumbnail image.image "700x700" as im %}
                 <img alt="{% trans image.alt %}" src="{{ im.url }}" />
               {% endthumbnail %}
-            {% comment %}
-              </div>
-              <div class="modal-footer">
-              </div>
-            {% endcomment %}
-          </div>
+            </div>
+          {% endfor %}
         </div>
-      </div>
-    {% endfor %}
-  {% endif %}
-
-  <div class="row clearfix">
-    <div class="col-md-4 column">
-      <div class="thumbnail">
-        {% with object.images.random_outstanding_image as mixture_image %}
-          {% thumbnail mixture_image.image "350x350" crop="center" as im %}
-            <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
-          {% endthumbnail %}
-        {% endwith %}
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
       </div>
     </div>
-    <div class="col-md-8 column text-justify">
+
+    <!-- Description & price column -->
+    <div class="col-md-6 column text-justify">
       {% autoescape off %}
         {% trans object.long_description %}
       {% endautoescape %}
-    </div>
-  </div>
 
-  <div class="row clearfix">
-    <div class="col-md-6 col-md-offset-3 text-center price">
-      <span>{{ currency.code }}{{ currency.symbol }}</span>
-      {{ object.price|to_currency:currency }}
+      <div class="alert alert-info text-center price">
+        <span>{{ currency.code }}{{ currency.symbol }}</span>
+        {{ object.price|to_currency:currency }}
+      </div>
     </div>
   </div>
 
