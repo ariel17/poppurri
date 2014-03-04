@@ -64,20 +64,12 @@ class MixtureDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(MixtureDetailView, self).get_context_data(**kwargs)
 
-        mixture = Mixture.published.get(
-            Q(slug_en=self.kwargs['slug']) | Q(slug_es=self.kwargs['slug'])
-        )
+        mixture = Mixture.published.get(pk=self.kwargs['pk'])
         context['object'] = mixture
 
         currency_code = self.request.GET.get(
-            'c', settings.CURRENCY_DEFAULT_CODE).upper()
-
-        try:
-            currency = Currency.objects.get(code=currency_code)
-        except Currency.DoesNotExist:
-            currency = Currency.objects.get(
-                code=settings.CURRENCY_DEFAULT_CODE)
-
+            'c', settings.CURRENCY_DEFAULT).upper()
+        currency = Currency.objects.get(code=currency_code)
         context['currency'] = currency
 
         context['category_tree'] = Category.tree(mixture.category)
