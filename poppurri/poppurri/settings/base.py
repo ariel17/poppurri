@@ -291,6 +291,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'currency': {
+            'handlers': ['sentry'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     }
 }
 ########## END LOGGING CONFIGURATION
@@ -355,7 +360,10 @@ LANGUAGES = (
 )
 
 
-CURRENCY_DEFAULT_CODE = 'ARS'
+######### CURRENCY CONFIGURATION
+CURRENCY_DEFAULT = 'ARS'
+CURRENCY_FROM = 'USD'
+######### CURRENCY CONFIGURATION
 
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
