@@ -63,7 +63,7 @@
         {% for mixture in mixture_result %}
           <div class="col-md-12 column">
             <h3>
-              <a href="{% url "mixture_detail_slug" mixture.slug %}">
+              <a href="{% url "mixture_detail" mixture.id mixture.slug %}">
                 <span class="glyphicon glyphicon-th-large"></span>
                 {% trans mixture.name %}
               </a>
@@ -94,7 +94,7 @@
         {% for category in category_result %}
           <div class="col-md-12 column">
             <h3>
-              <a href="{% url "category_detail_slug" category.slug %}">
+              <a href="{% url "category_detail" category.id category.slug %}">
                 <span class="glyphicon glyphicon-tag"></span>
                 {% trans category.name %}
               </a>
