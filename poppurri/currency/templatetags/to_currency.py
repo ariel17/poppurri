@@ -8,7 +8,7 @@ by a currency.
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
-from math import ceil
+from decimal import Decimal, ROUND_CEILING
 
 from django.template import Library
 
@@ -21,4 +21,4 @@ def to_currency(value, currency):
     """
     Expects a decimal value that must be changed into a currency value.
     """
-    return ceil(value * currency.value)
+    return (value * currency.value).to_integral_exact(rounding=ROUND_CEILING)
