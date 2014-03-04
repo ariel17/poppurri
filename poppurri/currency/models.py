@@ -7,6 +7,8 @@ Description: A currency equivalence model.
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
+from decimal import Decimal
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -32,12 +34,17 @@ class Currency(models.Model):
         max_length=3,
         unique=True,
     )
-    symbol = models.CharField(_(u'Representation symbol'), max_length=3)
+    symbol = models.CharField(
+        _(u'Representation symbol'),
+        max_length=3,
+        default='$',
+    )
     value = models.DecimalField(
         _(u'Currency scale'),
         max_digits=10,
         decimal_places=2,
         help_text=_(u'The currency value that equals to USD$ 1.'),
+        default=Decimal('0.00'),
     )
 
     def __unicode__(self):

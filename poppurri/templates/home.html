@@ -23,7 +23,7 @@
               <div class="item{% if forloop.first %} active{% endif %}">
                   {% with mixture.images.random_outstanding_image as mixture_image %}
                     {% thumbnail mixture_image.image "500x400" crop="center" as im %}
-                      <a href="{% url "mixture_detail_slug" mixture.slug %}">
+                      <a href="{% url "mixture_detail" mixture.id mixture.slug %}">
                         <img alt="{% trans mixture_image.alt %}" src="{{ im.url }}">
                       </a>
                     {% endthumbnail %}
@@ -82,13 +82,13 @@
             {% endthumbnail %}
           {% endwith %}
           <h2>
-            <a href="{% url "category_detail_slug" category.slug %}">
+            <a href="{% url "category_detail" category.id category.slug %}">
               <span class="glyphicon glyphicon-tag"></span>
               {% trans category.name %}
             </a>
           </h2>
           <h3>{% trans top_mixture.short_description %}</h3>
-          <h3><a class="btn" href="{% url "mixture_detail_slug" top_mixture.slug %}">{% trans "View details" %} »</a></h3>
+          <h3><a class="btn" href="{% url "mixture_detail" top_mixture.id top_mixture.slug %}">{% trans "View details" %} »</a></h3>
         {% endwith %}
       </div>
     {% endfor %}
