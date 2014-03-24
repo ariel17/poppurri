@@ -363,7 +363,15 @@ LANGUAGES = (
 ######### CURRENCY CONFIGURATION
 CURRENCY_DEFAULT = 'ARS'
 CURRENCY_FROM = 'USD'
-######### CURRENCY CONFIGURATION
+######### END CURRENCY CONFIGURATION
+
+
+######### MERCADOPAGO CONFIGURATION
+# See: http://developers.mercadopago.com/documentacion/recibir-pagos
+# Argentina ID
+MERCADOPAGO_CLIENT_ID = '5306604422014465'
+MERCADOPAGO_SECRET_ID = 'oucgYYpeRQFLmCwUYSLOc1onJjDPF6Bh'
+######### END MERCADOPAGO CONFIGURATION
 
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python
