@@ -14,8 +14,15 @@ from .views import CategoryListView, CategoryDetailView
 
 urlpatterns = patterns('',
     url(r'^$', CategoryListView.as_view(), name='category_list'),
-    url(r'^(?P<pk>\d+)/(?P<slug>[-\w]+)/$', CategoryDetailView.as_view(),
+    url(r'^(?P<pk>\d+)/(?P<slug_name>[-\w]+)/$', CategoryDetailView.as_view(),
         name='category_detail'),
+
+    # Backward compatibility
+    url(r'^(?P<pk>\\d+)/$', CategoryDetailView.as_view(),
+        name='category_detail_id'),
+    url(r'^(?P<slug>[-\\w]+)/$', CategoryDetailView.as_view(),
+        name='category_detail_slug'),
+
 )
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

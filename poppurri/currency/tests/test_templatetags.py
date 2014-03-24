@@ -9,7 +9,6 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 from decimal import Decimal
 
-from django.conf import settings
 from django.test import TestCase
 
 from currency.models import Currency
@@ -22,19 +21,16 @@ class ToCurrencyTestCase(TestCase):
     """
     def setUp(self):
         super(ToCurrencyTestCase, self).setUp()
-        Currency.objects.create(code='ARS', symbol='$', value='10')
-        Currency.objects.create(code='USD', symbol='$', value='1')
 
     def tearDown(self):
         super(ToCurrencyTestCase, self).tearDown()
-        Currency.objects.all().delete()
 
     def test_to_currency(self):
         """
         Tests a successful currency convertion, when the scale exists in model.
         """
         currency = Currency.objects.get(code='ARS')
-        self.assertEquals(Decimal('16.00'),
+        self.assertEquals(Decimal('13'),
                           to_currency(Decimal('1.55'), currency))
 
         currency = Currency.objects.get(code='USD')

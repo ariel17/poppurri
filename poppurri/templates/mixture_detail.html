@@ -82,8 +82,15 @@
       {% endautoescape %}
 
       <div class="alert alert-info text-center price">
-        <span>{{ currency.code }}{{ currency.symbol }}</span>
-        {{ object.price|to_currency:currency }}
+        {% trans "Buy" %}:
+        <strong>
+          {% if object.price %}
+            <span>{{ currency.code }}{{ currency.symbol }}</span>
+            {{ object.price|to_currency:currency }}
+          {% else %}
+            {% trans "Name your price" %}
+          {% endif %}
+        </strong>
       </div>
     </div>
   </div>

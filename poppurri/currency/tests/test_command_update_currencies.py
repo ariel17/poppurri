@@ -24,6 +24,7 @@ class UpdateCurrenciesTestCase(TestCase):
     """
     def setUp(self):
         super(UpdateCurrenciesTestCase, self).setUp()
+        Currency.objects.all().delete()
         self._command = update_currencies.Command()
 
     def tearDown(self):
