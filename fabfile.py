@@ -200,16 +200,18 @@ def deploy():
 
     with prefix('source %s' % REMOTE_ENV_CURRENT_ACTIVATE):
         release_dir_manage = path.join(release_dir, 'manage.py')
-        run('%s syncdb --settings=%s' %
-            (release_dir_manage, env.settings))
-        run('%s migrate --settings=%s' %
-            (release_dir_manage, env.settings))
-        run('%s collectstatic --settings=%s --noinput' %
-            (release_dir_manage, env.settings))
-        run('%s compilemessages --settings=%s' %
-            (release_dir_manage, env.settings))
-        run('%s update_currencies --settings=%s' %
-            (release_dir_manage, env.settings))
+
+        deploy_commands = [
+            'syncdb',
+            'migrate',
+            'collectstatic --noinput',
+            'compilemessages',
+            'update_currencies',
+        ]
+
+        for command in deploy_commands:
+            run('%s %s --settings=%s' %
+                (release_dir_manage, command, env.settings))
 
     if exists(REMOTE_RELEASE_CURRENT):
         run('rm %s' % REMOTE_RELEASE_CURRENT)
