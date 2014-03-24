@@ -9,7 +9,6 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 from decimal import Decimal
 
-from django.conf import settings
 from django.test import TestCase
 
 from currency.models import Currency
