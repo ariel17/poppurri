@@ -75,6 +75,7 @@ class MixtureAdmin(admin.ModelAdmin):
         'name',
         'author',
         'is_published',
+        'price',
         'rating_score',
         'link_category',
     )

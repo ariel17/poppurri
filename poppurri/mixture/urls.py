@@ -14,10 +14,15 @@ from .views import MixtureDetailView, MixtureListView
 
 urlpatterns = patterns('',
     url(r'^$', MixtureListView.as_view(), name='mixture_list'),
-    url(r'^(?P<pk>\d+)/$', MixtureDetailView.as_view(),
+    url(r'^(?P<pk>\d+)/(?P<slug_name>[-\w]+)/$', MixtureDetailView.as_view(),
+        name='mixture_detail'),
+
+    # Backward compatibility
+    url(r'^(?P<pk>\\d+)/$', MixtureDetailView.as_view(),
         name='mixture_detail_id'),
-    url(r'^(?P<slug>[-\w]+)/$', MixtureDetailView.as_view(),
+    url(r'^(?P<slug>[-\\w]+)/$', MixtureDetailView.as_view(),
         name='mixture_detail_slug'),
+
 )
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

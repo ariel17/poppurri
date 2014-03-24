@@ -41,9 +41,14 @@ class CategoryDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
 
-        category = Category.final.get(
-            Q(slug_en=self.kwargs['slug']) | Q(slug_es=self.kwargs['slug'])
-        )
+        if 'slug' in self.kwargs:  # This is backward compatibility
+            category = Category.final.get(
+                Q(slug_en=self.kwargs['slug']) | Q(slug_es=self.kwargs['slug'])
+            )
+        else:
+            # Normal category request
+            category = Category.final.get(pk=self.kwargs['pk'])
+
         context['category'] = category
         context['mixture_list'] = Mixture.published.filter(category=category)
         return context

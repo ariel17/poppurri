@@ -106,6 +106,13 @@ USE_GOOGLE_ANALYTICS = False
 ########## END GOOGLE ANALYTICS CONFIGURATION
 
 
+########## SENTRY CONFIGURATION
+RAVEN_CONFIG = {
+    'dsn': 'http://d259cd5e06994dcf838b58193002df1d:eda1d02a4b15401984bcac1209af9203@sentry.ariel17.com.ar/6',
+}
+########## END SENTRY CONFIGURATION
+
+
 for logger in LOGGING['loggers'].keys():
     LOGGING['loggers'][logger]['level'] = 'DEBUG'
     LOGGING['loggers'][logger]['handlers'] = ['sentry', 'console']

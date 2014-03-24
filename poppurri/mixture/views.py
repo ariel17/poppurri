@@ -17,6 +17,7 @@ from contact_form.forms import ContactForm
 
 from .models import Mixture
 from category.models import Category
+from currency.models import Currency
 
 
 class FilterMixin(object):
@@ -63,12 +64,26 @@ class MixtureDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(MixtureDetailView, self).get_context_data(**kwargs)
 
-        mixture = Mixture.published.get(
-            Q(slug_en=self.kwargs['slug']) | Q(slug_es=self.kwargs['slug'])
-        )
-        context['category_tree'] = Category.tree(mixture.category)
+        if 'slug' in self.kwargs:  # this is backward compatibility
+            mixture = Mixture.published.get(
+                Q(slug_en=self.kwargs['slug']) | Q(slug_es=self.kwargs['slug'])
+            )
+        else:
+            # normal mixture detail request
+            mixture = Mixture.published.get(pk=self.kwargs['pk'])
+
         context['object'] = mixture
+
+        currency_code = self.request.GET.get(
+            'c', settings.CURRENCY_DEFAULT
+        ).upper()
+
+        currency = Currency.objects.get(code=currency_code)
+        context['currency'] = currency
+
+        context['category_tree'] = Category.tree(mixture.category)
         context['form'] = ContactForm(request=self.request)
         return context
+
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

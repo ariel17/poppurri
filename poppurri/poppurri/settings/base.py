@@ -62,28 +62,12 @@ ADMINS = (
 MANAGERS = ADMINS
 ########## END MANAGER CONFIGURATION
 
-
-########## DATABASE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
-}
-########## END DATABASE CONFIGURATION
-
-
 ########## GENERAL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
 TIME_ZONE = 'UTC'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ar'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -238,6 +222,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'category',
     'common',
+    'currency',
     'mixture',
     'search',
     'user_profile',
@@ -306,6 +291,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'currency': {
+            'handlers': ['sentry'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     }
 }
 ########## END LOGGING CONFIGURATION
@@ -340,6 +330,7 @@ WEB_CATEGORIES_COUNT = 3
 SEARCH_QUERY_PARAM = "q"
 ########## END SEARCH CONFIGURATION
 
+
 ########## AUTHOR CONFIGURATION
 AUTHOR_IMAGES_PATH = join(IMAGES_ROOT, 'mixtures')
 ########## END AUTHOR CONFIGURATION
@@ -367,6 +358,12 @@ LANGUAGES = (
     ('es', _('Spanish')),
     ('en', _('English')),
 )
+
+
+######### CURRENCY CONFIGURATION
+CURRENCY_DEFAULT = 'ARS'
+CURRENCY_FROM = 'USD'
+######### CURRENCY CONFIGURATION
 
 
 # vim: ai ts=4 sts=4 et sw=4 ft=python

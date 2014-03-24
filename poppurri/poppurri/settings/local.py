@@ -123,7 +123,7 @@ USE_GOOGLE_ANALYTICS = False
 
 ########## SENTRY CONFIGURATION
 RAVEN_CONFIG = {
-    'dsn': 'http://d259cd5e06994dcf838b58193002df1d:eda1d02a4b15401984bcac1209af9203@sentry.ariel17.com.ar/6',
+    'dsn': 'http://4af716fc825041d393a9df0164dc910c:3ffcfa72d4f547a9a1d79a0f8cc18d27@sentry.ariel17.com.ar/7',
 }
 ########## END SENTRY CONFIGURATION
 

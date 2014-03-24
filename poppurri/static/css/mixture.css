@@ -26,3 +26,52 @@
   line-height: 1;
   color: #999; 
 }
+
+.price {
+  margin: 20px;
+  font-size: 30px;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 40%;
+  width: 40px;
+  height: 40px;
+  font-size: 50px;
+  font-weight: 90px;
+  line-height: 30px;
+  color: #ffffff;
+  text-align: center;
+  background: #222222;
+  border: 3px solid #ffffff;
+  border-radius: 23px;
+  opacity: 0.5;
+}
+
+.carousel-control:hover, .carousel-control:focus {
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+
+.carousel-indicators {
+  margin-left: -10%;
+}
+
+.carousel-indicators li {
+  display: block;
+  float: left;
+  width: 10px;
+  height: 10px;
+  margin: 5px;
+  text-indent: -999px;
+  border-radius: 5px;
+}
+
+.carousel-indicators .active {
+  background-color: #fff;
+  width: 10px;
+  height: 10px;
+  margin: 5px;
+}
