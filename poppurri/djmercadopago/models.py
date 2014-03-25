@@ -8,6 +8,7 @@ See: https://developers.mercadopago.com/
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
+from decimal import Decimal
 import json
 import logging
 import uuid
@@ -27,7 +28,7 @@ REQUIRED_SETTINGS = [
 ]
 
 for key in REQUIRED_SETTINGS:
-    if not getattr(settings, key):
+    if not hasattr(settings, key):
         raise ImproperlyConfigured('Missing required setting: %s' % key)
 
 CLIENT_ID = settings.MERCADOPAGO_CLIENT_ID
@@ -66,6 +67,14 @@ class PaymentPreferenceManager(models.Manager):
     """
     Overwrites the create method in order to use the MercadoPago API client.
     """
+    ITEMS_REQUIRED_PARAMETERS = [
+        'title', 'quantity', 'unit_price', 'currency_id'
+    ]
+
+    ITEMS_OPTIONAL_PARAMETERS = ['id', 'description', 'picture_url']
+
+    PAYER_OPTIONAL_PARAMETERS = []
+
     def create(self, preference, *args, **kwargs):
         """
         Creates a :model:`djmercadopago.PaymentPreference` instance using the
@@ -78,14 +87,21 @@ class PaymentPreferenceManager(models.Manager):
 
         response = json.dumps(_CLIENT.create_preference(preference), indent=4)
 
-        LOGGER.debug('[%s] Done. Response: %s' % (_uuid, response))
+        LOGGER.debug('[%s] Done. Response: %r' % (_uuid, response))
 
-        params = {
-            # TODO add parameters from response to create preference object
-        }
+        params = {}
+
+        for p in self.ITEMS_REQUIRED_PARAMETERS:
+            params['items_%s' % p] = response['items'][p]
+
+        for p in self.ITEMS_OPTIONAL_PARAMETERS:
+            if p in response['items']:
+                params['items_%s' % p] = response['items'][p]
 
         kwargs.update(params)
-        return super(PaymentPreferenceManager, self).create(*args, **kwargs)
+        pp = super(PaymentPreferenceManager, self).create(*args, **kwargs)
+
+        return pp
 
 
 class PaymentPreference(models.Model):
