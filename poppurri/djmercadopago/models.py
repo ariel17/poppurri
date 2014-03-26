@@ -48,16 +48,16 @@ class PaymentType(models.Model):
     """
     Payment type or category.
     """
-    name = models.CharField(_('Name'), )
-    mercadopago_id = models.CharField(_('MercadoPago id'), )
+    mercadopago_id = models.CharField(_('MercadoPago id'), primary_key=True)
+    name = models.CharField(_('Name'), blank=True, null=True)
 
 
 class PaymentMethod(models.Model):
     """
     The payment description.
     """
+    mercadopago_id = models.CharField(_('MercadoPago id'), primary_key=True)
     name = models.CharField(_('Name'), )
-    mercadopago_id = models.CharField(_('MercadoPago id'), )
     payment_type = models.ForeignKey(PaymentType)
     thumbnail = models.URLField(_('Thumbnail URL'), )
     secure_thumbnail = models.URLField(_('Secure thumbnail URL'), )
@@ -73,7 +73,13 @@ class PaymentPreferenceManager(models.Manager):
 
     ITEMS_OPTIONAL_PARAMETERS = ['id', 'description', 'picture_url']
 
-    PAYER_OPTIONAL_PARAMETERS = []
+    PAYER_OPTIONAL_PARAMETERS = ['name', 'surename', 'email']
+
+    BACK_URLS_OPTIONAL_PARAMETERS = ['success', 'failure', 'pending']
+
+    OTHER_REQUIRED_PARAMETERS = ['id', 'init_point', 'sandbox_init_point']
+
+    OTHER_OPTIONAL_PARAMETERS = ['external_reference', ]
 
     def create(self, preference, *args, **kwargs):
         """
@@ -92,14 +98,52 @@ class PaymentPreferenceManager(models.Manager):
         params = {}
 
         for p in self.ITEMS_REQUIRED_PARAMETERS:
-            params['items_%s' % p] = response['items'][p]
+            if 'price' in p:
+                params['items_%s' % p] = Decimal(response['items'][p])
+            else:
+                params['items_%s' % p] = response['items'][p]
 
         for p in self.ITEMS_OPTIONAL_PARAMETERS:
             if p in response['items']:
                 params['items_%s' % p] = response['items'][p]
 
+        for p in self.PAYER_OPTIONAL_PARAMETERS:
+            if p in response['payer']:
+                params['payer_%s' % p] = response['payer'][p]
+
+        for p in self.BACK_URLS_OPTIONAL_PARAMETERS:
+            if p in response['back_urls']:
+                params['back_urls_%s' % p] = response['back_urls'][p]
+
+        for p in self.OTHER_REQUIRED_PARAMETERS:
+            params[p] = response[p]
+
+        for p in self.OTHER_OPTIONAL_PARAMETERS:
+            if p in response:
+                params[p] = response[p]
+
         kwargs.update(params)
         pp = super(PaymentPreferenceManager, self).create(*args, **kwargs)
+
+        if 'payment_methods' in response:
+            for method_id in response['payment_methods'].\
+                    get('excluded_payment_methods', []):
+                payment_method, _ = PaymentMethod.objects.get(
+                    mercadopago_id=method_id
+                )
+                pp.payment_methods_excluded_payment_methods.add(payment_method)
+
+            for type_id in response['payment_methods'].\
+                    get('excluded_payment_type', []):
+                payment_type, _ = PaymentType.objects.get_or_create(
+                    mercadopago_id=type_id
+                )
+                pp.payment_methods_excluded_payment_types.add(payment_type)
+
+            pp.payment_methods_installments = response['payment_methods'].\
+                get('installments', None)
+
+            pp.save()
 
         return pp
 
