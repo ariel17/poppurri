@@ -223,6 +223,7 @@ LOCAL_APPS = (
     'category',
     'common',
     'currency',
+    'djmercadopago',
     'mixture',
     'search',
     'user_profile',
@@ -370,7 +371,7 @@ CURRENCY_FROM = 'USD'
 # See: http://developers.mercadopago.com/documentacion/recibir-pagos
 # Argentina ID
 MERCADOPAGO_CLIENT_ID = '5306604422014465'
-MERCADOPAGO_SECRET_ID = 'oucgYYpeRQFLmCwUYSLOc1onJjDPF6Bh'
+MERCADOPAGO_CLIENT_SECRET = 'oucgYYpeRQFLmCwUYSLOc1onJjDPF6Bh'
 ######### END MERCADOPAGO CONFIGURATION
 
 

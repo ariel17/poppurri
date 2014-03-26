@@ -33,7 +33,7 @@ for key in REQUIRED_SETTINGS:
 
 CLIENT_ID = settings.MERCADOPAGO_CLIENT_ID
 
-CLIENT_SECRET = settings.MERCADO_CLIENT_SECRET
+CLIENT_SECRET = settings.MERCADOPAGO_CLIENT_SECRET
 
 ACCESS_TOKEN = settings.MERCADOPAGO_ACCESS_TOKEN
 
@@ -157,7 +157,7 @@ class PaymentPreference(models.Model):
         _('Title'),
         help_text=_('Mandatory; it will be shown on payment process.'),
     )
-    items_quantity = models.PositivieIntegerField(
+    items_quantity = models.PositiveIntegerField(
         _('Quantity'),
         help_text=_('Mandatory.'),
     )
@@ -239,14 +239,12 @@ class PaymentPreference(models.Model):
         help_text=_('Optional.'),
     )
 
-    payment_methods_excluded_payment_methods = models.ManyToMany(
-        _('Excluded payment methods'),
+    payment_methods_excluded_payment_methods = models.ManyToManyField(
         PaymentMethod,
         null=True,
         default=None,
     )
-    payment_methods_excluded_payment_types = models.ManyToMany(
-        _('Excluded payment types'),
+    payment_methods_excluded_payment_types = models.ManyToManyField(
         PaymentType,
         null=True,
         default=None,

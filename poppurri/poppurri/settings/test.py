@@ -83,4 +83,7 @@ for logger in LOGGING['loggers'].keys():
 SOUTH_TESTS_MIGRATE = False  # To disable migrations and use syncdb instead
 SKIP_SOUTH_TESTS = True  # To disable South's own unit tests
 
+
+MERCADOPAGO_ACCESS_TOKEN = 'asdfgh123456'
+
 # vim: ai ts=4 sts=4 et sw=4 ft=python
