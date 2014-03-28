@@ -9,7 +9,6 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
 from decimal import Decimal
-import json
 import logging
 import uuid
 
@@ -24,7 +23,6 @@ import mercadopago
 REQUIRED_SETTINGS = [
     'MERCADOPAGO_CLIENT_ID',
     'MERCADOPAGO_CLIENT_SECRET',
-    'MERCADOPAGO_ACCESS_TOKEN',
 ]
 
 for key in REQUIRED_SETTINGS:
@@ -35,7 +33,7 @@ CLIENT_ID = settings.MERCADOPAGO_CLIENT_ID
 
 CLIENT_SECRET = settings.MERCADOPAGO_CLIENT_SECRET
 
-ACCESS_TOKEN = settings.MERCADOPAGO_ACCESS_TOKEN
+ACCESS_TOKEN = getattr(settings, 'MERCADOPAGO_ACCESS_TOKEN', None)
 
 USE_SANDBOX = getattr(settings, 'MERCADOPAGO_USE_SANDBOX', False)
 
@@ -48,25 +46,93 @@ class PaymentType(models.Model):
     """
     Payment type or category.
     """
-    mercadopago_id = models.CharField(_('MercadoPago id'), primary_key=True)
-    name = models.CharField(_('Name'), blank=True, null=True)
+    mercadopago_id = models.CharField(
+        _('MercadoPago id'),
+        primary_key=True,
+        max_length=50,
+    )
+    name = models.CharField(
+        _('Name'),
+        max_length=200,
+        blank=True,
+        null=True
+    )
 
 
 class PaymentMethod(models.Model):
     """
     The payment description.
     """
-    mercadopago_id = models.CharField(_('MercadoPago id'), primary_key=True)
-    name = models.CharField(_('Name'), )
+    mercadopago_id = models.CharField(
+        _('MercadoPago id'),
+        primary_key=True,
+        max_length=50,
+    )
+    name = models.CharField(_('Name'), max_length=200)
     payment_type = models.ForeignKey(PaymentType)
     thumbnail = models.URLField(_('Thumbnail URL'), )
     secure_thumbnail = models.URLField(_('Secure thumbnail URL'), )
+
+
+class PaymentItem(models.Model):
+    """
+    TODO
+    """
+    title = models.CharField(
+        _('Title'),
+        max_length=200,
+        help_text=_('Mandatory; it will be shown on payment process.'),
+    )
+    quantity = models.PositiveIntegerField(
+        _('Quantity'),
+        help_text=_('Mandatory.'),
+    )
+    unit_price = models.DecimalField(
+        _('Unit price'),
+        max_digits=10,
+        decimal_places=2,
+        help_text=_('Mandatory.'),
+    )
+    currency_id = models.CharField(
+        _('Currency type'),
+        max_length=3,
+        help_text=_(
+            'mandatory. Argentina (argentinian peso): ARS, Brazil (Real): '
+            'brl, Mexico (mexican peso): MXN, Venezuela (Strong Bolivar): '
+            'vef, Colombia (colombian peso): COP'
+        ),
+    )
+    picture_url = models.URLField(
+        _('Image URL'),
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_('Optional.'),
+    )
+    mercadopago_id = models.CharField(
+        _('MercadoPago ID (aka code)'),
+        max_length=200,
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_('Optional.'),
+    )
+    description = models.CharField(
+        _('description'),
+        max_length=200,
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_('Optional.'),
+    )
 
 
 class PaymentPreferenceManager(models.Manager):
     """
     Overwrites the create method in order to use the MercadoPago API client.
     """
+    use_for_related_fields = True
+
     ITEMS_REQUIRED_PARAMETERS = [
         'title', 'quantity', 'unit_price', 'currency_id'
     ]
@@ -91,8 +157,7 @@ class PaymentPreferenceManager(models.Manager):
         LOGGER.debug('[%s] Requesting creation of payment preferences: %r '
                      '...' % (_uuid, preference, ))
 
-        response = json.dumps(_CLIENT.create_preference(preference), indent=4)
-
+        response = _CLIENT.create_preference(preference)['response']
         LOGGER.debug('[%s] Done. Response: %r' % (_uuid, response))
 
         params = {}
@@ -101,6 +166,7 @@ class PaymentPreferenceManager(models.Manager):
             if 'price' in p:
                 params['items_%s' % p] = Decimal(response['items'][p])
             else:
+                print type(response['items'])
                 params['items_%s' % p] = response['items'][p]
 
         for p in self.ITEMS_OPTIONAL_PARAMETERS:
@@ -153,50 +219,10 @@ class PaymentPreference(models.Model):
     Customizes the payment preferences to use.
     See: http://developers.mercadopago.com/documentacion/api/preferences
     """
-    items_title = models.CharField(
-        _('Title'),
-        help_text=_('Mandatory; it will be shown on payment process.'),
-    )
-    items_quantity = models.PositiveIntegerField(
-        _('Quantity'),
-        help_text=_('Mandatory.'),
-    )
-    items_unit_price = models.DecimalField(
-        _('Unit price'),
-        help_text=_('Mandatory.'),
-    )
-    items_currency_id = models.CharField(
-        _('Currency type'),
-        help_text=_(
-            'mandatory. Argentina (argentinian peso): ARS, Brazil (Real): '
-            'brl, Mexico (mexican peso): MXN, Venezuela (Strong Bolivar): '
-            'vef, Colombia (colombian peso): COP'
-        ),
-    )
-    items_picture_url = models.URLField(
-        _('Image URL'),
-        blank=True,
-        null=True,
-        default=None,
-        help_text=_('Optional.'),
-    )
-    items_id = models.CharField(
-        _('Code'),
-        blank=True,
-        null=True,
-        default=None,
-        help_text=_('Optional.'),
-    )
-    items_description = models.CharField(
-        _('description'),
-        blank=True,
-        null=True,
-        default=None,
-        help_text=_('Optional.'),
-    )
-
+    items = None  # TODO
     payer_name = models.CharField(
         _('Buyer name'),
+        max_length=100,
         blank=True,
         null=True,
         default=None,
@@ -204,6 +230,7 @@ class PaymentPreference(models.Model):
     )
     payer_surename = models.CharField(
         _('Buyer surename'),
+        max_length=100,
         blank=True,
         null=True,
         default=None,
@@ -259,12 +286,14 @@ class PaymentPreference(models.Model):
 
     external_reference = models.CharField(
         _('External reference'),
+        max_length=200,
         blank=True,
         null=True,
         help_text=_('Optional. Your system ID to link it to the payment.'),
     )
     collector_id = models.CharField(
         _('Collector ID'),
+        max_length=200,
         help_text=_('Your identification ID as seller.'),
     )
     init_point = models.URLField(
