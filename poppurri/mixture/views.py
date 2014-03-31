@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Description: TODO
+Description: The Mixture's views implementation to generate page content.
 """
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
@@ -10,6 +10,7 @@ __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.http import Http404
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 
@@ -64,13 +65,18 @@ class MixtureDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(MixtureDetailView, self).get_context_data(**kwargs)
 
-        if 'slug' in self.kwargs:  # this is backward compatibility
-            mixture = Mixture.published.get(
-                Q(slug_en=self.kwargs['slug']) | Q(slug_es=self.kwargs['slug'])
-            )
-        else:
-            # normal mixture detail request
-            mixture = Mixture.published.get(pk=self.kwargs['pk'])
+        try:
+            if 'slug' in self.kwargs:  # this is backward compatibility
+                mixture = Mixture.published.get(
+                    Q(slug_en=self.kwargs['slug']) |
+                    Q(slug_es=self.kwargs['slug'])
+                )
+            else:
+                # normal mixture detail request
+                mixture = Mixture.published.get(pk=self.kwargs['pk'])
+
+        except Mixture.DoesNotExist:
+            raise Http404()
 
         context['object'] = mixture
 

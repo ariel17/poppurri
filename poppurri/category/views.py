@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-Description: TODO
+Description: The category's views implementation for generating page content.
 """
 __author__ = "Ariel Gerardo Rios (ariel.gerardo.rios@gmail.com)"
 
 
 from django.db.models import Q
+from django.http import Http404
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 
@@ -41,13 +42,18 @@ class CategoryDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
 
-        if 'slug' in self.kwargs:  # This is backward compatibility
-            category = Category.final.get(
-                Q(slug_en=self.kwargs['slug']) | Q(slug_es=self.kwargs['slug'])
-            )
-        else:
-            # Normal category request
-            category = Category.final.get(pk=self.kwargs['pk'])
+        try:
+            if 'slug' in self.kwargs:  # This is backward compatibility
+                category = Category.final.get(
+                    Q(slug_en=self.kwargs['slug']) |
+                    Q(slug_es=self.kwargs['slug'])
+                )
+            else:
+                # Normal category request
+                category = Category.final.get(pk=self.kwargs['pk'])
+
+        except Category.DoesNotExist:
+            raise Http404()
 
         context['category'] = category
         context['mixture_list'] = Mixture.published.filter(category=category)
