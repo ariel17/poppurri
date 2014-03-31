@@ -18,7 +18,7 @@ urlpatterns = patterns('',
         name='mixture_detail'),
 
     # Backward compatibility
-    url(r'^(?P<pk>\\d+)/$', MixtureDetailView.as_view(),
+    url(r'^(?P<pk>\d+)/$', MixtureDetailView.as_view(),
         name='mixture_detail_id'),
     url(r'^(?P<slug>[\w-]+)/$', MixtureDetailView.as_view(),
         name='mixture_detail_slug'),

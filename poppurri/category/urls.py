@@ -18,7 +18,7 @@ urlpatterns = patterns('',
         name='category_detail'),
 
     # Backward compatibility
-    url(r'^(?P<pk>\\d+)/$', CategoryDetailView.as_view(),
+    url(r'^(?P<pk>\d+)/$', CategoryDetailView.as_view(),
         name='category_detail_id'),
     url(r'^(?P<slug>[\w-]+)/$', CategoryDetailView.as_view(),
         name='category_detail_slug'),
