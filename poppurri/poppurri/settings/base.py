@@ -297,6 +297,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'djmercadopago': {
+            'handlers': ['sentry'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     }
 }
 ########## END LOGGING CONFIGURATION
