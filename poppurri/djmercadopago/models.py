@@ -76,7 +76,7 @@ class PaymentMethod(models.Model):
 
 class PaymentItem(models.Model):
     """
-    TODO
+    The item content description.
     """
     title = models.CharField(
         _('Title'),
@@ -127,25 +127,68 @@ class PaymentItem(models.Model):
     )
 
 
+class PaymentPayer(models.Model):
+    """
+    Payer user information.
+    """
+    name = models.CharField(
+        _('Buyer name'),
+        max_length=100,
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_('Optional.'),
+    )
+    surename = models.CharField(
+        _('Buyer surename'),
+        max_length=100,
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_('Optional.'),
+    )
+    email = models.EmailField(
+        _('Buyer email'),
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_('Optional.'),
+    )
+
+
+class PaymentBackURL(models.Model):
+    """
+    The URL locations to return on MercadoPago responses, based on the
+    operation's success result.
+    """
+    success = models.URLField(
+        _('Success payment URL'),
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_('Optional.'),
+    )
+    failure = models.URLField(
+        _('Failed payment URL'),
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_('Optional.'),
+    )
+    pending = models.URLField(
+        _('Pending payment URL'),
+        blank=True,
+        null=True,
+        default=None,
+        help_text=_('Optional.'),
+    )
+
+
 class PaymentPreferenceManager(models.Manager):
     """
     Overwrites the create method in order to use the MercadoPago API client.
     """
     use_for_related_fields = True
-
-    ITEMS_REQUIRED_PARAMETERS = [
-        'title', 'quantity', 'unit_price', 'currency_id'
-    ]
-
-    ITEMS_OPTIONAL_PARAMETERS = ['id', 'description', 'picture_url']
-
-    PAYER_OPTIONAL_PARAMETERS = ['name', 'surename', 'email']
-
-    BACK_URLS_OPTIONAL_PARAMETERS = ['success', 'failure', 'pending']
-
-    OTHER_REQUIRED_PARAMETERS = ['id', 'init_point', 'sandbox_init_point']
-
-    OTHER_OPTIONAL_PARAMETERS = ['external_reference', ]
 
     def create(self, preference, *args, **kwargs):
         """
@@ -161,55 +204,64 @@ class PaymentPreferenceManager(models.Manager):
         LOGGER.debug('[%s] Done. Response: %r' % (_uuid, response))
 
         params = {}
+        for field in PaymentPayer._meta.fields:
+            LOGGER.debug('Payer field: %s' % field)
+            if field not in response['payer']:
+                continue
+            params[field] = response['payer'][field]
+        payer, _ = PaymentPayer.objects.get_or_create(**params)
 
-        for p in self.ITEMS_REQUIRED_PARAMETERS:
-            if 'price' in p:
-                params['items_%s' % p] = Decimal(response['items'][p])
-            else:
-                print type(response['items'])
-                params['items_%s' % p] = response['items'][p]
+        params = {}
+        for field in PaymentBackURL._meta.fields:
+            if field not in response['back_urls']:
+                continue
+            params[field] = response['back_urls'][field]
+        back_urls, _ = PaymentBackURL.objects.get_or_create(**params)
 
-        for p in self.ITEMS_OPTIONAL_PARAMETERS:
-            if p in response['items']:
-                params['items_%s' % p] = response['items'][p]
+        params = {}
+        for field in PaymentPreference._meta.fields:
+            if field in ['items', 'payer', 'back_urls'] or \
+                    field not in response:
+                continue
+            params[field] = response[field]
 
-        for p in self.PAYER_OPTIONAL_PARAMETERS:
-            if p in response['payer']:
-                params['payer_%s' % p] = response['payer'][p]
+        params.update({
+            'payer': payer,
+            'back_urls': back_urls,
+        })
+        pp = super(PaymentPreferenceManager, self).create(*args, **params)
 
-        for p in self.BACK_URLS_OPTIONAL_PARAMETERS:
-            if p in response['back_urls']:
-                params['back_urls_%s' % p] = response['back_urls'][p]
+        for item in response['items']:
+            params = {}
+            for field in PaymentItem._meta.fields:
+                if field not in item:
+                    continue
+                if 'price' in field:
+                    params[field] = Decimal(item[field])
+                else:
+                    params[field] = item[field]
+            obj, _ = PaymentItem.objects.get_or_create(**params)
+            pp.items.add(obj)
 
-        for p in self.OTHER_REQUIRED_PARAMETERS:
-            params[p] = response[p]
+        # if 'payment_methods' in response:
+        #     for method_id in response['payment_methods'].\
+        #             get('excluded_payment_methods', []):
+        #         payment_method, _ = PaymentMethod.objects.get(
+        #             mercadopago_id=method_id
+        #         )
+        #         pp.payment_methods_excluded_payment_methods.add(payment_method)
 
-        for p in self.OTHER_OPTIONAL_PARAMETERS:
-            if p in response:
-                params[p] = response[p]
+        #     for type_id in response['payment_methods'].\
+        #             get('excluded_payment_type', []):
+        #         payment_type, _ = PaymentType.objects.get_or_create(
+        #             mercadopago_id=type_id
+        #         )
+        #         pp.payment_methods_excluded_payment_types.add(payment_type)
 
-        kwargs.update(params)
-        pp = super(PaymentPreferenceManager, self).create(*args, **kwargs)
+        #     pp.payment_methods_installments = response['payment_methods'].\
+        #         get('installments', None)
 
-        if 'payment_methods' in response:
-            for method_id in response['payment_methods'].\
-                    get('excluded_payment_methods', []):
-                payment_method, _ = PaymentMethod.objects.get(
-                    mercadopago_id=method_id
-                )
-                pp.payment_methods_excluded_payment_methods.add(payment_method)
-
-            for type_id in response['payment_methods'].\
-                    get('excluded_payment_type', []):
-                payment_type, _ = PaymentType.objects.get_or_create(
-                    mercadopago_id=type_id
-                )
-                pp.payment_methods_excluded_payment_types.add(payment_type)
-
-            pp.payment_methods_installments = response['payment_methods'].\
-                get('installments', None)
-
-            pp.save()
+        #     pp.save()
 
         return pp
 
@@ -219,52 +271,11 @@ class PaymentPreference(models.Model):
     Customizes the payment preferences to use.
     See: http://developers.mercadopago.com/documentacion/api/preferences
     """
-    items = None  # TODO
-    payer_name = models.CharField(
-        _('Buyer name'),
-        max_length=100,
-        blank=True,
-        null=True,
-        default=None,
-        help_text=_('Optional.'),
-    )
-    payer_surename = models.CharField(
-        _('Buyer surename'),
-        max_length=100,
-        blank=True,
-        null=True,
-        default=None,
-        help_text=_('Optional.'),
-    )
-    payer_email = models.EmailField(
-        _('Buyer email'),
-        blank=True,
-        null=True,
-        default=None,
-        help_text=_('Optional.'),
-    )
+    items = models.ManyToManyField(PaymentItem)
 
-    back_urls_success = models.URLField(
-        _('Success payment URL'),
-        blank=True,
-        null=True,
-        default=None,
-        help_text=_('Optional.'),
-    )
-    back_urls_failure = models.URLField(
-        _('Failed payment URL'),
-        blank=True,
-        null=True,
-        default=None,
-        help_text=_('Optional.'),
-    )
-    back_urls_pending = models.URLField(
-        _('Pending payment URL'),
-        blank=True,
-        null=True,
-        default=None,
-        help_text=_('Optional.'),
-    )
+    payer = models.ForeignKey(PaymentPayer)
+
+    back_urls = models.ForeignKey(PaymentBackURL)
 
     payment_methods_excluded_payment_methods = models.ManyToManyField(
         PaymentMethod,
