@@ -247,25 +247,25 @@ class PaymentPreferenceManager(models.Manager):
             LOGGER.debug("Item: obj=%r, created=%r" % (obj, created))
             pp.items.add(obj)
 
-        # if 'payment_methods' in response:
-        #     for method_id in response['payment_methods'].\
-        #             get('excluded_payment_methods', []):
-        #         payment_method, _ = PaymentMethod.objects.get(
-        #             mercadopago_id=method_id
-        #         )
-        #         pp.payment_methods_excluded_payment_methods.add(payment_method)
+        if 'payment_methods' in response:
+            for method in response['payment_methods'].\
+                    get('excluded_payment_methods', []):
+                payment_method = PaymentMethod.objects.get(
+                    mercadopago_id=method['id'],
+                )
+                pp.excluded_payment_methods.add(payment_method)
 
-        #     for type_id in response['payment_methods'].\
-        #             get('excluded_payment_type', []):
-        #         payment_type, _ = PaymentType.objects.get_or_create(
-        #             mercadopago_id=type_id
-        #         )
-        #         pp.payment_methods_excluded_payment_types.add(payment_type)
+            for type in response['payment_methods'].\
+                    get('excluded_payment_types', []):
+                payment_type, _ = PaymentType.objects.get_or_create(
+                    mercadopago_id=type['id'],
+                )
+                pp.excluded_payment_types.add(payment_type)
 
-        #     pp.payment_methods_installments = response['payment_methods'].\
-        #         get('installments', None)
+            pp.installments = response['payment_methods'].\
+                get('installments', None)
 
-        #     pp.save()
+            pp.save()
 
         return pp
 
@@ -281,17 +281,17 @@ class PaymentPreference(models.Model):
 
     back_urls = models.ForeignKey(PaymentBackURL)
 
-    payment_methods_excluded_payment_methods = models.ManyToManyField(
+    excluded_payment_methods = models.ManyToManyField(
         PaymentMethod,
         null=True,
         default=None,
     )
-    payment_methods_excluded_payment_types = models.ManyToManyField(
+    excluded_payment_types = models.ManyToManyField(
         PaymentType,
         null=True,
         default=None,
     )
-    payment_methods_installments = models.PositiveIntegerField(
+    installments = models.PositiveIntegerField(
         _('Maximum installments'),
         null=True,
         default=None,
