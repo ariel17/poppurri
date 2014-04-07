@@ -61,7 +61,7 @@ class PaymentPreferenceManagerTestCase(TestCase):
     def test_create(self, mp_mock):
 
         mp_mock.create_preference.return_value = self._preference_return
-        pp = self._manager.create({
+        self._manager.create({
             'items': [{
                 'title': 'Test title payment',
                 'quantity': '1',
@@ -69,5 +69,3 @@ class PaymentPreferenceManagerTestCase(TestCase):
                 'unit_price': '0',
             }]
         })
-
-        print pp

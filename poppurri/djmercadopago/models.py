@@ -205,42 +205,46 @@ class PaymentPreferenceManager(models.Manager):
 
         params = {}
         for field in PaymentPayer._meta.fields:
-            LOGGER.debug('Payer field: %s' % field)
-            if field not in response['payer']:
+            if field.attname not in response['payer']:
                 continue
-            params[field] = response['payer'][field]
-        payer, _ = PaymentPayer.objects.get_or_create(**params)
+            params[field.attname] = response['payer'][field.attname]
+        payer, created = PaymentPayer.objects.get_or_create(**params)
+        LOGGER.debug("Payer: obj=%r, created=%r" % (payer, created))
 
         params = {}
         for field in PaymentBackURL._meta.fields:
-            if field not in response['back_urls']:
+            if field.attname not in response['back_urls']:
                 continue
-            params[field] = response['back_urls'][field]
-        back_urls, _ = PaymentBackURL.objects.get_or_create(**params)
+            params[field.attname] = response['back_urls'][field.attname]
+        back_urls, created = PaymentBackURL.objects.get_or_create(**params)
+        LOGGER.debug("Back URL: obj=%r, created=%r" % (back_urls, created))
 
         params = {}
         for field in PaymentPreference._meta.fields:
-            if field in ['items', 'payer', 'back_urls'] or \
-                    field not in response:
+            if field.attname in ['items', 'payer', 'back_urls'] or \
+                    field.attname not in response:
                 continue
-            params[field] = response[field]
+            params[field.attname] = response[field.attname]
 
         params.update({
             'payer': payer,
             'back_urls': back_urls,
         })
+
+        LOGGER.debug("Creating prefernce with parameters: %r" % params)
         pp = super(PaymentPreferenceManager, self).create(*args, **params)
 
         for item in response['items']:
             params = {}
             for field in PaymentItem._meta.fields:
-                if field not in item:
+                if field.attname not in item:
                     continue
-                if 'price' in field:
-                    params[field] = Decimal(item[field])
+                if 'price' in field.attname:
+                    params[field.attname] = Decimal(item[field.attname])
                 else:
-                    params[field] = item[field]
-            obj, _ = PaymentItem.objects.get_or_create(**params)
+                    params[field.attname] = item[field.attname]
+            obj, created = PaymentItem.objects.get_or_create(**params)
+            LOGGER.debug("Item: obj=%r, created=%r" % (obj, created))
             pp.items.add(obj)
 
         # if 'payment_methods' in response:
